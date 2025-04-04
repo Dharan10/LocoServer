@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - LocoServe</title>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Enhanced Services Page Styles */
+        .services-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../assets/images/services-hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .services-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .services-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .services-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .services-search-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease;
+        }
+
+        .services-search-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .search-input-group {
+            flex: 1 1 200px;
+            position: relative;
+        }
+
+        .search-input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .search-input-group input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input-group input:focus {
+            box-shadow: 0 0 0 2px var(--primary-color);
+            outline: none;
+        }
+
+        .services-search-form button {
+            padding: 15px 30px;
+            font-size: 1rem;
+            border-radius: 5px;
+        }
+
+        /* Service Categories */
+        .service-categories-section {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .service-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .category-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary-color);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .category-card.active {
+            border: 2px solid var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .category-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--light-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover .category-icon {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .category-icon i {
+            font-size: 30px;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover .category-icon i {
+            color: white;
+        }
+
+        .category-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .category-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Services Listing */
+        .services-listing-section {
+            padding: 80px 0;
+        }
+
+        .services-listing-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .services-listing-header h2 {
+            font-size: 2rem;
+            color: var(--dark-color);
+            margin: 0;
+        }
+
+        .services-filters {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .filter-group select {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: white;
+            font-size: 0.9rem;
+            min-width: 150px;
+            cursor: pointer;
+        }
+
+        /* Service Cards */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .service-card:hover .service-image img {
+            transform: scale(1.1);
+        }
+
+        .service-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .service-provider {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .provider-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+            border: 2px solid var(--primary-color);
+        }
+
+        .provider-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .provider-info {
+            flex-grow: 1;
+        }
+
+        .provider-name {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 5px;
+        }
+
+        .provider-rating {
+            display: flex;
+            align-items: center;
+        }
+
+        .rating-stars {
+            color: #FFD700;
+            margin-right: 5px;
+        }
+
+        .rating-number {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .service-description {
+            margin-bottom: 20px;
+            color: #666;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .service-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .service-price {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        .service-card .btn {
+            padding: 8px 15px;
+        }
+
+        /* Pagination */
+        .services-pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pagination-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pagination-btn:hover:not([disabled]) {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .pagination-btn[disabled] {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pagination-numbers {
+            display: flex;
+            gap: 5px;
+        }
+
+        .pagination-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pagination-number:hover {
+            background: #f5f5f5;
+        }
+
+        .pagination-number.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .pagination-ellipsis {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5px;
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 50px 0;
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        /* Featured Services Section */
+        .featured-services-section {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+        }
+
+        .featured-services-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .featured-services-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .featured-services-header p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .featured-services-slider {
+            position: relative;
+            padding: 0 50px;
+        }
+
+        .featured-services-container {
+            overflow: hidden;
+        }
+
+        .featured-services-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .featured-service-slide {
+            min-width: 350px;
+            padding: 0 15px;
+            box-sizing: border-box;
+        }
+
+        .slider-nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .slider-nav-button:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .slider-prev {
+            left: 0;
+        }
+
+        .slider-next {
+            right: 0;
+        }
+
+        /* Service Tags */
+        .service-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .service-tag {
+            background: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #555;
+        }
+
+        /* Popular Searches */
+        .popular-searches {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .popular-searches h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .popular-search-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .popular-search-tag {
+            background: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #555;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .popular-search-tag:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from { 
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .services-hero {
+                padding: 70px 0;
+            }
+
+            .services-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .services-search-form {
+                flex-direction: column;
+            }
+
+            .services-listing-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-services-slider {
+                padding: 0 30px;
+            }
+
+            .featured-service-slide {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">
+                    <h1>Loco<span>Serve</span></h1>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="/pages/services.html">Services</a></li>
+                    <li><a href="/pages/about.html">About</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-primary">Login</a>
+                <a href="register.html" class="btn btn-outline">Sign Up</a>
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+    <style>
+        /* Header Styles */
+        .main-header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .main-header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            margin: 0;
+            font-size: 24px;
+            color: var(--dark-color);
+        }
+        
+        .logo span {
+            color: var(--primary-color);
+        }
+        
+        .nav-list {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 30px;
+        }
+        
+        .nav-list a {
+            color: var(--dark-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-list a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-list a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s;
+        }
+        
+        .nav-list a:hover::after {
+            width: 100%;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        /* Horizontal Footer Styles */
+        .main-footer {
+            background-color: #f8f9fa;
+            padding: 40px 0 20px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .footer-logo {
+            flex: 0 0 100%;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .footer-logo h2 {
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .footer-logo span {
+            color: var(--primary-color);
+        }
+        
+        .footer-logo p {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: #fff;
+            border-radius: 50%;
+            color: var(--primary-color);
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .footer-links {
+            flex: 1;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        
+        .footer-column {
+            flex: 0 0 auto;
+            margin-bottom: 20px;
+            text-align: center;
+            padding: 0 15px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 15px;
+            color: var(--dark-color);
+            font-size: 18px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-column ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .footer-bottom p {
+            margin: 0;
+            color: var(--text-color);
+            font-size: 14px;
+        }
+        
+        /* Mobile menu styles */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        
+        .mobile-menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--dark-color);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .main-nav, .auth-buttons {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .footer-logo, .footer-links {
+                flex: 0 0 100%;
+            }
+            
+            .footer-column {
+                flex: 0 0 100%;
+                margin-bottom: 30px;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .footer-column {
+                flex: 0 0 auto;
+                min-width: 160px;
+            }
+        }
+    </style>
+    <!-- Services Hero -->
+    <section class="services-hero">
+        <div class="container">
+            <div class="services-hero-content">
+                <h1>Find Local Services</h1>
+                <p>Discover trusted service providers in your area for all your home and business needs.</p>
+                
+                <div class="services-search-container">
+                    <form class="services-search-form">
+                        <div class="search-input-group">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="What service do you need?" id="service-search-input">
+                        </div>
+                        
+                        <div class="search-input-group">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <input type="text" placeholder="Your location" id="location-search-input">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </form>
+                    
+                    <div class="popular-searches">
+                        <h3>Popular Searches</h3>
+                        <div class="popular-search-tags">
+                            <div class="popular-search-tag">Plumbing Repair</div>
+                            <div class="popular-search-tag">House Cleaning</div>
+                            <div class="popular-search-tag">Lawn Care</div>
+                            <div class="popular-search-tag">Electrician</div>
+                            <div class="popular-search-tag">HVAC Service</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Service Categories -->
+    <section class="service-categories-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Browse Service Categories</h2>
+                <p>Explore our wide range of service categories to find exactly what you need.</p>
+            </div>
+            
+            <div class="service-categories">
+                <div class="category-card" data-category="plumbing">
+                    <div class="category-icon">
+                        <i class="fas fa-faucet"></i>
+                    </div>
+                    <h3>Plumbing</h3>
+                    <p>Leaks, installations, repairs</p>
+                </div>
+                
+                <div class="category-card" data-category="electrical">
+                    <div class="category-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Electrical</h3>
+                    <p>Wiring, fixtures, repairs</p>
+                </div>
+                
+                <div class="category-card" data-category="cleaning">
+                    <div class="category-icon">
+                        <i class="fas fa-broom"></i>
+                    </div>
+                    <h3>Cleaning</h3>
+                    <p>Home, office, specialized</p>
+                </div>
+                
+                <div class="category-card" data-category="landscaping">
+                    <div class="category-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Landscaping</h3>
+                    <p>Lawn care, gardening, design</p>
+                </div>
+                
+                <div class="category-card" data-category="handyman">
+                    <div class="category-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Handyman</h3>
+                    <p>Repairs, installations, maintenance</p>
+                </div>
+                
+                <div class="category-card" data-category="hvac">
+                    <div class="category-icon">
+                        <i class="fas fa-temperature-high"></i>
+                    </div>
+                    <h3>HVAC</h3>
+                    <p>Heating, cooling, ventilation</p>
+                </div>
+                
+                <div class="category-card" data-category="painting">
+                    <div class="category-icon">
+                        <i class="fas fa-paint-roller"></i>
+                    </div>
+                    <h3>Painting</h3>
+                    <p>Interior, exterior, decorative</p>
+                </div>
+                
+                <div class="category-card" data-category="moving">
+                    <div class="category-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Moving</h3>
+                    <p>Local, long-distance, packing</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Featured Services -->
+    <section class="featured-services-section">
+        <div class="container">
+            <div class="featured-services-header">
+                <h2>Featured Services</h2>
+                <p>Our most popular and highly-rated services that customers love</p>
+            </div>
+            
+            <div class="featured-services-slider">
+                <button class="slider-nav-button slider-prev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="featured-services-container">
+                    <div class="featured-services-track" id="featured-services-track">
+                        <!-- Featured services will be dynamically inserted here -->
+                    </div>
+                </div>
+                
+                <button class="slider-nav-button slider-next">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Listing -->
+    <section class="services-listing-section">
+        <div class="container">
+            <div class="services-listing-header">
+                <h2 id="services-listing-title">All Services</h2>
+                <div class="services-filters">
+                    <div class="filter-group">
+                        <label for="sort-filter">Sort By:</label>
+                        <select id="sort-filter">
+                            <option value="recommended">Recommended</option>
+                            <option value="rating-high">Highest Rated</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="price-range">Price Range:</label>
+                        <select id="price-range">
+                            <option value="all">All Prices</option>
+                            <option value="budget">Budget ($)</option>
+                            <option value="mid">Mid-Range ($$)</option>
+                            <option value="premium">Premium ($$$)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="services-grid" id="services-grid">
+                <!-- Service cards will be dynamically inserted here -->
+            </div>
+            
+            <div class="services-pagination">
+                <button class="pagination-btn" disabled><i class="fas fa-chevron-left"></i></button>
+                <div class="pagination-numbers">
+                    <button class="pagination-number active">1</button>
+                    <button class="pagination-number">2</button>
+                    <button class="pagination-number">3</button>
+                    <span class="pagination-ellipsis">...</span>
+                    <button class="pagination-number">10</button>
+                </div>
+                <button class="pagination-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-logo">
+                        <h2>Loco<span>Serve</span></h2>
+                        <p>Connecting local talent with local needs</p>
+                        <div class="social-links">
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-links">
+                        <div class="footer-column">
+                            <h3>Company</h3>
+                            <ul>
+                                <li><a href="about.html">About Us</a></li>
+                                <li><a href="how-it-works.html">How It Works</a></li>
+                                <li><a href="careers.html">Careers</a></li>
+                                <li><a href="contact.html">Contact Us</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-column">
+                            <h3>Services</h3>
+                            <ul>
+                                <li><a href="services.html?category=plumbing">Plumbing</a></li>
+                                <li><a href="services.html?category=electrical">Electrical</a></li>
+                                <li><a href="services.html?category=cleaning">Cleaning</a></li>
+                                <li><a href="services.html?category=landscaping">Landscaping</a></li>
+                                <li><a href="services.html?category=handyman">Handyman</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-column">
+                            <h3>Contact Info</h3>
+                            <ul class="footer-contact">
+                                <li><i class="fas fa-map-marker-alt"></i> 123 Main Street, Suite 200, New York, NY 10001</li>
+                                <li><i class="fas fa-phone-alt"></i> (555) 123-4567</li>
+                                <li><i class="fas fa-envelope"></i> info@locoserve.com</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2023 LocoServe. All rights reserved.</p>
+                    <div class="footer-bottom-links">
+                        <a href="privacy.html">Privacy Policy</a>
+                        <a href="terms.html">Terms of Service</a>
+                        <a href="#">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    
+    <!-- JavaScript -->
+    <script src="../js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Service data (in a real app, this would come from an API)
+            const servicesData = [
+                {
+                    id: 1,
+                    title: 'Professional Plumbing Services',
+                    provider: {
+                        id: 1,
+                        name: 'John Smith',
+                        avatar: '../assets/images/providers/provider-1.jpg',
+                        rating: 4.8,
+                        reviews: 56
+                    },
+                    category: 'plumbing',
+                    price: '$75 / hour',
+                    priceLevel: 'mid',
+                    image: '../assets/images/services/plumbing-1.jpg',
+                    description: 'Expert plumbing services for residential and commercial properties. Our professional plumbing services cover all aspects of plumbing needs.',
+                    tags: ['Residential', 'Commercial', 'Repairs'],
+                    featured: true
+                },
+                {
+                    id: 2,
+                    title: 'Emergency Plumbing Service',
+                    provider: {
+                        id: 1,
+                        name: 'John Smith',
+                        avatar: '../assets/images/providers/provider-1.jpg',
+                        rating: 4.9,
+                        reviews: 62
+                    },
+                    category: 'plumbing',
+                    price: '$95 / hour',
+                    priceLevel: 'premium',
+                    image: '../assets/images/services/plumbing-2.jpg',
+                    description: '24/7 emergency plumbing services for residential and commercial properties. Available for urgent plumbing issues that require immediate attention.',
+                    tags: ['Emergency', '24/7', 'Fast Response'],
+                    featured: true
+                },
+                {
+                    id: 3,
+                    title: 'Bathroom Plumbing Installation',
+                    provider: {
+                        id: 2,
+                        name: 'Emily Johnson',
+                        avatar: '../assets/images/providers/provider-2.jpg',
+                        rating: 4.8,
+                        reviews: 45
+                    },
+                    category: 'plumbing',
+                    price: '$85 / hour',
+                    priceLevel: 'mid',
+                    image: '../assets/images/services/plumbing-3.jpg',
+                    description: 'Professional bathroom plumbing installation services for new constructions and renovations. Includes fixture installation and pipe layout.',
+                    tags: ['Bathroom', 'Installation', 'Renovation'],
+                    featured: false
+                },
+                {
+                    id: 4,
+                    title: 'Electrical Wiring Installation',
+                    provider: {
+                        id: 3,
+                        name: 'Robert Chen',
+                        avatar: '../assets/images/providers/provider-3.jpg',
+                        rating: 4.9,
+                        reviews: 78
+                    },
+                    category: 'electrical',
+                    price: '$90 / hour',
+                    priceLevel: 'premium',
+                    image: '../assets/images/services/electrical-1.jpg',
+                    description: 'Professional electrical wiring installation for new constructions and renovations. All work complies with local electrical codes and safety standards.',
+                    tags: ['Wiring', 'Installation', 'Code Compliant'],
+                    featured: true
+                },
+                {
+                    id: 5,
+                    title: 'Home Cleaning Service',
+                    provider: {
+                        id: 4,
+                        name: 'Maria Garcia',
+                        avatar: '../assets/images/providers/provider-4.jpg',
+                        rating: 4.7,
+                        reviews: 92
+                    },
+                    category: 'cleaning',
+                    price: '$35 / hour',
+                    priceLevel: 'budget',
+                    image: '../assets/images/services/cleaning-1.jpg',
+                    description: 'Thorough home cleaning services including dusting, vacuuming, mopping, and bathroom sanitizing. We use eco-friendly cleaning products upon request.',
+                    tags: ['Residential', 'Eco-friendly', 'Regular Service'],
+                    featured: true
+                },
+                {
+                    id: 6,
+                    title: 'Lawn Mowing & Maintenance',
+                    provider: {
+                        id: 5,
+                        name: 'David Wilson',
+                        avatar: '../assets/images/providers/provider-5.jpg',
+                        rating: 4.6,
+                        reviews: 64
+                    },
+                    category: 'landscaping',
+                    price: '$45 / visit',
+                    priceLevel: 'mid',
+                    image: '../assets/images/services/landscaping-1.jpg',
+                    description: 'Regular lawn mowing and maintenance services to keep your yard looking its best. Includes edging, trimming, and cleanup after service.',
+                    tags: ['Lawn Care', 'Regular Service', 'Residential'],
+                    featured: false
+                },
+                {
+                    id: 7,
+                    title: 'Handyman Services',
+                    provider: {
+                        id: 6,
+                        name: 'Michael Brown',
+                        avatar: '../assets/images/providers/provider-6.jpg',
+                        rating: 4.8,
+                        reviews: 103
+                    },
+                    category: 'handyman',
+                    price: '$65 / hour',
+                    priceLevel: 'mid',
+                    image: '../assets/images/services/handyman-1.jpg',
+                    description: 'General handyman services for home repairs, installations, and maintenance. No job is too small - from fixing leaky faucets to assembling furniture.',
+                    tags: ['Repairs', 'Installations', 'Maintenance'],
+                    featured: true
+                },
+                {
+                    id: 8,
+                    title: 'HVAC Repair & Maintenance',
+                    provider: {
+                        id: 7,
+                        name: 'Thomas Lee',
+                        avatar: '../assets/images/providers/provider-7.jpg',
+                        rating: 4.9,
+                        reviews: 87
+                    },
+                    category: 'hvac',
+                    price: '$95 / hour',
+                    priceLevel: 'premium',
+                    image: '../assets/images/services/hvac-1.jpg',
+                    description: 'Professional HVAC repair and maintenance services. We service all major brands of heating and cooling systems to ensure optimal performance.',
+                    tags: ['Repair', 'Maintenance', 'All Brands'],
+                    featured: false
+                },
+                {
+                    id: 9,
+                    title: 'Interior Painting',
+                    provider: {
+                        id: 8,
+                        name: 'Sarah Johnson',
+                        avatar: '../assets/images/providers/provider-8.jpg',
+                        rating: 4.7,
+                        reviews: 59
+                    },
+                    category: 'painting',
+                    price: '$40 / hour',
+                    priceLevel: 'budget',
+                    image: '../assets/images/services/painting-1.jpg',
+                    description: 'Professional interior painting services with attention to detail. We prep, prime, and paint to ensure a flawless finish that lasts for years.',
+                    tags: ['Interior', 'Residential', 'Commercial'],
+                    featured: true
+                },
+                {
+                    id: 10,
+                    title: 'Local Moving Service',
+                    provider: {
+                        id: 9,
+                        name: 'Carlos Rodriguez',
+                        avatar: '../assets/images/providers/provider-9.jpg',
+                        rating: 4.8,
+                        reviews: 72
+                    },
+                    category: 'moving',
+                    price: '$120 / hour',
+                    priceLevel: 'premium',
+                    image: '../assets/images/services/moving-1.jpg',
+                    description: 'Professional local moving services with experienced movers and proper equipment. We handle your belongings with care from start to finish.',
+                    tags: ['Local', 'Residential', 'Commercial'],
+                    featured: false
+                }
+            ];
+
+            // Function to create service card HTML
+            function createServiceCard(service) {
+                // Create rating stars
+                let starsHTML = '';
+                const fullStars = Math.floor(service.provider.rating);
+                const hasHalfStar = service.provider.rating % 1 >= 0.5;
+                
+                for (let i = 0; i < 5; i++) {
+                    if (i < fullStars) {
+                        starsHTML += '<i class="fas fa-star"></i>';
+                    } else if (i === fullStars && hasHalfStar) {
+                        starsHTML += '<i class="fas fa-star-half-alt"></i>';
+                    } else {
+                        starsHTML += '<i class="far fa-star"></i>';
+                    }
+                }
+                
+                // Create tags HTML
+                let tagsHTML = '';
+                service.tags.forEach(tag => {
+                    tagsHTML += `<span class="service-tag">${tag}</span>`;
+                });
+                
+                return `
+                    <div class="service-card" data-id="${service.id}" data-category="${service.category}" data-price-level="${service.priceLevel}">
+                        <div class="service-image">
+                            <img src="${service.image}" alt="${service.title}">
+                        </div>
+                        <div class="service-content">
+                            <h3 class="service-title">${service.title}</h3>
+                            <div class="service-provider">
+                                <div class="provider-avatar">
+                                    <img src="${service.provider.avatar}" alt="${service.provider.name}">
+                                </div>
+                                <div class="provider-info">
+                                    <div class="provider-name">${service.provider.name}</div>
+                                    <div class="provider-rating">
+                                        <div class="rating-stars">${starsHTML}</div>
+                                        <div class="rating-number">${service.provider.rating} (${service.provider.reviews} reviews)</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="service-description">${service.description}</p>
+                            <div class="service-tags">${tagsHTML}</div>
+                            <div class="service-footer">
+                                <div class="service-price">${service.price}</div>
+                                <a href="service-details.html?id=${service.id}" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Populate services grid
+            const servicesGrid = document.getElementById('services-grid');
+            servicesData.forEach(service => {
+                servicesGrid.innerHTML += createServiceCard(service);
+            });
+            
+            // Populate featured services slider
+            const featuredServicesTrack = document.getElementById('featured-services-track');
+            const featuredServices = servicesData.filter(service => service.featured);
+            
+            featuredServices.forEach(service => {
+                const slideDiv = document.createElement('div');
+                slideDiv.className = 'featured-service-slide';
+                slideDiv.innerHTML = createServiceCard(service);
+                featuredServicesTrack.appendChild(slideDiv);
+            });
+            
+            // Slider functionality
+            const sliderTrack = document.getElementById('featured-services-track');
+            const prevButton = document.querySelector('.slider-prev');
+            const nextButton = document.querySelector('.slider-next');
+            let slideWidth = document.querySelector('.featured-service-slide').offsetWidth;
+            let slideIndex = 0;
+            const slidesCount = featuredServices.length;
+            
+            // Update slide width on window resize
+            window.addEventListener('resize', () => {
+                slideWidth = document.querySelector('.featured-service-slide').offsetWidth;
+                updateSliderPosition();
+            });
+            
+            function updateSliderPosition() {
+                sliderTrack.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
+            }
+            
+            prevButton.addEventListener('click', () => {
+                if (slideIndex > 0) {
+                    slideIndex--;
+                    updateSliderPosition();
+                }
+            });
+            
+            nextButton.addEventListener('click', () => {
+                if (slideIndex < slidesCount - 1) {
+                    slideIndex++;
+                    updateSliderPosition();
+                }
+            });
+            
+            // Category filtering
+            const categoryCards = document.querySelectorAll('.category-card');
+            let activeCategory = null;
+            
+            categoryCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const category = card.getAttribute('data-category');
+                    
+                    // Toggle active state
+                    if (activeCategory === category) {
+                        // If clicking the already active category, deactivate it
+                        card.classList.remove('active');
+                        activeCategory = null;
+                        document.getElementById('services-listing-title').textContent = 'All Services';
+                        
+                        // Show all services
+                        document.querySelectorAll('.service-card').forEach(serviceCard => {
+                            serviceCard.style.display = 'flex';
+                        });
+                    } else {
+                        // Remove active class from all cards
+                        categoryCards.forEach(c => c.classList.remove('active'));
+                        
+                        // Add active class to clicked card
+                        card.classList.add('active');
+                        activeCategory = category;
+                        
+                        // Update title
+                        document.getElementById('services-listing-title').textContent = `${card.querySelector('h3').textContent} Services`;
+                        
+                        // Filter services
+                        document.querySelectorAll('.service-card').forEach(serviceCard => {
+                            if (serviceCard.getAttribute('data-category') === category) {
+                                serviceCard.style.display = 'flex';
+                            } else {
+                                serviceCard.style.display = 'none';
+                            }
+                        });
+                    }
+                    
+                    // Scroll to services listing
+                    document.querySelector('.services-listing-section').scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+            
+            // Sorting functionality
+            document.getElementById('sort-filter').addEventListener('change', function() {
+                const sortValue = this.value;
+                const serviceCards = Array.from(document.querySelectorAll('.service-card'));
+                
+                serviceCards.sort((a, b) => {
+                    const serviceA = servicesData.find(s => s.id === parseInt(a.getAttribute('data-id')));
+                    const serviceB = servicesData.find(s => s.id === parseInt(b.getAttribute('data-id')));
+                    
+                    if (sortValue === 'rating-high') {
+                        return serviceB.provider.rating - serviceA.provider.rating;
+                    } else if (sortValue === 'price-low') {
+                        // Extract numeric price value (assuming format like "$75 / hour")
+                        const priceA = parseInt(serviceA.querySelector('.service-price').textContent.match(/\d+/)[0]);
+                        const priceB = parseInt(serviceB.querySelector('.service-price').textContent.match(/\d+/)[0]);
+                        return priceA - priceB;
+                    } else if (sortValue === 'price-high') {
+                        const priceA = parseInt(serviceA.querySelector('.service-price').textContent.match(/\d+/)[0]);
+                        const priceB = parseInt(serviceB.querySelector('.service-price').textContent.match(/\d+/)[0]);
+                        return priceB - priceA;
+                    }
+                    
+                    // Default to recommended (original order)
+                    return serviceA.id - serviceB.id;
+                });
+                
+                // Re-append sorted cards
+                const servicesGrid = document.getElementById('services-grid');
+                serviceCards.forEach(card => {
+                    servicesGrid.appendChild(card);
+                });
+            });
+            
+            // Price range filtering
+            document.getElementById('price-range').addEventListener('change', function() {
+                const priceRange = this.value;
+                
+                document.querySelectorAll('.service-card').forEach(card => {
+                    if (priceRange === 'all' || card.getAttribute('data-price-level') === priceRange) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Check if no results
+                const visibleCards = document.querySelectorAll('.service-card[style="display: flex;"]');
+                if (visibleCards.length === 0) {
+                    if (!document.querySelector('.no-results')) {
+                        const noResults = document.createElement('div');
+                        noResults.className = 'no-results';
+                        noResults.innerHTML = '<i class="fas fa-search" style="font-size: 3rem; margin-bottom: 20px;"></i><h3>No services found</h3><p>Try adjusting your filters or search criteria</p>';
+                        document.getElementById('services-grid').appendChild(noResults);
+                    }
+                } else {
+                    const noResults = document.querySelector('.no-results');
+                    if (noResults) {
+                        noResults.remove();
+                    }
+                }
+            });
+            
+            // Search functionality
+            document.querySelector('.services-search-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const searchTerm = document.getElementById('service-search-input').value.toLowerCase();
+                const locationTerm = document.getElementById('location-search-input').value.toLowerCase();
+                
+                if (!searchTerm && !locationTerm) return;
+                
+                // Reset filters
+                document.getElementById('sort-filter').value = 'recommended';
+                document.getElementById('price-range').value = 'all';
+                categoryCards.forEach(card => card.classList.remove('active'));
+                
+                // Update title
+                document.getElementById('services-listing-title').textContent = `Search Results: "${searchTerm}"`;
+                
+                // Filter services
+                let foundResults = false;
+                document.querySelectorAll('.service-card').forEach(card => {
+                    const serviceId = parseInt(card.getAttribute('data-id'));
+                    const service = servicesData.find(s => s.id === serviceId);
+                    
+                    // Simple search implementation - check if search term is in title, description, or tags
+                    const matchesSearch = !searchTerm || 
+                        service.title.toLowerCase().includes(searchTerm) || 
+                        service.description.toLowerCase().includes(searchTerm) ||
+                        service.tags.some(tag => tag.toLowerCase().includes(searchTerm)) ||
+                        service.category.toLowerCase().includes(searchTerm);
+                    
+                    // In a real app, location would be checked against provider's service area
+                    const matchesLocation = !locationTerm || true; // Simplified for demo
+                    
+                    if (matchesSearch && matchesLocation) {
+                        card.style.display = 'flex';
+                        foundResults = true;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Show no results message if needed
+                if (!foundResults) {
+                    if (!document.querySelector('.no-results')) {
+                        const noResults = document.createElement('div');
+                        noResults.className = 'no-results';
+                        noResults.innerHTML = '<i class="fas fa-search" style="font-size: 3rem; margin-bottom: 20px;"></i><h3>No services found</h3><p>Try adjusting your search criteria</p>';
+                        document.getElementById('services-grid').appendChild(noResults);
+                    }
+                } else {
+                    const noResults = document.querySelector('.no-results');
+                    if (noResults) {
+                        noResults.remove();
+                    }
+                }
+                
+                // Scroll to services listing
+                document.querySelector('.services-listing-section').scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Popular search tags functionality
+            document.querySelectorAll('.popular-search-tag').forEach(tag => {
+                tag.addEventListener('click', function() {
+                    document.getElementById('service-search-input').value = this.textContent;
+                    document.querySelector('.services-search-form').dispatchEvent(new Event('submit'));
+                });
+            });
+            
+            // Pagination functionality (simplified for demo)
+            document.querySelectorAll('.pagination-number').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.pagination-number').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // In a real app, this would load the next page of results
+                    // For demo purposes, we'll just scroll to top of services
+                    document.querySelector('.services-listing-section').scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

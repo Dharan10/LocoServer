@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - LocoServe</title>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">
+                    <h1>Loco<span>Serve</span></h1>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="how-it-works.html">How It Works</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-primary">Login</a>
+                <a href="register.html" class="btn btn-outline">Sign Up</a>
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <section class="auth-section">
+        <div class="container">
+            <div class="auth-container">
+                <div class="auth-form-container">
+                    <h2>Welcome Back</h2>
+                    <p class="auth-subtitle">Login to access your account and continue your journey with LocoServe</p>
+                    
+                    <div id="login-error" class="error-message"></div>
+                    
+                    <form id="login-form" data-validate="true">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <div class="input-with-icon password-input">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                                <button type="button" id="toggle-password" class="toggle-password" aria-label="Toggle password visibility">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group remember-forgot">
+                            <div class="remember-me">
+                                <input type="checkbox" id="remember" name="remember">
+                                <label for="remember">Remember me</label>
+                            </div>
+                            <a href="forgot-password.html" class="forgot-password">Forgot Password?</a>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <span>Login</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+                    
+                    <div class="auth-divider">
+                        <span>OR</span>
+                    </div>
+                    
+                    <div class="social-auth">
+                        <button class="btn btn-social btn-google">
+                            <i class="fab fa-google"></i> Continue with Google
+                        </button>
+                        <button class="btn btn-social btn-facebook">
+                            <i class="fab fa-facebook-f"></i> Continue with Facebook
+                        </button>
+                        <button class="btn btn-social btn-apple">
+                            <i class="fab fa-apple"></i> Continue with Apple
+                        </button>
+                    </div>
+                    
+                    <div class="auth-footer">
+                        <p>Don't have an account? <a href="register.html" class="register-link">Create Account</a></p>
+                    </div>
+                </div>
+                
+                <div class="auth-image">
+                    <img src="../assets/images/login-image.jpg" alt="Login to LocoServe">
+                    <div class="auth-image-overlay">
+                        <div class="auth-image-content">
+                            <h3>Connect With Local Experts</h3>
+                            <p>Access your account to connect with skilled local service providers or manage your service listings.</p>
+                            <div class="auth-features">
+                                <div class="auth-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Find trusted local professionals</span>
+                                </div>
+                                <div class="auth-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Book services with ease</span>
+                                </div>
+                                <div class="auth-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Manage your appointments</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Loco<span>Serve</span></h2>
+                    <p>Connecting local talent with local needs</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="how-it-works.html">How It Works</a></li>
+                            <li><a href="careers.html">Careers</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Services</h3>
+                        <ul>
+                            <li><a href="services.html?category=plumbing">Plumbing</a></li>
+                            <li><a href="services.html?category=electrical">Electrical</a></li>
+                            <li><a href="services.html?category=carpentry">Carpentry</a></li>
+                            <li><a href="services.html?category=cleaning">Cleaning</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Support</h3>
+                        <ul>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                            <li><a href="terms.html">Terms of Service</a></li>
+                            <li><a href="help.html">Help Center</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 LocoServe. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/ui.js"></script>
+    <script>
+        // Initialize password toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const togglePasswordBtn = document.getElementById('toggle-password');
+            const passwordInput = document.getElementById('password');
+            
+            if (togglePasswordBtn && passwordInput) {
+                togglePasswordBtn.addEventListener('click', function() {
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    
+                    // Toggle icon
+                    this.querySelector('i').classList.toggle('fa-eye');
+                    this.querySelector('i').classList.toggle('fa-eye-slash');
+                });
+            }
+        });
+    </script>
+    <style>
+        /* Header Styles */
+        .main-header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .main-header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            margin: 0;
+            font-size: 24px;
+            color: var(--dark-color);
+        }
+        
+        .logo span {
+            color: var(--primary-color);
+        }
+        
+        .nav-list {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 30px;
+        }
+        
+        .nav-list a {
+            color: var(--dark-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-list a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-list a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s;
+        }
+        
+        .nav-list a:hover::after {
+            width: 100%;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        /* Horizontal Footer Styles */
+        .main-footer {
+            background-color: #f8f9fa;
+            padding: 40px 0 20px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .footer-logo {
+            flex: 0 0 100%;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .footer-logo h2 {
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .footer-logo span {
+            color: var(--primary-color);
+        }
+        
+        .footer-logo p {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: #fff;
+            border-radius: 50%;
+            color: var(--primary-color);
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .footer-links {
+            flex: 1;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        
+        .footer-column {
+            flex: 0 0 auto;
+            margin-bottom: 20px;
+            text-align: center;
+            padding: 0 15px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 15px;
+            color: var(--dark-color);
+            font-size: 18px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-column ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .footer-bottom p {
+            margin: 0;
+            color: var(--text-color);
+            font-size: 14px;
+        }
+        
+        /* Mobile menu styles */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        
+        .mobile-menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--dark-color);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .main-nav, .auth-buttons {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .footer-logo, .footer-links {
+                flex: 0 0 100%;
+            }
+            
+            .footer-column {
+                flex: 0 0 100%;
+                margin-bottom: 30px;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .footer-column {
+                flex: 0 0 auto;
+                min-width: 160px;
+            }
+        }
+    </style>
+</body>
+</html>

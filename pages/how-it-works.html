@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How It Works - LocoServe</title>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* How It Works Page Styles */
+        .page-header {
+            background-color: var(--primary-light);
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .page-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--text-color);
+            font-size: 18px;
+        }
+        
+        .process-section {
+            padding: 80px 0;
+        }
+        
+        .process-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .process-step {
+            display: flex;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .process-step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .process-step:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .process-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 40px;
+            height: 60px;
+            width: 2px;
+            background-color: var(--primary-light);
+        }
+        
+        .process-step:nth-child(even):not(:last-child)::after {
+            left: auto;
+            right: 40px;
+        }
+        
+        .step-number {
+            flex: 0 0 80px;
+            height: 80px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            margin-right: 30px;
+            box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.3);
+        }
+        
+        .process-step:nth-child(even) .step-number {
+            margin-right: 0;
+            margin-left: 30px;
+        }
+        
+        .step-content {
+            flex: 1;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .step-content h3 {
+            margin-top: 0;
+            color: var(--dark-color);
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+        
+        .step-content p {
+            margin-bottom: 20px;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .step-icon {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+        
+        .step-tips {
+            background-color: var(--primary-light);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .step-tips h4 {
+            margin-top: 0;
+            font-size: 16px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .step-tips ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .step-tips li {
+            margin-bottom: 8px;
+        }
+        
+        .faq-section {
+            background-color: #f8f9fa;
+            padding: 80px 0;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        .faq-question i {
+            transition: transform 0.3s;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 500px;
+        }
+        
+        .cta-section {
+            padding: 80px 0;
+            text-align: center;
+            background-color: white;
+        }
+        
+        .cta-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .cta-container h2 {
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        .cta-container p {
+            margin-bottom: 30px;
+            color: var(--text-color);
+            font-size: 18px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .process-step, .process-step:nth-child(even) {
+                flex-direction: column;
+            }
+            
+            .step-number {
+                margin: 0 auto 20px;
+            }
+            
+            .process-step:not(:last-child)::after,
+            .process-step:nth-child(even):not(:last-child)::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+    <style>
+        /* Header Styles */
+        .main-header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .main-header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            margin: 0;
+            font-size: 24px;
+            color: var(--dark-color);
+        }
+        
+        .logo span {
+            color: var(--primary-color);
+        }
+        
+        .nav-list {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 30px;
+        }
+        
+        .nav-list a {
+            color: var(--dark-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-list a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-list a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s;
+        }
+        
+        .nav-list a:hover::after {
+            width: 100%;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        /* Horizontal Footer Styles */
+        .main-footer {
+            background-color: #f8f9fa;
+            padding: 40px 0 20px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .footer-logo {
+            flex: 0 0 100%;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .footer-logo h2 {
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .footer-logo span {
+            color: var(--primary-color);
+        }
+        
+        .footer-logo p {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: #fff;
+            border-radius: 50%;
+            color: var(--primary-color);
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .footer-links {
+            flex: 1;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        
+        .footer-column {
+            flex: 0 0 auto;
+            margin-bottom: 20px;
+            text-align: center;
+            padding: 0 15px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 15px;
+            color: var(--dark-color);
+            font-size: 18px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-column ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .footer-bottom p {
+            margin: 0;
+            color: var(--text-color);
+            font-size: 14px;
+        }
+        
+        /* Mobile menu styles */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        
+        .mobile-menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--dark-color);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .main-nav, .auth-buttons {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .footer-logo, .footer-links {
+                flex: 0 0 100%;
+            }
+            
+            .footer-column {
+                flex: 0 0 100%;
+                margin-bottom: 30px;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .footer-column {
+                flex: 0 0 auto;
+                min-width: 160px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">
+                    <h1>Loco<span>Serve</span></h1>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="how-it-works.html">How It Works</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-primary">Login</a>
+                <a href="register.html" class="btn btn-outline">Sign Up</a>
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!--Mobile Menu -->
+    <div class="mobile-menu">
+        <ul>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="how-it-works.html">How It Works</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+        <div class="auth-links">
+            <a href="login.html" class="btn btn-outline">Login</a>
+            <a href="register.html" class="btn btn-primary">Sign Up</a>
+        </div>
+    </div>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>How LocoServe Works</h1>
+            <p>Discover how our platform connects you with trusted local service providers in just a few simple steps.</p>
+        </div>
+    </section>
+
+    <section class="process-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Simple Process</h2>
+                <p>Finding and booking local services has never been easier</p>
+            </div>
+            
+            <div class="process-container">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>Search for Services</h3>
+                        <p>Start by searching for the service you need in your area. Enter what you're looking for and your location to find available service providers near you.</p>
+                        <p>You can browse through different categories or use our search bar to find exactly what you need.</p>
+                        
+                        <div class="step-tips">
+                            <h4>Pro Tips:</h4>
+                            <ul>
+                                <li>Be specific about the service you need for more accurate results</li>
+                                <li>Check the "Popular Services" section for commonly requested services</li>
+                                <li>Use your current location for the most relevant results</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <h3>Compare Providers</h3>
+                        <p>Browse through the list of available service providers in your area. Compare their profiles, ratings, reviews, and pricing to find the best match for your needs.</p>
+                        <p>Each provider profile includes their experience, qualifications, and photos of their previous work.</p>
+                        
+                        <div class="step-tips">
+                            <h4>Pro Tips:</h4>
+                            <ul>
+                                <li>Read reviews from other customers to gauge quality and reliability</li>
+                                <li>Check the provider's response time and availability</li>
+                                <li>Look for verified badges that indicate background-checked providers</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h3>Book Your Service</h3>
+                        <p>Once you've found the right provider, book your service for a time that works for you. Our simple booking system allows you to select a date and time, provide details about the service you need, and confirm your booking in minutes.</p>
+                        <p>You'll receive an immediate confirmation and can communicate directly with the provider through our platform.</p>
+                        
+                        <div class="step-tips">
+                            <h4>Pro Tips:</h4>
+                            <ul>
+                                <li>Provide detailed information about your service needs for accurate quotes</li>
+                                <li>Book in advance for non-emergency services to ensure availability</li>
+                                <li>Use the messaging system to clarify any questions before the appointment</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <div class="step-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3>Leave a Review</h3>
+                        <p>After the service is completed, share your experience by leaving a review. Your feedback helps other customers make informed decisions and helps providers improve their services.</p>
+                        <p>You can rate the provider on various aspects such as punctuality, professionalism, and quality of work.</p>
+                        
+                        <div class="step-tips">
+                            <h4>Pro Tips:</h4>
+                            <ul>
+                                <li>Be honest and specific in your review to help others</li>
+                                <li>Include details about what went well and any areas for improvement</li>
+                                <li>Upload photos of the completed work when applicable</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Find answers to common questions about using LocoServe</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do I know if a service provider is reliable? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>All service providers on LocoServe go through a verification process before being listed on our platform. Additionally, you can check their ratings and reviews from other customers to gauge their reliability. We also highlight providers who have completed background checks with a verified badge on their profile.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How does payment work? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>LocoServe offers secure payment options through our platform. You can pay for services using credit/debit cards or other supported payment methods. For some services, you may pay a deposit upfront and the remainder after the service is completed. All transactions are protected by our secure payment system.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What if I'm not satisfied with the service? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Customer satisfaction is our priority. If you're not satisfied with a service, you can contact the provider directly through our messaging system to resolve the issue. If that doesn't work, our customer support team is available to help mediate and find a solution. In some cases, you may be eligible for our satisfaction guarantee program.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can I cancel or reschedule a booking? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, you can cancel or reschedule a booking through your account dashboard. Please note that cancellation policies may vary by provider, and some may charge a cancellation fee if done within a certain timeframe before the scheduled service. We recommend checking the provider's cancellation policy before booking.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do I become a service provider on LocoServe? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>If you're a professional service provider interested in joining our platform, you can sign up as a provider on our website. You'll need to complete a verification process, provide information about your services and experience, and agree to our terms of service. Once approved, you can start receiving booking requests from customers in your area.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-container">
+                <h2>Ready to Get Started?</h2>
+                <p>Join thousands of satisfied customers who have found reliable local service providers through LocoServe.</p>
+                <div class="cta-buttons">
+                    <a href="services.html" class="btn btn-outline btn-lg">Browse Services</a>
+                    <a href="register.html" class="btn btn-primary btn-lg">Create an Account</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Loco<span>Serve</span></h2>
+                    <p>Connecting local talent with local needs</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="how-it-works.html">How It Works</a></li>
+                            <li><a href="careers.html">Careers</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Services</h3>
+                        <ul>
+                            <li><a href="services.html?category=plumbing">Plumbing</a></li>
+                            <li><a href="services.html?category=electrical">Electrical</a></li>
+                            <li><a href="services.html?category=carpentry">Carpentry</a></li>
+                            <li><a href="services.html?category=cleaning">Cleaning</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Support</h3>
+                        <ul>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                            <li><a href="terms.html">Terms of Service</a></li>
+                            <li><a href="help.html">Help Center</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 LocoServe. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script src="../js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            menuToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            });
+            
+            // FAQ accordion functionality
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', function() {
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+            
+            // Scroll to top button
+            const scrollBtn = document.querySelector('.scroll-to-top');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollBtn.classList.add('visible');
+                } else {
+                    scrollBtn.classList.remove('visible');
+                }
+            });
+            
+            scrollBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+    <style>
+        /* Mobile menu styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            padding: 80px 20px 20px;
+            transition: right 0.3s ease;
+            z-index: 999;
+            overflow-y: auto;
+        }
+        
+        .mobile-menu.active {
+            right: 0;
+        }
+        
+        .mobile-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 30px;
+        }
+        
+        .mobile-menu ul li {
+            margin-bottom: 15px;
+        }
+        
+        .mobile-menu ul li a {
+            color: var(--dark-color);
+            font-size: 18px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: block;
+            padding: 5px 0;
+        }
+        
+        .mobile-menu ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .mobile-menu .auth-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .mobile-menu .auth-links a {
+            text-align: center;
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        
+        .mobile-menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--dark-color);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+        
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+        
+        body.menu-open {
+            overflow: hidden;
+        }
+        
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: translateY(20px);
+            z-index: 99;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .scroll-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
+        }
+    </style>
+</body>
+</html>

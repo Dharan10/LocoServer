@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Providers | LocoServe</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/png" href="../img/favicon.png">
+    
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="../img/logo.png" alt="LocoServe Logo">
+                    </a>
+                </div>
+                <nav class="main-nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="providers.html" class="active">Providers</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <a href="search.html" class="search-btn" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </a>
+                    <a href="notifications.html" class="notification-btn" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </a>
+                    <div class="user-menu">
+                        <button class="user-menu-btn">
+                            <img src="../img/user-avatar.jpg" alt="User Avatar">
+                            <span>My Account</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="profile.html"><i class="fas fa-user"></i> My Profile</a>
+                            <a href="bookings.html"><i class="fas fa-calendar-check"></i> My Bookings</a>
+                            <a href="favorites.html"><i class="fas fa-heart"></i> Favorites</a>
+                            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+                            <a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                    <button class="mobile-menu-btn" aria-label="Menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <img src="../img/logo.png" alt="LocoServe Logo">
+            </div>
+            <button class="mobile-menu-close">&times;</button>
+        </div>
+        <nav class="mobile-nav">
+            <ul class="mobile-nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="providers.html" class="active">Providers</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-menu-footer">
+            <a href="login.html" class="btn btn-primary">Sign In</a>
+            <a href="register.html" class="btn btn-outline">Register</a>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Service Providers</h1>
+            <div class="breadcrumbs">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <span>Providers</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Providers Filter Section -->
+    <section class="providers-filter">
+        <div class="container">
+            <div class="filter-container">
+                <div class="filter-group">
+                    <label for="category-filter">Category</label>
+                    <select id="category-filter">
+                        <option value="">All Categories</option>
+                        <option value="plumbing">Plumbing</option>
+                        <option value="electrical">Electrical</option>
+                        <option value="cleaning">Cleaning</option>
+                        <option value="landscaping">Landscaping</option>
+                        <option value="handyman">Handyman</option>
+                        <option value="moving">Moving</option>
+                        <option value="painting">Painting</option>
+                        <option value="hvac">HVAC</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="rating-filter">Rating</label>
+                    <select id="rating-filter">
+                        <option value="">Any Rating</option>
+                        <option value="4.5">4.5+ Stars</option>
+                        <option value="4">4+ Stars</option>
+                        <option value="3.5">3.5+ Stars</option>
+                        <option value="3">3+ Stars</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="price-filter">Price Level</label>
+                    <select id="price-filter">
+                        <option value="">Any Price</option>
+                        <option value="budget">Budget</option>
+                        <option value="mid">Mid-Range</option>
+                        <option value="premium">Premium</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="availability-filter">Availability</label>
+                    <select id="availability-filter">
+                        <option value="">Any Time</option>
+                        <option value="weekdays">Weekdays</option>
+                        <option value="weekends">Weekends</option>
+                        <option value="evenings">Evenings</option>
+                        <option value="24-7">24/7 Service</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="location-filter">Location</label>
+                    <select id="location-filter">
+                        <option value="">All Areas</option>
+                        <option value="downtown">Downtown</option>
+                        <option value="north">North Side</option>
+                        <option value="south">South Side</option>
+                        <option value="east">East Side</option>
+                        <option value="west">West Side</option>
+                        <option value="suburbs">Suburbs</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary filter-btn">Apply Filters</button>
+                <button class="btn btn-outline reset-btn">Reset</button>
+            </div>
+            <div class="search-container">
+                <input type="text" id="provider-search" placeholder="Search providers by name or service...">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Providers List Section -->
+    <section class="providers-list">
+        <div class="container">
+            <div class="providers-grid" id="providers-container">
+                <!-- Provider cards will be dynamically inserted here -->
+            </div>
+            <div class="pagination">
+                <button class="pagination-btn prev-btn" disabled><i class="fas fa-chevron-left"></i></button>
+                <div class="pagination-numbers">
+                    <button class="pagination-number active">1</button>
+                    <button class="pagination-number">2</button>
+                    <button class="pagination-number">3</button>
+                    <span class="pagination-ellipsis">...</span>
+                    <button class="pagination-number">10</button>
+                </div>
+                <button class="pagination-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Become a Provider Section -->
+    <section class="become-provider">
+        <div class="container">
+            <div class="become-provider-content">
+                <div class="become-provider-text">
+                    <h2>Become a Service Provider</h2>
+                    <p>Join our network of trusted professionals and grow your business. Reach more customers and manage your bookings with ease.</p>
+                    <ul class="provider-benefits">
+                        <li><i class="fas fa-check-circle"></i> Expand your customer base</li>
+                        <li><i class="fas fa-check-circle"></i> Flexible scheduling</li>
+                        <li><i class="fas fa-check-circle"></i> Secure payments</li>
+                        <li><i class="fas fa-check-circle"></i> Marketing support</li>
+                        <li><i class="fas fa-check-circle"></i> Customer reviews and ratings</li>
+                    </ul>
+                    <a href="become-provider.html" class="btn btn-primary">Apply Now</a>
+                </div>
+                <div class="become-provider-image">
+                    <img src="../img/become-provider.jpg" alt="Become a Provider">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="../img/logo-white.png" alt="LocoServe Logo">
+                    <p>Connecting you with trusted local service providers.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="careers.html">Careers</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="press.html">Press</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Services</h3>
+                        <ul>
+                            <li><a href="services.html?category=home">Home Services</a></li>
+                            <li><a href="services.html?category=professional">Professional Services</a></li>
+                            <li><a href="services.html?category=wellness">Wellness</a></li>
+                            <li><a href="services.html?category=events">Events</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Support</h3>
+                        <ul>
+                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="terms.html">Terms of Service</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Subscribe to Our Newsletter</h3>
+                    <p>Get the latest updates on new services and special promotions.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 LocoServe. All rights reserved.</p>
+                <div class="footer-app-links">
+                    <a href="#"><img src="../img/app-store.png" alt="Download on App Store"></a>
+                    <a href="#"><img src="../img/google-play.png" alt="Get it on Google Play"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Provider data (in a real app, this would come from an API)
+            const providersData = [
+                {
+                    id: 1,
+                    name: 'John Smith',
+                    avatar: '../img/providers/provider-1.jpg',
+                    category: 'plumbing',
+                    rating: 4.8,
+                    reviews: 56,
+                    priceLevel: 'mid',
+                    location: 'Downtown',
+                    availability: 'Mon-Sat, 8AM-6PM',
+                    description: 'Professional plumber with over 15 years of experience in residential and commercial plumbing services.',
+                    services: ['Pipe Repairs', 'Drain Cleaning', 'Water Heater Installation', 'Bathroom Remodeling'],
+                    featured: true
+                },
+                {
+                    id: 2,
+                    name: 'Sarah Johnson',
+                    avatar: '../img/providers/provider-2.jpg',
+                    category: 'cleaning',
+                    rating: 4.9,
+                    reviews: 124,
+                    priceLevel: 'premium',
+                    location: 'North Side',
+                    availability: 'Mon-Fri, 9AM-5PM',
+                    description: 'Experienced cleaning professional specializing in eco-friendly cleaning solutions for homes and offices.',
+                    services: ['Deep Cleaning', 'Regular Maintenance', 'Move-in/Move-out Cleaning', 'Office Cleaning'],
+                    featured: true
+                },
+                {
+                    id: 3,
+                    name: 'Robert Chen',
+                    avatar: '../img/providers/provider-3.jpg',
+                    category: 'electrical',
+                    rating: 4.9,
+                    reviews: 78,
+                    priceLevel: 'premium',
+                    location: 'Downtown',
+                    availability: 'Mon-Fri, 7AM-5PM',
+                    description: 'Licensed electrician with expertise in residential and commercial electrical installations and repairs.',
+                    services: ['Wiring Installation', 'Lighting Installation', 'Electrical Panel Upgrades', 'Home Automation'],
+                    featured: true
+                },
+                {
+                    id: 4,
+                    name: 'Maria Garcia',
+                    avatar: '../img/providers/provider-4.jpg',
+                    category: 'cleaning',
+                    rating: 4.7,
+                    reviews: 92,
+                    priceLevel: 'budget',
+                    location: 'South Side',
+                    availability: 'Mon-Sat, 9AM-7PM',
+                    description: 'Dedicated cleaning professional with attention to detail and affordable rates for residential cleaning.',
+                    services: ['House Cleaning', 'Apartment Cleaning', 'Carpet Cleaning', 'Window Cleaning'],
+                    featured: false
+                },
+                {
+                    id: 5,
+                    name: 'David Wilson',
+                    avatar: '../img/providers/provider-5.jpg',
+                    category: 'landscaping',
+                    rating: 4.6,
+                    reviews: 45,
+                    priceLevel: 'mid',
+                    location: 'Suburbs',
+                    availability: 'Mon-Sat, 8AM-6PM',
+                    description: 'Professional landscaper offering comprehensive lawn care and garden design services.',
+                    services: ['Lawn Maintenance', 'Garden Design', 'Tree Trimming', 'Irrigation Systems'],
+                    featured: false
+                },
+                {
+                    id: 6,
+                    name: 'Jennifer Lee',
+                    avatar: '../img/providers/provider-6.jpg',
+                    category: 'handyman',
+                    rating: 4.5,
+                    reviews: 38,
+                    priceLevel: 'budget',
+                    location: 'East Side',
+                    availability: 'Mon-Sun, 8AM-8PM',
+                    description: 'Versatile handyman with skills in carpentry, minor plumbing, electrical work, and home repairs.',
+                    services: ['Furniture Assembly', 'Drywall Repair', 'Door Installation', 'General Repairs'],
+                    featured: false
+                },
+                {
+                    id: 7,
+                    name: 'Michael Brown',
+                    avatar: '../img/providers/provider-7.jpg',
+                    category: 'moving',
+                    rating: 4.8,
+                    reviews: 67,
+                    priceLevel: 'mid',
+                    location: 'West Side',
+                    availability: 'Mon-Sun, 7AM-9PM',
+                    description: 'Professional moving service with a team of experienced movers and proper equipment.',
+                    services: ['Residential Moving', 'Commercial Moving', 'Packing Services', 'Furniture Disassembly/Assembly'],
+                    featured: false
+                },
+                {
+                    id: 8,
+                    name: 'Emily Rodriguez',
+                    avatar: '../img/providers/provider-8.jpg',
+                    category: 'painting',
+                    rating: 4.7,
+                    reviews: 52,
+                    priceLevel: 'premium',
+                    location: 'Downtown',
+                    availability: 'Mon-Fri, 8AM-6PM',
+                    description: 'Professional painter with expertise in interior and exterior painting for residential and commercial properties.',
+                    services: ['Interior Painting', 'Exterior Painting', 'Cabinet Refinishing', 'Deck Staining'],
+                    featured: false
+                },
+                {
+                    id: 9,
+                    name: 'Thomas Anderson',
+                    avatar: '../img/providers/provider-9.jpg',
+                    category: 'hvac',
+                    rating: 4.9,
+                    reviews: 84,
+                    priceLevel: 'premium',
+                    location: 'North Side',
+                    availability: 'Mon-Sat, 8AM-8PM',
+                    description: 'Certified HVAC technician specializing in installation, maintenance, and repair of heating and cooling systems.',
+                    services: ['AC Installation', 'Heating System Repair', 'HVAC Maintenance', 'Duct Cleaning'],
+                    featured: true
+                },
+                {
+                    id: 10,
+                    name: 'Lisa Martinez',
+                    avatar: '../img/providers/provider-10.jpg',
+                    category: 'plumbing',
+                    rating: 4.6,
+                    reviews: 41,
+                    priceLevel: 'mid',
+                    location: 'South Side',
+                    availability: 'Mon-Fri, 9AM-5PM',
+                    description: 'Licensed plumber with expertise in leak detection, pipe repairs, and bathroom renovations.',
+                    services: ['Leak Detection', 'Pipe Repair', 'Bathroom Renovation', 'Fixture Installation'],
+                    featured: false
+                },
+                {
+                    id: 11,
+                    name: 'James Wilson',
+                    avatar: '../img/providers/provider-11.jpg',
+                    category: 'electrical',
+                    rating: 4.7,
+                    reviews: 63,
+                    priceLevel: 'budget',
+                    location: 'West Side',
+                    availability: 'Mon-Sat, 7AM-7PM',
+                    description: 'Experienced electrician offering affordable electrical services for residential properties.',
+                    services: ['Electrical Repairs', 'Outlet Installation', 'Ceiling Fan Installation', 'Troubleshooting'],
+                    featured: false
+                },
+                {
+                    id: 12,
+                    name: 'Sophia Kim',
+                    avatar: '../img/providers/provider-12.jpg',
+                    category: 'cleaning',
+                    rating: 4.8,
+                    reviews: 97,
+                    priceLevel: 'mid',
+                    location: 'East Side',
+                    availability: 'Mon-Fri, 8AM-4PM',
+                    description: 'Detail-oriented cleaning professional specializing in deep cleaning and organization services.',
+                    services: ['Deep Cleaning', 'Organization', 'Move-out Cleaning', 'Recurring Cleaning'],
+                    featured: false
+                }
+            ];
+            
+            const providersContainer = document.getElementById('providers-container');
+            
+            // Function to render provider cards
+            function renderProviders(providers) {
+                providersContainer.innerHTML = '';
+                
+                if (providers.length === 0) {
+                    providersContainer.innerHTML = '<div class="no-results">No providers match your search criteria. Please try different filters.</div>';
+                    return;
+                }
+                
+                providers.forEach(provider => {
+                    // Generate stars based on rating
+                    let starsHtml = '';
+                    const fullStars = Math.floor(provider.rating);
+                    const hasHalfStar = provider.rating % 1 !== 0;
+                    
+                    for (let i = 0; i < fullStars; i++) {
+                        starsHtml += '<i class="fas fa-star"></i>';
+                    }
+                    
+                    if (hasHalfStar) {
+                        starsHtml += '<i class="fas fa-star-half-alt"></i>';
+                    }
+                    
+                    const emptyStars = 5 - Math.ceil(provider.rating);
+                    for (let i = 0; i < emptyStars; i++) {
+                        starsHtml += '<i class="far fa-star"></i>';
+                    }
+                    
+                    // Generate services list
+                    let servicesHtml = '';
+                    provider.services.forEach(service => {
+                        servicesHtml += `<span class="provider-service">${service}</span>`;
+                    });
+                    
+                    // Create provider card
+                    const providerCard = document.createElement('div');
+                    providerCard.className = 'provider-card';
+                    if (provider.featured) {
+                        providerCard.classList.add('featured');
+                    }
+                    
+                    providerCard.innerHTML = `
+                        ${provider.featured ? '<div class="featured-badge">Featured</div>' : ''}
+                        <div class="provider-header">
+                            <div class="provider-avatar">
+                                <img src="${provider.avatar}" alt="${provider.name}">
+                            </div>
+                            <div class="provider-info">
+                                <h3 class="provider-name">${provider.name}</h3>
+                                <div class="provider-category">${provider.category.charAt(0).toUpperCase() + provider.category.slice(1)}</div>
+                                <div class="provider-rating">
+                                    <div class="rating-stars">${starsHtml}</div>
+                                    <div class="rating-value">${provider.rating} <span class="reviews-count">(${provider.reviews} reviews)</span></div>
+                                </div>
+                            </div>
+                            <button class="favorite-btn" aria-label="Add to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="provider-body">
+                            <p class="provider-description">${provider.description}</p>
+                            <div class="provider-details">
+                                <div class="provider-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>${provider.location}</span>
+                                </div>
+                                <div class="provider-detail">
+                                    <i class="fas fa-clock"></i>
+                                    <span>${provider.availability}</span>
+                                </div>
+                                <div class="provider-detail">
+                                    <i class="fas fa-tag"></i>
+                                    <span>${getPriceLevelText(provider.priceLevel)}</span>
+                                </div>
+                            </div>
+                            <div class="provider-services">
+                                <h4>Services Offered:</h4>
+                                <div class="services-list">
+                                    ${servicesHtml}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="provider-footer">
+                            <a href="provider-profile.html?id=${provider.id}" class="btn btn-outline">View Profile</a>
+                            <a href="service-details.html?provider=${provider.id}" class="btn btn-primary">Book Service</a>
+                        </div>
+                    `;
+                    
+                    providersContainer.appendChild(providerCard);
+                    
+                    // Add event listener to favorite button
+                    const favoriteBtn = providerCard.querySelector('.favorite-btn');
+                    favoriteBtn.addEventListener('click', function() {
+                        const icon = this.querySelector('i');
+                        if (icon.classList.contains('far')) {
+                            icon.classList.remove('far');
+                            icon.classList.add('fas');
+                            icon.style.color = '#ff5a5f';
+                        } else {
+                            icon.classList.remove('fas');
+                            icon.classList.add('far');
+                            icon.style.color = '';
+                        }
+                    });
+                });
+            }
+            
+            // Helper function to get price level text
+            function getPriceLevelText(priceLevel) {
+                switch (priceLevel) {
+                    case 'budget':
+                        return 'Budget-Friendly';
+                    case 'mid':
+                        return 'Mid-Range';
+                    case 'premium':
+                        return 'Premium';
+                    default:
+                        return 'Varies';
+                }
+            }
+            
+            // Initialize with all providers
+            renderProviders(providersData);
+            
+            // Filter functionality
+            const filterBtn = document.querySelector('.filter-btn');
+            const resetBtn = document.querySelector('.reset-btn');
+            const categoryFilter = document.getElementById('category-filter');
+            const ratingFilter = document.getElementById('rating-filter');
+            const priceFilter = document.getElementById('price-filter');
+            const availabilityFilter = document.getElementById('availability-filter');
+            const locationFilter = document.getElementById('location-filter');
+            const searchInput = document.getElementById('provider-search');
+            
+            filterBtn.addEventListener('click', applyFilters);
+            resetBtn.addEventListener('click', resetFilters);
+            searchInput.addEventListener('input', applyFilters);
+            
+            function applyFilters() {
+                const categoryValue = categoryFilter.value;
+                const ratingValue = parseFloat(ratingFilter.value) || 0;
+                const priceValue = priceFilter.value;
+                const availabilityValue = availabilityFilter.value;
+                const locationValue = locationFilter.value;
+                const searchValue = searchInput.value.toLowerCase();
+                
+                const filteredProviders = providersData.filter(provider => {
+                    // Category filter
+                    if (categoryValue && provider.category !== categoryValue) {
+                        return false;
+                    }
+                    
+                    // Rating filter
+                    if (ratingValue > 0 && provider.rating < ratingValue) {
+                        return false;
+                    }
+                    
+                    // Price filter
+                    if (priceValue && provider.priceLevel !== priceValue) {
+                        return false;
+                    }
+                    
+                    // Location filter
+                    if (locationValue && !provider.location.toLowerCase().includes(locationValue.toLowerCase())) {
+                        return false;
+                    }
+                    
+                    // Availability filter (simplified for demo)
+                    if (availabilityValue) {
+                        if (availabilityValue === 'weekdays' && !provider.availability.includes('Mon')) {
+                            return false;
+                        }
+                        if (availabilityValue === 'weekends' && !provider.availability.includes('Sat')) {
+                            return false;
+                        }
+                        if (availabilityValue === 'evenings' && !provider.availability.includes('PM')) {
+                            return false;
+                        }
+                        if (availabilityValue === '24-7' && provider.availability !== '24/7') {
+                            return false;
+                        }
+                    }
+                    
+                    // Search filter
+                    if (searchValue) {
+                        const nameMatch = provider.name.toLowerCase().includes(searchValue);
+                        const categoryMatch = provider.category.toLowerCase().includes(searchValue);
+                        const descriptionMatch = provider.description.toLowerCase().includes(searchValue);
+                        const servicesMatch = provider.services.some(service => service.toLowerCase().includes(searchValue));
+                        
+                        if (!nameMatch && !categoryMatch && !descriptionMatch && !servicesMatch) {
+                            return false;
+                        }
+                    }
+                    
+                    return true;
+                });
+                
+                renderProviders(filteredProviders);
+            }
+            
+            function resetFilters() {
+                categoryFilter.value = '';
+                ratingFilter.value = '';
+                priceFilter.value = '';
+                availabilityFilter.value = '';
+                locationFilter.value = '';
+                searchInput.value = '';
+                
+                renderProviders(providersData);
+            }
+            
+            // Pagination functionality (simplified for demo)
+            const paginationNumbers = document.querySelectorAll('.pagination-number');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            
+            paginationNumbers.forEach(button => {
+                button.addEventListener('click', function() {
+                    paginationNumbers.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Enable/disable prev/next buttons
+                    prevBtn.disabled = this.textContent === '1';
+                    nextBtn.disabled = this.textContent === '10';
+                    
+                    // In a real app, this would load the appropriate page of results
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+            
+            prevBtn.addEventListener('click', function() {
+                const activeButton = document.querySelector('.pagination-number.active');
+                const currentPage = parseInt(activeButton.textContent);
+                
+                if (currentPage > 1) {
+                    const prevPage = document.querySelector(`.pagination-number:nth-child(${currentPage - 1})`);
+                    if (prevPage) {
+                        activeButton.classList.remove('active');
+                        prevPage.classList.add('active');
+                        
+                        prevBtn.disabled = prevPage.textContent === '1';
+                        nextBtn.disabled = false;
+                        
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                }
+            });
+            
+            nextBtn.addEventListener('click', function() {
+                const activeButton = document.querySelector('.pagination-number.active');
+                const currentPage = parseInt(activeButton.textContent);
+                
+                if (currentPage < 10) {
+                    const nextPage = document.querySelector(`.pagination-number:nth-child(${currentPage + 1})`);
+                    if (nextPage) {
+                        activeButton.classList.remove('active');
+                        nextPage.classList.add('active');
+                        
+                        prevBtn.disabled = false;
+                        nextBtn.disabled = nextPage.textContent === '10';
+                        
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                }
+            });
+            
+            // Mobile menu functionality
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const mobileMenuClose = document.querySelector('.mobile-menu-close');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            mobileMenuClose.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            // User menu dropdown
+            const userMenuBtn = document.querySelector('.user-menu-btn');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            
+            userMenuBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdownMenu.classList.toggle('active');
+            });
+            
+            document.addEventListener('click', function() {
+                dropdownMenu.classList.remove('active');
+            });
+            
+            // Responsive adjustments
+            function handleResponsiveChanges() {
+                const windowWidth = window.innerWidth;
+                
+                if (windowWidth < 768) {
+                    // Mobile view adjustments
+                    document.querySelectorAll('.provider-card').forEach(card => {
+                        const services = card.querySelectorAll('.provider-service');
+                        if (services.length > 2) {
+                            for (let i = 2; i < services.length; i++) {
+                                services[i].style.display = 'none';
+                            }
+                            
+                            if (services.length > 2) {
+                                const moreServices = document.createElement('span');
+                                moreServices.className = 'more-services';
+                                moreServices.textContent = `+${services.length - 2} more`;
+                                services[1].parentNode.appendChild(moreServices);
+                            }
+                        }
+                    });
+                }
+            }
+            
+            // Call responsive adjustments on initial load and window resize
+            handleResponsiveChanges();
+            window.addEventListener('resize', handleResponsiveChanges);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - LocoServe</title>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Notifications Page Styles */
+        .notifications-page {
+            padding: 40px 0;
+            background-color: #f8f9fa;
+            min-height: calc(100vh - 200px);
+        }
+
+        .notifications-container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .notifications-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .notifications-header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .notifications-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .mark-all-read {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+
+        .mark-all-read:hover {
+            background-color: #f0f7ff;
+        }
+
+        .notifications-filter {
+            position: relative;
+        }
+
+        .filter-btn {
+            background: none;
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary-color);
+        }
+
+        .filter-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 150px;
+            z-index: 10;
+            display: none;
+        }
+
+        .notifications-filter:hover .filter-dropdown {
+            display: block;
+        }
+
+        .filter-option {
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .filter-option:hover {
+            background: #f5f7fa;
+        }
+
+        .filter-option.active {
+            background: #f0f7ff;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .notifications-tabs {
+            display: flex;
+            border-bottom: 1px solid #eee;
+        }
+
+        .notifications-tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #666;
+            position: relative;
+            transition: color 0.2s;
+        }
+
+        .notifications-tab:hover {
+            color: var(--primary-color);
+        }
+
+        .notifications-tab.active {
+            color: var(--primary-color);
+        }
+
+        .notifications-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .notifications-tab .badge {
+            background-color: #e74c3c;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 5px;
+        }
+
+        .notifications-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            display: flex;
+            padding: 20px 25px;
+            border-bottom: 1px solid #f1f1f1;
+            transition: background-color 0.2s;
+            position: relative;
+        }
+
+        .notification-item:hover {
+            background-color: #f9f9f9;
+        }
+
+        .notification-item.unread {
+            background-color: #f0f7ff;
+        }
+
+        .notification-item.unread::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .notification-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #e9f7fe;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            margin-right: 15px;
+            flex-shrink: 0;
+            font-size: 18px;
+        }
+
+        .notification-icon.booking {
+            background-color: #e9f7fe;
+            color: #3498db;
+        }
+
+        .notification-icon.message {
+            background-color: #eafaf1;
+            color: #2ecc71;
+        }
+
+        .notification-icon.review {
+            background-color: #fef9e7;
+            color: #f39c12;
+        }
+
+        .notification-icon.payment {
+            background-color: #f5eef8;
+            color: #9b59b6;
+        }
+
+        .notification-icon.alert {
+            background-color: #fdedec;
+            color: #e74c3c;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+        }
+
+        .notification-time {
+            color: #888;
+            font-size: 13px;
+        }
+
+        .notification-message {
+            color: #555;
+            margin: 0 0 10px 0;
+            line-height: 1.5;
+        }
+
+        .notification-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .notification-btn {
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary-action {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary-action:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-secondary-action {
+            background-color: transparent;
+            color: #666;
+            border: 1px solid #ddd;
+        }
+
+        .btn-secondary-action:hover {
+            border-color: #999;
+            color: #333;
+        }
+
+        .notification-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-left: 15px;
+        }
+
+        .mark-read-btn {
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+        }
+
+        .mark-read-btn:hover {
+            background-color: #f1f1f1;
+            color: #333;
+        }
+
+        .notification-options {
+            position: relative;
+        }
+
+        .options-btn {
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+        }
+
+        .options-btn:hover {
+            background-color: #f1f1f1;
+            color: #333;
+        }
+
+        .options-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 150px;
+            z-index: 10;
+            display: none;
+        }
+
+        .notification-options:hover .options-dropdown {
+            display: block;
+        }
+
+        .option-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .option-item:hover {
+            background: #f5f7fa;
+        }
+
+        .option-item.delete {
+            color: #e74c3c;
+        }
+
+        .empty-state {
+            padding: 50px 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+
+        .empty-state h3 {
+            margin: 0 0 10px 0;
+            color: #666;
+        }
+
+        .empty-state p {
+            color: #888;
+            max-width: 400px;
+            margin: 0 auto 20px;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            gap: 5px;
+        }
+
+        .pagination-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .pagination-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .pagination-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .pagination-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .notifications-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .notifications-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .notification-item {
+                flex-direction: column;
+            }
+
+            .notification-icon {
+                margin-bottom: 15px;
+            }
+
+            .notification-controls {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">
+                    <h1>Loco<span>Serve</span></h1>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </nav>
+            <div class="user-controls">
+                <div class="notifications-dropdown">
+                    <button class="notifications-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <div class="dropdown-content notifications-content">
+                        <h3>Notifications</h3>
+                        <div class="notification-item unread">
+                            <div class="notification-icon"><i class="fas fa-calendar-check"></i></div>
+                            <div class="notification-details">
+                                <p>Your booking with <strong>John's Plumbing</strong> is confirmed</p>
+                                <span class="notification-time">2 hours ago</span>
+                            </div>
+                            <button class="mark-read-btn"><i class="fas fa-circle"></i></button>
+                        </div>
+                        <div class="notification-item unread">
+                            <div class="notification-icon"><i class="fas fa-comment"></i></div>
+                            <div class="notification-details">
+                                <p><strong>Sarah's Cleaning</strong> sent you a message</p>
+                                <span class="notification-time">Yesterday</span>
+                            </div>
+                            <button class="mark-read-btn"><i class="fas fa-circle"></i></button>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-icon"><i class="fas fa-star"></i></div>
+                            <div class="notification-details">
+                                <p>Please rate your experience with <strong>Mike's Electrical</strong></p>
+                                <span class="notification-time">2 days ago</span>
+                            </div>
+                        </div>
+                        <a href="notifications.html" class="view-all-link">View all notifications</a>
+                    </div>
+                </div>
+                <div class="profile-dropdown">
+                    <button class="profile-btn">
+                        <img src="../assets/images/profile-placeholder.jpg" alt="Profile" class="profile-img">
+                        <span class="profile-name">John Doe</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-content profile-content">
+                        <a href="profile.html"><i class="fas fa-user"></i> My Profile</a>
+                        <a href="bookings.html"><i class="fas fa-calendar"></i> My Bookings</a>
+                        <a href="messages.html"><i class="fas fa-envelope"></i> Messages</a>
+                        <a href="account-settings.html"><i class="fas fa-cog"></i> Account Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="logout.html" class="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-primary">Login</a>
+                <a href="register.html" class="btn btn-outline">Sign Up</a>
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!--Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="user-controls">
+            <div class="notifications-dropdown">
+                <button class="notifications-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                <div class="dropdown-content notifications-content">
+                    <h3>Notifications</h3>
+                    <div class="notification-item unread">
+                        <div class="notification-icon"><i class="fas fa-calendar-check"></i></div>
+                        <div class="notification-details">
+                            <p>Your booking with <strong>John's Plumbing</strong> is confirmed</p>
+                            <span class="notification-time">2 hours ago</span>
+                        </div>
+                        <button class="mark-read-btn"><i class="fas fa-circle"></i></button>
+                    </div>
+                    <div class="notification-item unread">
+                        <div class="notification-icon"><i class="fas fa-comment"></i></div>
+                        <div class="notification-details">
+                            <p><strong>Sarah's Cleaning</strong> sent you a message</p>
+                            <span class="notification-time">Yesterday</span>
+                        </div>
+                        <button class="mark-read-btn"><i class="fas fa-circle"></i></button>
+                    </div>
+                    <a href="notifications.html" class="view-all-link">View all notifications</a>
+                </div>
+            </div>
+            <div class="profile-dropdown">
+                <button class="profile-btn">
+                    <img src="../assets/images/profile-placeholder.jpg" alt="Profile" class="profile-img">
+                    <span class="profile-name">John Doe</span>
+                </button>
+                <div class="dropdown-content profile-content">
+                    <a href="profile.html"><i class="fas fa-user"></i> My Profile</a>
+                    <a href="bookings.html"><i class="fas fa-calendar"></i> My Bookings</a>
+                    <a href="messages.html"><i class="fas fa-envelope"></i> Messages</a>
+                    <a href="account-settings.html"><i class="fas fa-cog"></i> Account Settings</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="logout.html" class="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+        <ul>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="how-it-works.html">How It Works</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+        <div class="auth-links">
+            <a href="login.html" class="btn btn-outline">Login</a>
+            <a href="register.html" class="btn btn-primary">Sign Up</a>
+        </div>
+    </div>
+
+    <section class="notifications-page">
+        <div class="container">
+            <div class="notifications-container">
+                <div class="notifications-header">
+                    <h1>Notifications</h1>
+                    <div class="notifications-actions">
+                        <button class="mark-all-read">
+                            <i class="fas fa-check-double"></i> Mark all as read
+                        </button>
+                        <div class="notifications-filter">
+                            <button class="filter-btn">
+                                <i class="fas fa-filter"></i> Filter <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="filter-dropdown">
+                                <div class="filter-option active">All</div>
+                                <div class="filter-option">Bookings</div>
+                                <div class="filter-option">Messages</div>
+                                <div class="filter-option">Reviews</div>
+                                <div class="filter-option">Payments</div>
+                                <div class="filter-option">System</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="notifications-tabs">
+                    <div class="notifications-tab active">All</div>
+                    <div class="notifications-tab">Unread <span class="badge">3</span></div>
+                </div>
+                
+                <div class="notifications-list">
+                    <!-- Booking Confirmation -->
+                    <div class="notification-item unread">
+                        <div class="notification-icon booking">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <h3 class="notification-title">Booking Confirmed</h3>
+                                <span class="notification-time">2 hours ago</span>
+                            </div>
+                            <p class="notification-message">
+                                Your booking with <strong>John's Plumbing</strong> for pipe repair has been confirmed for <strong>Monday, Oct 15, 2023 at 10:00 AM</strong>.
+                            </p>
+                            <div class="notification-actions">
+                                <button class="notification-btn btn-primary-action">View Booking</button>
+                                <button class="notification-btn btn-secondary-action">Contact Provider</button>
+                            </div>
+                        </div>
+                        <div class="notification-controls">
+                            <button class="mark-read-btn" title="Mark as read">
+                                <i class="fas fa-circle"></i>
+                            </button>
+                            <div class="notification-options">
+                                <button class="options-btn" title="More options">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <div class="options-dropdown">
+                                    <div class="option-item">
+                                        <i class="fas fa-bell-slash"></i> Mute
+                                    </div>
+                                    <div class="option-item delete">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- New Message -->
+                    <div class="notification-item unread">
+                        <div class="notification-icon message">
+                            <i class="fas fa-comment"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <h3 class="notification-title">New Message</h3>
+                                <span class="notification-time">Yesterday</span>
+                            </div>
+                            <p class="notification-message">
+                                <strong>Sarah's Cleaning</strong> sent you a message: "Hi there! I'm confirming our appointment for tomorrow. Is there anything specific you'd like me to focus on during the cleaning service?"
+                            </p>
+                            <div class="notification-actions">
+                                <button class="notification-btn btn-primary-action">Reply</button>
+                            </div>
+                        </div>
+                        <div class="notification-controls">
+                            <button class="mark-read-btn" title="Mark as read">
+                                <i class="fas fa-circle"></i>
+                            </button>
+                            <div class="notification-options">
+                                <button class="options-btn" title="More options">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <div class="options-dropdown">
+                                    <div class="option-item">
+                                        <i class="fas fa-bell-slash"></i> Mute
+                                    </div>
+                                    <div class="option-item delete">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Review Request -->
+                    <div class="notification-item unread">
+                        <div class="notification-icon review">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <h3 class="notification-title">Review Request</h3>
+                                <span class="notification-time">2 days ago</span>
+                            </div>
+                            <p class="notification-message">
+                                How was your experience with <strong>Mike's Electrical</strong>? Please take a moment to leave a review and help others find great service providers.
+                            </p>
+                            <div class="notification-actions">
+                                <button class="notification-btn btn-primary-action">Leave Review</button>
+                                <button class="notification-btn btn-secondary-action">Remind Later</button>
+                            </div>
+                        </div>
+                        <div class="notification-controls">
+                            <button class="mark-read-btn" title="Mark as read">
+                                <i class="fas fa-circle"></i>
+                            </button>
+                            <div class="notification-options">
+                                <button class="options-btn" title="More options">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <div class="options-dropdown">
+                                    <div class="option-item">
+                                        <i class="fas fa-bell-slash"></i> Mute
+                                    </div>
+                                    <div class="option-item delete">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Confirmation -->
+                    <div class="notification-item">
+                        <div class="notification-icon payment">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <h3 class="notification-title">Payment Successful</h3>
+                                <span class="notification-time">3 days ago</span>
+                            </div>
+                            <p class="notification-message">
+                                Your payment of <strong>$120.00</strong> to <strong>Mike's Electrical</strong> for electrical wiring service has been processed successfully.
+                            </p>
+                            <div class="notification-actions">
+                                <button class="notification-btn btn-primary-action">View Receipt</button>
+                            </div>
+                        </div>
+                        <div class="notification-controls">
+                            <div class="notification-options">
+                                <button class="options-btn" title="More options">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <div class="options-dropdown">
+                                    <div class="option-item">
+                                        <i class="fas fa-bell-slash"></i> Mute
+                                    </div>
+                                    <div class="option-item delete">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Booking Reminder -->
+                    <div class="notification-item">
+                        <div class="notification-icon booking">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <h3 class="notification-title">Upcoming Booking Reminder</h3>
+                                <span class="notification-time">5 days ago</span>
+                            </div>
+                            <p class="notification-message">
+                                Reminder: Your booking with <strong>Green Thumb Landscaping</strong> is scheduled for <strong>Friday, Oct 12, 2023 at 9:00 AM</strong>. Please ensure someone is available at the property.
+                            </p>
+                            <div class="notification-actions">
+                                <button class="notification-btn btn-primary-action">View Booking</button>
+                                <button class="notification-btn btn-secondary-action">Reschedule</button>
+                            </div>
+                        </div>
+                        <div class="notification-controls">
+                            <div class="notification-options">
+                                <button class="options-btn" title="More options">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <div class="options-dropdown">
+                                    <div class="option-item">
+                                        <i class="fas fa-bell-slash"></i> Mute
+                                    </div>
+                                    <div class="option-item delete">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- System Alert -->
+                    <div class="notification-item">
+                        <div class="notification-icon alert">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <h3 class="notification-title">Security Alert</h3>
+                                <span class="notification-time">1 week ago</span>
+                            </div>
+                            <p class="notification-message">
+                                We noticed a login to your account from a new device. If this was you, you can ignore this message. If not, please secure your account immediately.
+                            </p>
+                            <div class="notification-actions">
+                                <button class="notification-btn btn-primary-action">Secure Account</button>
+                                <button class="notification-btn btn-secondary-action">It Was Me</button>
+                            </div>
+                        </div>
+                        <div class="notification-controls">
+                            <div class="notification-options">
+                                <button class="options-btn" title="More options">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <div class="options-dropdown">
+                                    <div class="option-item">
+                                        <i class="fas fa-bell-slash"></i> Mute
+                                    </div>
+                                    <div class="option-item delete">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                                        <!-- Promotion -->
+                                        <div class="notification-item">
+                                            <div class="notification-icon">
+                                                <i class="fas fa-gift"></i>
+                                            </div>
+                                            <div class="notification-content">
+                                                <div class="notification-header">
+                                                    <h3 class="notification-title">Special Offer</h3>
+                                                    <span class="notification-time">1 week ago</span>
+                                                </div>
+                                                <p class="notification-message">
+                                                    Exclusive offer for our valued customers! Get 15% off your next booking with code <strong>LOCOSERVE15</strong>. Valid until November 30, 2023.
+                                                </p>
+                                                <div class="notification-actions">
+                                                    <button class="notification-btn btn-primary-action">Use Offer</button>
+                                                    <button class="notification-btn btn-secondary-action">Save for Later</button>
+                                                </div>
+                                            </div>
+                                            <div class="notification-controls">
+                                                <div class="notification-options">
+                                                    <button class="options-btn" title="More options">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </button>
+                                                    <div class="options-dropdown">
+                                                        <div class="option-item">
+                                                            <i class="fas fa-bell-slash"></i> Mute
+                                                        </div>
+                                                        <div class="option-item delete">
+                                                            <i class="fas fa-trash"></i> Delete
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Empty State (Hidden by default) -->
+                                    <div class="empty-state">
+                                        <div class="empty-state-icon">
+                                            <i class="fas fa-bell-slash"></i>
+                                        </div>
+                                        <h3>No notifications yet</h3>
+                                        <p>When you receive notifications, they will appear here.</p>
+                                        <button class="btn btn-primary">Refresh</button>
+                                    </div>
+                                    
+                                    <!-- Pagination -->
+                                    <div class="pagination">
+                                        <button class="pagination-btn disabled"><i class="fas fa-chevron-left"></i></button>
+                                        <button class="pagination-btn active">1</button>
+                                        <button class="pagination-btn">2</button>
+                                        <button class="pagination-btn">3</button>
+                                        <button class="pagination-btn"><i class="fas fa-chevron-right"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    
+                        <footer class="main-footer">
+                            <div class="container">
+                                <div class="footer-top">
+                                    <div class="footer-col">
+                                        <div class="footer-logo">
+                                            <h2>Loco<span>Serve</span></h2>
+                                        </div>
+                                        <p>Connecting you with trusted local service providers for all your home and business needs.</p>
+                                        <div class="social-links">
+                                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="footer-col">
+                                        <h3>Quick Links</h3>
+                                        <ul class="footer-links">
+                                            <li><a href="../index.html">Home</a></li>
+                                            <li><a href="services.html">Services</a></li>
+                                            <li><a href="how-it-works.html">How It Works</a></li>
+                                            <li><a href="about.html">About Us</a></li>
+                                            <li><a href="contact.html">Contact</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="footer-col">
+                                        <h3>Service Categories</h3>
+                                        <ul class="footer-links">
+                                            <li><a href="services.html?category=plumbing">Plumbing</a></li>
+                                            <li><a href="services.html?category=electrical">Electrical</a></li>
+                                            <li><a href="services.html?category=cleaning">Cleaning</a></li>
+                                            <li><a href="services.html?category=landscaping">Landscaping</a></li>
+                                            <li><a href="services.html?category=moving">Moving</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="footer-col">
+                                        <h3>Contact Us</h3>
+                                        <ul class="contact-info">
+                                            <li><i class="fas fa-map-marker-alt"></i> 123 Main Street, City, Country</li>
+                                            <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                                            <li><i class="fas fa-envelope"></i> support@locoserve.com</li>
+                                        </ul>
+                                        <div class="newsletter">
+                                            <h4>Subscribe to our newsletter</h4>
+                                            <form action="#" method="post">
+                                                <input type="email" placeholder="Your email" required>
+                                                <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer-bottom">
+                                    <p>&copy; 2023 LocoServe. All rights reserved.</p>
+                                    <ul class="footer-bottom-links">
+                                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                                        <li><a href="terms-of-service.html">Terms of Service</a></li>
+                                        <li><a href="cookie-policy.html">Cookie Policy</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </footer>
+                    
+                        <script>
+                            // Toggle mobile menu
+                            document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+                                document.body.classList.toggle('mobile-menu-open');
+                            });
+                    
+                            // Notification functionality
+                            document.addEventListener('DOMContentLoaded', function() {
+                                // Mark single notification as read
+                                const markReadButtons = document.querySelectorAll('.mark-read-btn');
+                                markReadButtons.forEach(button => {
+                                    button.addEventListener('click', function(e) {
+                                        e.stopPropagation();
+                                        const notificationItem = this.closest('.notification-item');
+                                        notificationItem.classList.remove('unread');
+                                        this.style.display = 'none';
+                                        
+                                        // Update unread count
+                                        updateUnreadCount();
+                                    });
+                                });
+                                
+                                // Mark all as read
+                                const markAllReadButton = document.querySelector('.mark-all-read');
+                                markAllReadButton.addEventListener('click', function() {
+                                    const unreadItems = document.querySelectorAll('.notification-item.unread');
+                                    unreadItems.forEach(item => {
+                                        item.classList.remove('unread');
+                                        const markReadBtn = item.querySelector('.mark-read-btn');
+                                        if (markReadBtn) {
+                                            markReadBtn.style.display = 'none';
+                                        }
+                                    });
+                                    
+                                    // Update unread count
+                                    updateUnreadCount();
+                                });
+                                
+                                // Filter notifications
+                                const filterOptions = document.querySelectorAll('.filter-option');
+                                filterOptions.forEach(option => {
+                                    option.addEventListener('click', function() {
+                                        // Remove active class from all options
+                                        filterOptions.forEach(opt => opt.classList.remove('active'));
+                                        
+                                        // Add active class to clicked option
+                                        this.classList.add('active');
+                                        
+                                        // Get filter type
+                                        const filterType = this.textContent.trim().toLowerCase();
+                                        
+                                        // Filter notifications
+                                        filterNotifications(filterType);
+                                    });
+                                });
+                                
+                                // Tab switching
+                                const tabs = document.querySelectorAll('.notifications-tab');
+                                tabs.forEach(tab => {
+                                    tab.addEventListener('click', function() {
+                                        // Remove active class from all tabs
+                                        tabs.forEach(t => t.classList.remove('active'));
+                                        
+                                        // Add active class to clicked tab
+                                        this.classList.add('active');
+                                        
+                                        // Get tab type
+                                        const tabType = this.textContent.trim().split(' ')[0].toLowerCase();
+                                        
+                                        // Filter notifications based on tab
+                                        if (tabType === 'unread') {
+                                            showOnlyUnread();
+                                        } else {
+                                            showAll();
+                                        }
+                                    });
+                                });
+                                
+                                // Helper functions
+                                function updateUnreadCount() {
+                                    const unreadCount = document.querySelectorAll('.notification-item.unread').length;
+                                    const badge = document.querySelector('.notifications-tab .badge');
+                                    
+                                    if (badge) {
+                                        badge.textContent = unreadCount;
+                                        
+                                        // Hide badge if no unread notifications
+                                        if (unreadCount === 0) {
+                                            badge.style.display = 'none';
+                                        } else {
+                                            badge.style.display = 'inline-flex';
+                                        }
+                                    }
+                                }
+                                
+                                function filterNotifications(type) {
+                                    const allNotifications = document.querySelectorAll('.notification-item');
+                                    
+                                    if (type === 'all') {
+                                        allNotifications.forEach(item => {
+                                            item.style.display = 'flex';
+                                        });
+                                        return;
+                                    }
+                                    
+                                    allNotifications.forEach(item => {
+                                        const iconElement = item.querySelector('.notification-icon');
+                                        const hasType = iconElement.classList.contains(type) || 
+                                                       (type === 'system' && iconElement.classList.contains('alert'));
+                                        
+                                        item.style.display = hasType ? 'flex' : 'none';
+                                    });
+                                    
+                                    // Check if we need to show empty state
+                                    const visibleNotifications = document.querySelectorAll('.notification-item[style="display: flex"]');
+                                    const emptyState = document.querySelector('.empty-state');
+                                    
+                                    if (visibleNotifications.length === 0 && emptyState) {
+                                        emptyState.style.display = 'block';
+                                    } else if (emptyState) {
+                                        emptyState.style.display = 'none';
+                                    }
+                                }
+                                
+                                function showOnlyUnread() {
+                                    const allNotifications = document.querySelectorAll('.notification-item');
+                                    
+                                    allNotifications.forEach(item => {
+                                        item.style.display = item.classList.contains('unread') ? 'flex' : 'none';
+                                    });
+                                    
+                                    // Check if we need to show empty state
+                                    const visibleNotifications = document.querySelectorAll('.notification-item.unread');
+                                    const emptyState = document.querySelector('.empty-state');
+                                    
+                                    if (visibleNotifications.length === 0 && emptyState) {
+                                        emptyState.style.display = 'block';
+                                    } else if (emptyState) {
+                                        emptyState.style.display = 'none';
+                                    }
+                                }
+                                
+                                function showAll() {
+                                    const allNotifications = document.querySelectorAll('.notification-item');
+                                    
+                                    allNotifications.forEach(item => {
+                                        item.style.display = 'flex';
+                                    });
+                                    
+                                    const emptyState = document.querySelector('.empty-state');
+                                    if (emptyState) {
+                                        emptyState.style.display = 'none';
+                                    }
+                                }
+                            });
+                        </script>
+                    </body>
+                    </html>

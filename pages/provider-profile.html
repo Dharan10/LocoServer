@@ -1,0 +1,1736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provider Profile | LocoServe</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/png" href="../img/favicon.png">
+    <style>
+        /* Provider Profile Specific Styles */
+        .profile-header {
+            background-color: var(--secondary-color);
+            padding: 40px 0;
+            margin-bottom: 40px;
+        }
+        
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid white;
+            box-shadow: var(--shadow);
+        }
+        
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-info {
+            flex: 1;
+        }
+        
+        .profile-name {
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .verification-badge {
+            background-color: var(--success-color);
+            color: white;
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .profile-category {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .profile-rating {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .rating-stars {
+            color: var(--warning-color);
+            font-size: 1.1rem;
+        }
+        
+        .profile-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .profile-tabs {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .tabs-container {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .profile-tab {
+            padding: 15px 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--light-text);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* About Section */
+        .about-section {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .about-main {
+            flex: 2;
+        }
+        
+        .about-sidebar {
+            flex: 1;
+        }
+        
+        .about-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .about-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .about-description {
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+        
+        .provider-details {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .provider-detail {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .detail-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        
+        .detail-content {
+            flex: 1;
+        }
+        
+        .detail-label {
+            font-size: 0.9rem;
+            color: var(--light-text);
+            margin-bottom: 3px;
+        }
+        
+        .detail-value {
+            font-weight: 500;
+        }
+        
+        .verification-items {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .verification-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .verification-item i {
+            color: var(--success-color);
+            font-size: 1.1rem;
+        }
+        
+        .verification-item.not-verified i {
+            color: var(--light-text);
+        }
+        
+        .business-hours {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .business-day {
+            font-weight: 500;
+        }
+        
+        .business-time {
+            color: var(--light-text);
+        }
+        
+        .business-closed {
+            color: var(--danger-color);
+        }
+        
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .service-image {
+            height: 180px;
+            overflow: hidden;
+        }
+        
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover .service-image img {
+            transform: scale(1.05);
+        }
+        
+        .service-content {
+            padding: 20px;
+        }
+        
+        .service-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .service-description {
+            color: var(--light-text);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .service-price {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .service-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--light-text);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .service-meta div {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* Reviews Section */
+        .reviews-summary {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+        }
+        
+        .rating-overview {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid var(--border-color);
+            padding-right: 40px;
+        }
+        
+        .average-rating {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--text-color);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        
+        .rating-stars-large {
+            color: var(--warning-color);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .total-reviews {
+            color: var(--light-text);
+            font-size: 1rem;
+        }
+        
+        .rating-breakdown {
+            flex: 2;
+        }
+        
+        .rating-breakdown h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .rating-bar {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .rating-label {
+            width: 60px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .rating-label i {
+            color: var(--warning-color);
+        }
+        
+        .progress-container {
+            flex: 1;
+            height: 8px;
+            background-color: var(--secondary-color);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary-color);
+        }
+        
+        .rating-percent {
+            width: 40px;
+            text-align: right;
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+        
+        .reviews-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .review-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 25px;
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .reviewer-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .reviewer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        .reviewer-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .reviewer-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .review-date {
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+        
+        .review-rating {
+            color: var(--warning-color);
+            font-size: 1.1rem;
+        }
+        
+        .review-content {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .review-photos {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .review-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .review-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .review-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+        
+        .review-actions {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .review-action {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+        
+        .provider-response {
+            background-color: var(--secondary-color);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .response-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .response-content {
+            color: var(--text-color);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        /* Gallery Section */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            height: 200px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-item-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-item-overlay i {
+            color: white;
+            font-size: 2rem;
+        }
+        
+        /* FAQ Section */
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .faq-item {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 500px;
+        }
+        
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .contact-form {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .contact-info {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+        }
+        
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        .contact-details h4 {
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .contact-details p {
+            color: var(--light-text);
+        }
+        
+        .contact-map {
+            height: 200px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+        
+        .contact-map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Loading State */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 0;
+        }
+        
+        .loading-spinner {
+            border: 5px solid var(--secondary-color);
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Error State */
+        .error-container {
+            text-align: center;
+            padding: 50px 0;
+        }
+        
+        .error-icon {
+            font-size: 3rem;
+            color: var(--danger-color);
+            margin-bottom: 20px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .profile-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-actions {
+                justify-content: center;
+            }
+            
+            .about-section {
+                flex-direction: column;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .tabs-container {
+                overflow-x: auto;
+                white-space: nowrap;
+                padding-bottom: 5px;
+            }
+            
+            .reviews-summary {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .rating-overview {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding-right: 0;
+                padding-bottom: 30px;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .profile-name {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .profile-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .profile-actions .btn {
+                width: 100%;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .review-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="../index.html">
+                        <img src="../img/logo.png" alt="LocoServe Logo">
+                    </a>
+                </div>
+                <nav class="main-nav">
+                    <ul class="nav-list">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="providers.html" class="active">Providers</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <button class="search-btn" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="notification-btn" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <div class="user-menu">
+                        <button class="user-menu-btn">
+                            <img src="../img/user-avatar.jpg" alt="User Avatar">
+                            <span>My Account</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="profile.html"><i class="fas fa-user"></i> My Profile</a>
+                            <a href="bookings.html"><i class="fas fa-calendar-check"></i> My Bookings</a>
+                            <a href="favorites.html"><i class="fas fa-heart"></i> Favorites</a>
+                            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+                            <a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                    <button class="mobile-menu-btn" aria-label="Menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <img src="../img/logo.png" alt="LocoServe Logo">
+            </div>
+            <button class="mobile-menu-close">&times;</button>
+        </div>
+        <nav class="mobile-nav">
+            <ul class="mobile-nav-list">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="providers.html" class="active">Providers</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-menu-footer">
+            <a href="login.html" class="btn btn-primary">Sign In</a>
+            <a href="register.html" class="btn btn-outline">Register</a>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loading-container" class="loading-container">
+        <div class="loading-spinner"></div>
+        <p>Loading provider information...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="error-container" class="error-container" style="display: none;">
+        <div class="error-icon">
+            <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <h2>Provider Not Found</h2>
+        <p>The provider you're looking for doesn't exist or has been removed.</p>
+        <a href="providers.html" class="btn btn-primary">Back to Providers</a>
+    </div>
+
+    <!-- Provider Profile Content -->
+    <div id="profile-content" style="display: none;">
+        <!-- Profile Header -->
+        <section class="profile-header">
+            <div class="container">
+                <div class="breadcrumbs">
+                    <a href="../index.html">Home</a>
+                    <span>/</span>
+                    <a href="providers.html">Providers</a>
+                    <span>/</span>
+                    <span id="provider-breadcrumb-name">Provider Name</span>
+                </div>
+                <div class="profile-container">
+                    <div class="profile-avatar">
+                        <img id="provider-avatar" src="../img/providers/default-avatar.jpg" alt="Provider Avatar">
+                    </div>
+                    <div class="profile-info">
+                        <h1 class="profile-name">
+                            <span id="provider-name">Provider Name</span>
+                            <span id="verification-badge" class="verification-badge" style="display: none;">
+                                <i class="fas fa-check-circle"></i> Verified
+                            </span>
+                        </h1>
+                        <div id="provider-category" class="profile-category">Service Category</div>
+                        <div class="profile-rating">
+                            <div id="rating-stars" class="rating-stars">
+                                <!-- Stars will be added dynamically -->
+                            </div>
+                            <div id="rating-value" class="rating-value">0.0 (0 reviews)</div>
+                        </div>
+                        <div class="profile-actions">
+                            <a id="book-service-btn" href="#" class="btn btn-primary">Book Service</a>
+                            <button id="favorite-btn" class="btn btn-outline"><i class="far fa-heart"></i> Add to Favorites</button>
+                            <button id="share-btn" class="btn btn-outline"><i class="fas fa-share-alt"></i> Share Profile</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Tabs -->
+        <section class="profile-tabs">
+            <div class="container">
+                <div class="tabs-container">
+                    <div class="profile-tab active" data-tab="about">About</div>
+                    <div class="profile-tab" data-tab="services">Services</div>
+                    <div class="profile-tab" data-tab="reviews">Reviews</div>
+                    <div class="profile-tab" data-tab="gallery">Gallery</div>
+                    <div class="profile-tab" data-tab="faq">FAQ</div>
+                    <div class="profile-tab" data-tab="contact">Contact</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab Contents -->
+        <div class="container">
+            <!-- About Tab -->
+            <div class="tab-content active" id="about-tab">
+                <div class="about-section">
+                    <div class="about-main">
+                        <div class="about-card">
+                            <h3>About <span id="about-provider-name">Provider Name</span></h3>
+                            <div id="provider-description">
+                                <!-- Description will be added dynamically -->
+                            </div>
+                        </div>
+                        
+                        <div class="about-card">
+                            <h3>Services Offered</h3>
+                            <div id="provider-services-list" class="provider-details">
+                                <!-- Services will be added dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-sidebar">
+                        <div class="about-card">
+                            <h3>Verification</h3>
+                            <div id="verification-items" class="verification-items">
+                                <!-- Verification items will be added dynamically -->
+                            </div>
+                        </div>
+                        
+                        <div class="about-card">
+                            <h3>Business Hours</h3>
+                            <div id="business-hours" class="business-hours">
+                                <!-- Business hours will be added dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Services Tab -->
+            <div class="tab-content" id="services-tab">
+                <div id="services-grid" class="services-grid">
+                    <!-- Service cards will be added dynamically -->
+                </div>
+            </div>
+            
+            <!-- Reviews Tab -->
+            <div class="tab-content" id="reviews-tab">
+                <div class="reviews-summary">
+                    <div class="rating-overview">
+                        <div id="average-rating" class="average-rating">0.0</div>
+                        <div id="rating-stars-large" class="rating-stars-large">
+                            <!-- Stars will be added dynamically -->
+                        </div>
+                        <div id="total-reviews" class="total-reviews">0 reviews</div>
+                    </div>
+                    <div class="rating-breakdown">
+                        <h3>Rating Breakdown</h3>
+                        <div id="rating-bars">
+                            <!-- Rating bars will be added dynamically -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="reviews-list" class="reviews-list">
+                    <!-- Review cards will be added dynamically -->
+                </div>
+            </div>
+            
+            <!-- Gallery Tab -->
+            <div class="tab-content" id="gallery-tab">
+                <div id="gallery-grid" class="gallery-grid">
+                    <!-- Gallery items will be added dynamically -->
+                </div>
+            </div>
+            
+            <!-- FAQ Tab -->
+            <div class="tab-content" id="faq-tab">
+                <div id="faq-list" class="faq-list">
+                    <!-- FAQ items will be added dynamically -->
+                </div>
+            </div>
+            
+            <!-- Contact Tab -->
+            <div class="tab-content" id="contact-tab">
+                <div class="contact-grid">
+                    <div class="contact-form">
+                        <h3>Send a Message</h3>
+                        <form id="contact-form">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Your Email</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <select id="subject" name="subject" required>
+                                    <option value="">Select a subject</option>
+                                    <option value="service-inquiry">Service Inquiry</option>
+                                    <option value="quote-request">Quote Request</option>
+                                    <option value="booking">Booking Information</option>
+                                    <option value="feedback">Feedback</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </form>
+                    </div>
+                    <div class="contact-info">
+                        <h3>Contact Information</h3>
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h4>Phone</h4>
+                                    <p id="provider-phone">Loading...</p>
+                                </div>
+                            </div>
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h4>Email</h4>
+                                    <p id="provider-email">Loading...</p>
+                                </div>
+                            </div>
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h4>Address</h4>
+                                    <p id="provider-address">Loading...</p>
+                                </div>
+                            </div>
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h4>Website</h4>
+                                    <p><a id="provider-website" href="#" target="_blank">Loading...</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contact-map">
+                            <iframe id="provider-map" src="https://maps.google.com/maps?q=New%20York&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="../img/logo-white.png" alt="LocoServe Logo">
+                    <p>Connecting you with trusted local service providers for all your needs.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="services.html">Services</a></li>
+                            <li><a href="providers.html">Providers</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>For Providers</h3>
+                        <ul>
+                            <li><a href="become-provider.html">Become a Provider</a></li>
+                            <li><a href="provider-login.html">Provider Login</a></li>
+                            <li><a href="provider-resources.html">Resources</a></li>
+                            <li><a href="provider-faq.html">Provider FAQ</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Support</h3>
+                        <ul>
+                            <li><a href="help-center.html">Help Center</a></li>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="terms-of-service.html">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Subscribe to Our Newsletter</h3>
+                    <p>Stay updated with the latest services and offers.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 LocoServe. All rights reserved.</p>
+                <div class="footer-app-links">
+                    <a href="#"><img src="../img/app-store.png" alt="App Store"></a>
+                    <a href="#"><img src="../img/google-play.png" alt="Google Play"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle mobile menu
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const mobileMenuClose = document.querySelector('.mobile-menu-close');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.add('active');
+            });
+            
+            mobileMenuClose.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+            });
+            
+            // Toggle user dropdown menu
+            const userMenuBtn = document.querySelector('.user-menu-btn');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            
+            userMenuBtn.addEventListener('click', function() {
+                dropdownMenu.classList.toggle('active');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.user-menu') && dropdownMenu.classList.contains('active')) {
+                    dropdownMenu.classList.remove('active');
+                }
+            });
+            
+            // Tab switching
+            const tabs = document.querySelectorAll('.profile-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    this.classList.add('active');
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                });
+            });
+            
+            // FAQ accordion
+            document.addEventListener('click', function(e) {
+                const faqQuestion = e.target.closest('.faq-question');
+                if (faqQuestion) {
+                    const faqItem = faqQuestion.parentElement;
+                    faqItem.classList.toggle('active');
+                }
+            });
+            
+            // Favorite button toggle
+            const favoriteBtn = document.getElementById('favorite-btn');
+            favoriteBtn.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('far')) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    this.innerHTML = '<i class="fas fa-heart"></i> Added to Favorites';
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    this.innerHTML = '<i class="far fa-heart"></i> Add to Favorites';
+                }
+            });
+            
+            // Share button functionality
+            const shareBtn = document.getElementById('share-btn');
+            shareBtn.addEventListener('click', function() {
+                if (navigator.share) {
+                    navigator.share({
+                        title: document.title,
+                        url: window.location.href
+                    })
+                    .catch(console.error);
+                } else {
+                    // Fallback for browsers that don't support Web Share API
+                    prompt('Copy this link to share:', window.location.href);
+                }
+            });
+            
+            // Contact form submission
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Your message has been sent! The provider will contact you soon.');
+                    this.reset();
+                });
+            }
+            
+            // Simulate loading provider data
+            setTimeout(function() {
+                document.getElementById('loading-container').style.display = 'none';
+                document.getElementById('profile-content').style.display = 'block';
+                
+                // Load provider data (this would normally come from an API)
+                loadProviderData();
+            }, 1500);
+            
+            // Function to load provider data
+            function loadProviderData() {
+                // Get provider ID from URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const providerId = urlParams.get('id') || 1; // Default to ID 1 if not specified
+                
+                // In a real application, you would fetch data from an API using the provider ID
+                // For demonstration, we'll use a simple switch statement with mock data
+                let providerData;
+                
+                switch(parseInt(providerId)) {
+                    case 1:
+                        providerData = {
+                            id: 1,
+                            name: "John Smith",
+                            category: "Plumbing Services",
+                            avatar: "../img/providers/provider-1.jpg",
+                            // ... rest of John's data remains the same
+                        };
+                        break;
+                    case 2:
+                        providerData = {
+                            id: 2,
+                            name: "Maria Rodriguez",
+                            category: "Electrical Services",
+                            avatar: "../img/providers/provider-2.jpg",
+                            verified: true,
+                            rating: 4.6,
+                            reviewsCount: 98,
+                            description: `
+                                <p class="about-description">
+                                    Maria Rodriguez is a certified electrician with over 10 years of experience in residential and commercial electrical services. She specializes in electrical installations, repairs, and safety inspections.
+                                </p>
+                                <p class="about-description">
+                                    Maria started her career working for a major electrical contractor before establishing her own business five years ago. She is known for her attention to detail and commitment to electrical safety standards.
+                                </p>
+                                <p class="about-description">
+                                    She is fully licensed, insured, and certified in the latest electrical codes and regulations.
+                                </p>
+                            `,
+                            // Add the rest of Maria's data with the same structure as John's
+                            services: [
+                                {
+                                    icon: "fas fa-bolt",
+                                    name: "Electrical Repairs",
+                                    description: "Fast and reliable repairs for all electrical issues"
+                                },
+                                {
+                                    icon: "fas fa-lightbulb",
+                                    name: "Lighting Installation",
+                                    description: "Professional installation of all types of lighting fixtures"
+                                },
+                                {
+                                    icon: "fas fa-plug",
+                                    name: "Outlet & Switch Installation",
+                                    description: "Safe installation of outlets, switches, and circuit breakers"
+                                },
+                                {
+                                    icon: "fas fa-home",
+                                    name: "Home Electrical Inspections",
+                                    description: "Comprehensive safety inspections for your home's electrical system"
+                                },
+                                {
+                                    icon: "fas fa-solar-panel",
+                                    name: "Solar Panel Installation",
+                                    description: "Expert installation of residential solar power systems"
+                                }
+                            ],
+                            // ... continue with the rest of Maria's data
+                            businessHours: [
+                                { day: "Monday", hours: "8:00 AM - 5:00 PM" },
+                                { day: "Tuesday", hours: "8:00 AM - 5:00 PM" },
+                                { day: "Wednesday", hours: "8:00 AM - 5:00 PM" },
+                                { day: "Thursday", hours: "8:00 AM - 5:00 PM" },
+                                { day: "Friday", hours: "8:00 AM - 5:00 PM" },
+                                { day: "Saturday", hours: "10:00 AM - 2:00 PM" },
+                                { day: "Sunday", hours: "Closed", closed: true }
+                            ],
+                            contact: {
+                                phone: "(555) 987-6543",
+                                email: "maria.rodriguez@example.com",
+                                address: "456 Oak Avenue, Anytown, USA 12345",
+                                website: "www.mariarodriguezelectric.com",
+                                mapLocation: "https://maps.google.com/maps?q=456+Oak+Avenue,+Anytown,+USA&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                            }
+                        };
+                        break;
+                    case 3:
+                        providerData = {
+                            id: 3,
+                            name: "David Chen",
+                            category: "HVAC Services",
+                            avatar: "../img/providers/provider-3.jpg",
+                            verified: true,
+                            rating: 4.9,
+                            reviewsCount: 156,
+                            description: `
+                                <p class="about-description">
+                                    David Chen is an HVAC specialist with 12 years of experience in heating, ventilation, and air conditioning systems. He specializes in installations, repairs, and maintenance for both residential and commercial properties.
+                                </p>
+                                <p class="about-description">
+                                    David is certified in the latest HVAC technologies and energy-efficient solutions. He takes pride in helping customers reduce their energy costs while maintaining comfortable indoor environments.
+                                </p>
+                                <p class="about-description">
+                                    He is EPA certified and stays current with all industry regulations and best practices.
+                                </p>
+                            `,
+                            // Add the rest of David's data with the same structure
+                            services: [
+                                {
+                                    icon: "fas fa-snowflake",
+                                    name: "AC Installation & Repair",
+                                    description: "Expert installation and repair of all air conditioning systems"
+                                },
+                                {
+                                    icon: "fas fa-fire",
+                                    name: "Heating System Services",
+                                    description: "Installation, repair, and maintenance of heating systems"
+                                },
+                                {
+                                    icon: "fas fa-fan",
+                                    name: "Ventilation Solutions",
+                                    description: "Comprehensive ventilation services for improved air quality"
+                                },
+                                {
+                                    icon: "fas fa-thermometer-half",
+                                    name: "Thermostat Installation",
+                                    description: "Installation of programmable and smart thermostats"
+                                },
+                                {
+                                    icon: "fas fa-tools",
+                                    name: "Preventative Maintenance",
+                                    description: "Regular maintenance to keep your HVAC system running efficiently"
+                                }
+                            ],
+                            businessHours: [
+                                { day: "Monday", hours: "7:00 AM - 7:00 PM" },
+                                { day: "Tuesday", hours: "7:00 AM - 7:00 PM" },
+                                { day: "Wednesday", hours: "7:00 AM - 7:00 PM" },
+                                { day: "Thursday", hours: "7:00 AM - 7:00 PM" },
+                                { day: "Friday", hours: "7:00 AM - 7:00 PM" },
+                                { day: "Saturday", hours: "8:00 AM - 5:00 PM" },
+                                { day: "Sunday", hours: "Emergency Only", closed: false }
+                            ],
+                            contact: {
+                                phone: "(555) 234-5678",
+                                email: "david.chen@example.com",
+                                address: "789 Maple Street, Anytown, USA 12345",
+                                website: "www.chenhvacservices.com",
+                                mapLocation: "https://maps.google.com/maps?q=789+Maple+Street,+Anytown,+USA&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                            }
+                        };
+                        break;
+                    default:
+                        // If ID not found, default to John Smith
+                        providerData = {
+                            id: 1,
+                            name: "John Smith",
+                            category: "Plumbing Services",
+                            avatar: "../img/providers/provider-1.jpg",
+                            // ... rest of John's data
+                        };
+                }
+                
+                // Populate provider information
+                document.getElementById('provider-breadcrumb-name').textContent = providerData.name;
+                document.getElementById('provider-name').textContent = providerData.name;
+                document.getElementById('about-provider-name').textContent = providerData.name;
+                document.getElementById('provider-category').textContent = providerData.category;
+                document.getElementById('provider-avatar').src = providerData.avatar;
+                document.getElementById('provider-avatar').alt = providerData.name;
+                
+                // Set verification badge
+                if (providerData.verified) {
+                    document.getElementById('verification-badge').style.display = 'flex';
+                }
+                
+                // Set rating stars
+                const ratingStars = document.getElementById('rating-stars');
+                const ratingStarsLarge = document.getElementById('rating-stars-large');
+                const fullStars = Math.floor(providerData.rating);
+                const hasHalfStar = providerData.rating % 1 >= 0.5;
+                
+                for (let i = 1; i <= 5; i++) {
+                    if (i <= fullStars) {
+                        ratingStars.innerHTML += '<i class="fas fa-star"></i>';
+                        ratingStarsLarge.innerHTML += '<i class="fas fa-star"></i>';
+                    } else if (i === fullStars + 1 && hasHalfStar) {
+                        ratingStars.innerHTML += '<i class="fas fa-star-half-alt"></i>';
+                        ratingStarsLarge.innerHTML += '<i class="fas fa-star-half-alt"></i>';
+                    } else {
+                        ratingStars.innerHTML += '<i class="far fa-star"></i>';
+                        ratingStarsLarge.innerHTML += '<i class="far fa-star"></i>';
+                    }
+                }
+                
+                // Set rating value
+                document.getElementById('rating-value').textContent = `${providerData.rating} (${providerData.reviewsCount} reviews)`;
+                document.getElementById('average-rating').textContent = providerData.rating.toFixed(1);
+                document.getElementById('total-reviews').textContent = `${providerData.reviewsCount} reviews`;
+                
+                // Set book service button link
+                document.getElementById('book-service-btn').href = `booking.html?provider=${providerData.id}`;
+                
+                // Set provider description
+                document.getElementById('provider-description').innerHTML = providerData.description;
+                
+                // Set services list
+                const servicesListContainer = document.getElementById('provider-services-list');
+                providerData.services.forEach(service => {
+                    servicesListContainer.innerHTML += `
+                        <div class="provider-detail">
+                            <div class="detail-icon">
+                                <i class="${service.icon}"></i>
+                            </div>
+                            <div class="detail-content">
+                                <div class="detail-label">${service.name}</div>
+                                <div class="detail-value">${service.description}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                // Set verification items
+                const verificationItemsContainer = document.getElementById('verification-items');
+                providerData.verification.forEach(item => {
+                    const verificationClass = item.verified ? '' : 'not-verified';
+                    const iconClass = item.verified ? 'fas fa-check-circle' : 'far fa-circle';
+                    
+                    verificationItemsContainer.innerHTML += `
+                        <div class="verification-item ${verificationClass}">
+                            <i class="${iconClass}"></i>
+                            <span>${item.name}</span>
+                        </div>
+                    `;
+                });
+                
+                // Set business hours
+                const businessHoursContainer = document.getElementById('business-hours');
+                providerData.businessHours.forEach(item => {
+                    const timeClass = item.closed ? 'business-closed' : 'business-time';
+                    
+                    businessHoursContainer.innerHTML += `
+                        <div class="business-day">${item.day}</div>
+                        <div class="${timeClass}">${item.hours}</div>
+                    `;
+                });
+                
+                // Set services grid
+                const servicesGridContainer = document.getElementById('services-grid');
+                providerData.servicesList.forEach(service => {
+                    servicesGridContainer.innerHTML += `
+                        <div class="service-card">
+                            <div class="service-image">
+                                <img src="${service.image}" alt="${service.title}">
+                            </div>
+                            <div class="service-content">
+                                <h3 class="service-title">${service.title}</h3>
+                                <p class="service-description">${service.description}</p>
+                                <div class="service-price">${service.price}</div>
+                                <div class="service-meta">
+                                    <div><i class="far fa-clock"></i> ${service.duration}</div>
+                                    <div><i class="far fa-calendar-alt"></i> Available Now</div>
+                                </div>
+                                <a href="booking.html?service=${service.id}&provider=${providerData.id}" class="btn btn-primary">Book Now</a>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                // Set rating bars
+                const ratingBarsContainer = document.getElementById('rating-bars');
+                const ratings = [
+                    { stars: 5, percent: 75 },
+                    { stars: 4, percent: 15 },
+                    { stars: 3, percent: 7 },
+                    { stars: 2, percent: 2 },
+                    { stars: 1, percent: 1 }
+                ];
+                
+                ratings.forEach(rating => {
+                    ratingBarsContainer.innerHTML += `
+                        <div class="rating-bar">
+                            <div class="rating-label">
+                                <i class="fas fa-star"></i> ${rating.stars}
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar" style="width: ${rating.percent}%"></div>
+                            </div>
+                            <div class="rating-percent">${rating.percent}%</div>
+                        </div>
+                    `;
+                });
+                
+                // Set reviews list
+                const reviewsListContainer = document.getElementById('reviews-list');
+                providerData.reviews.forEach(review => {
+                    let reviewStars = '';
+                    for (let i = 1; i <= 5; i++) {
+                        if (i <= review.rating) {
+                            reviewStars += '<i class="fas fa-star"></i>';
+                        } else {
+                            reviewStars += '<i class="far fa-star"></i>';
+                        }
+                    }
+                    
+                    let reviewPhotos = '';
+                    if (review.photos.length > 0) {
+                        reviewPhotos = '<div class="review-photos">';
+                        review.photos.forEach(photo => {
+                            reviewPhotos += `
+                                <div class="review-photo">
+                                    <img src="${photo}" alt="Review Photo">
+                                </div>
+                            `;
+                        });
+                        reviewPhotos += '</div>';
+                    }
+                    
+                    let providerResponse = '';
+                    if (review.response) {
+                        providerResponse = `
+                            <div class="provider-response">
+                                <div class="response-header">
+                                    <i class="fas fa-reply"></i> Response from ${providerData.name}
+                                </div>
+                                <div class="response-content">
+                                    ${review.response.content}
+                                </div>
+                            </div>
+                        `;
+                    }
+                    
+                    reviewsListContainer.innerHTML += `
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="reviewer-info">
+                                    <div class="reviewer-avatar">
+                                        <img src="${review.avatar}" alt="${review.name}">
+                                    </div>
+                                    <div>
+                                        <div class="reviewer-name">${review.name}</div>
+                                        <div class="review-date">${review.date}</div>
+                                    </div>
+                                </div>
+                                <div class="review-rating">
+                                    ${reviewStars}
+                                </div>
+                            </div>
+                            <div class="review-content">
+                                ${review.content}
+                            </div>
+                            ${reviewPhotos}
+                            <div class="review-footer">
+                                <div class="review-actions">
+                                    <div class="review-action">
+                                        <i class="far fa-thumbs-up"></i> Helpful (${review.helpful})
+                                    </div>
+                                    <div class="review-action">
+                                        <i class="far fa-flag"></i> Report
+                                    </div>
+                                </div>
+                                <div class="review-service">Service: Leak Repair</div>
+                            </div>
+                            ${providerResponse}
+                        </div>
+                    `;
+                });
+                
+                // Set gallery grid
+                const galleryGridContainer = document.getElementById('gallery-grid');
+                providerData.gallery.forEach(image => {
+                    galleryGridContainer.innerHTML += `
+                        <div class="gallery-item">
+                            <img src="${image}" alt="Gallery Image">
+                            <div class="gallery-item-overlay">
+                                <i class="fas fa-search-plus"></i>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                // Set FAQ list
+                const faqListContainer = document.getElementById('faq-list');
+                providerData.faq.forEach((item, index) => {
+                    faqListContainer.innerHTML += `
+                        <div class="faq-item ${index === 0 ? 'active' : ''}">
+                            <div class="faq-question">
+                                ${item.question}
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>${item.answer}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                // Set contact information
+                document.getElementById('provider-phone').textContent = providerData.contact.phone;
+                document.getElementById('provider-email').textContent = providerData.contact.email;
+                document.getElementById('provider-address').textContent = providerData.contact.address;
+                document.getElementById('provider-website').textContent = providerData.contact.website;
+                document.getElementById('provider-website').href = `https://${providerData.contact.website}`;
+                
+                // Set map location
+                document.getElementById('provider-map').src = providerData.contact.mapLocation;
+                
+                // Initialize gallery lightbox
+                const galleryItems = document.querySelectorAll('.gallery-item');
+                galleryItems.forEach(item => {
+                    item.addEventListener('click', function() {
+                        const imgSrc = this.querySelector('img').src;
+                        openLightbox(imgSrc);
+                    });
+                });
+            }
+            
+            // Lightbox functionality
+            function openLightbox(imgSrc) {
+                const lightbox = document.createElement('div');
+                lightbox.classList.add('lightbox');
+                
+                lightbox.innerHTML = `
+                    <div class="lightbox-content">
+                        <img src="${imgSrc}" alt="Gallery Image">
+                        <button class="lightbox-close"><i class="fas fa-times"></i></button>
+                    </div>
+                `;
+                
+                document.body.appendChild(lightbox);
+                document.body.style.overflow = 'hidden';
+                
+                // Close lightbox when clicking close button or outside the image
+                lightbox.addEventListener('click', function(e) {
+                    if (e.target === lightbox || e.target.classList.contains('lightbox-close') || e.target.parentElement.classList.contains('lightbox-close')) {
+                        closeLightbox();
+                    }
+                });
+                
+                // Close lightbox when pressing Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        closeLightbox();
+                    }
+                });
+            }
+            
+            function closeLightbox() {
+                const lightbox = document.querySelector('.lightbox');
+                if (lightbox) {
+                    lightbox.remove();
+                    document.body.style.overflow = '';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

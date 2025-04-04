@@ -1,0 +1,2828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Details - LocoServe</title>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Enhanced Service Details Styles */
+        :root {
+            --primary-color: #4a6cf7;
+            --primary-dark: #3a56d4;
+            --secondary-color: #ff6b6b;
+            --text-color: #333;
+            --text-light: #666;
+            --text-lighter: #999;
+            --border-color: #e0e0e0;
+            --bg-light: #f8f9fa;
+            --bg-lighter: #f1f3f5;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: #fff;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 2rem;
+        }
+
+        .nav-list li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-list li a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-list li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-list li a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-color);
+            margin: 5px 0;
+            transition: var(--transition);
+        }
+
+        /* Service Details Section */
+        .service-details-section {
+            padding: 3rem 0;
+            background-color: var(--bg-light);
+        }
+
+        .service-details-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .service-details-main {
+            background-color: #fff;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+
+        .service-details-header {
+            padding: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .service-details-header h1 {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            color: var(--text-color);
+        }
+
+        .service-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .service-provider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .service-provider img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+            padding: 2px;
+        }
+
+        .provider-info h3 {
+            margin: 0 0 0.25rem;
+            font-size: 1.1rem;
+        }
+
+        .provider-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stars {
+            color: var(--warning-color);
+            display: flex;
+        }
+
+        .service-price {
+            background-color: var(--bg-lighter);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .price-label {
+            font-size: 0.9rem;
+            color: var(--text-lighter);
+            margin-bottom: 0.25rem;
+        }
+
+        .price-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        /* Service Gallery */
+        .service-gallery {
+            padding: 2rem;
+            background-color: var(--bg-lighter);
+        }
+
+        .service-main-image {
+            width: 100%;
+            height: 400px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+
+        .service-main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .service-main-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .service-thumbnails {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .service-thumbnail {
+            width: 100px;
+            height: 80px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .service-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .service-thumbnail.active {
+            border-color: var(--primary-color);
+        }
+
+        .service-thumbnail:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Service Description */
+        .service-description {
+            padding: 2rem;
+        }
+
+        .service-description h2 {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        .service-description h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .service-description h3 {
+            margin: 1.5rem 0 1rem;
+            font-size: 1.25rem;
+            color: var(--text-color);
+        }
+
+        .service-description p {
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .service-description ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-description li {
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+
+        .service-description li strong {
+            color: var(--text-color);
+        }
+
+        /* Service Features */
+        .service-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-item {
+            background-color: var(--bg-lighter);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-description {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Service Reviews */
+        .service-reviews {
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .service-reviews h2 {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        .service-reviews h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .reviews-summary {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            background-color: var(--bg-lighter);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 2rem;
+        }
+
+        .average-rating {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1;
+        }
+
+        .rating-stars {
+            color: var(--warning-color);
+            font-size: 1.25rem;
+        }
+
+        .total-reviews {
+            color: var(--text-lighter);
+            font-size: 0.9rem;
+        }
+
+        .reviews-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .review-item {
+            background-color: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .review-item:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-3px);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .review-meta {
+            flex: 1;
+        }
+
+        .review-author {
+            margin: 0 0 0.25rem;
+            font-size: 1rem;
+        }
+
+        .review-date {
+            color: var(--text-lighter);
+            font-size: 0.85rem;
+        }
+
+        .review-rating .stars {
+            font-size: 0.9rem;
+        }
+
+        .review-content p {
+            margin: 0;
+            color: var(--text-light);
+        }
+
+        /* Service Sidebar */
+        .service-details-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .booking-card,
+        .contact-card,
+        .similar-services {
+            background-color: #fff;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+
+        .booking-card h3,
+        .contact-card h3,
+        .similar-services h3 {
+            margin: 0;
+            padding: 1.5rem;
+            background-color: var(--primary-color);
+            color: #fff;
+            font-size: 1.25rem;
+        }
+
+        /* Booking Form */
+        #booking-form {
+            padding: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        /* Contact Card */
+        .provider-contact-info {
+            padding: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item i {
+            width: 40px;
+            height: 40px;
+            background-color: var(--bg-lighter);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .contact-item span {
+            color: var(--text-light);
+        }
+
+        #message-provider-btn {
+            margin: 0 1.5rem 1.5rem;
+        }
+
+        /* Similar Services */
+        .similar-services-list {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .similar-service-item {
+            display: flex;
+            gap: 1rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .similar-service-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .similar-service-item img {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+        }
+
+        .similar-service-info {
+            flex: 1;
+        }
+
+        .similar-service-info h4 {
+            margin: 0 0 0.5rem;
+            font-size: 1rem;
+        }
+
+        .similar-service-price {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1100;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            border-radius: var(--radius-lg);
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-lighter);
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--danger-color);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        /* Confirmation Modal */
+        .confirmation-message {
+            text-align: center;
+        }
+
+        .confirmation-icon {
+            font-size: 4rem;
+            color: var(--success-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .booking-details {
+            background-color: var(--bg-lighter);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .booking-detail-item {
+            display: flex;
+            margin-bottom: 0.75rem;
+        }
+
+        .booking-detail-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            width: 100px;
+            flex-shrink: 0;
+        }
+
+        .detail-value {
+            color: var(--text-light);
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: #2d3748;
+            color: #fff;
+            padding: 4rem 0 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-column p {
+            color: #cbd5e0;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: #fff;
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-column h3 {
+            color: #fff;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: #cbd5e0;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+            padding-left: 5px;
+        }
+
+        .footer-contact {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-contact li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: #cbd5e0;
+        }
+
+        .footer-contact li i {
+            color: var(--primary-color);
+            margin-top: 0.25rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .copyright {
+            color: #cbd5e0;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-bottom-links a {
+            color: #cbd5e0;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-bottom-links a:hover {
+            color: #fff;
+        }
+
+        /* New Feature: Service Highlights */
+        .service-highlights {
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+        }
+
+        .highlights-title {
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        .highlights-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .highlight-card {
+            background-color: var(--bg-lighter);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-5px);
+            border-bottom-color: var(--primary-color);
+            box-shadow: var(--shadow-md);
+        }
+
+        .highlight-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .highlight-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-description {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* New Feature: FAQ Section */
+        .service-faq {
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .service-faq h2 {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        .service-faq h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .faq-item {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.25rem;
+            background-color: var(--bg-lighter);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            background-color: #e9ecef;
+        }
+
+        .faq-question i {
+            transition: var(--transition);
+        }
+
+        .faq-item.active .faq-question {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 1.25rem;
+            max-height: 500px;
+        }
+
+        /* New Feature: Availability Calendar */
+        .availability-calendar {
+            margin-top: 1.5rem;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-month {
+            font-weight: 600;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .calendar-nav button {
+            background: none;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .calendar-nav button:hover {
+            background-color: var(--bg-lighter);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+            padding: 0.5rem 0;
+            color: var(--text-lighter);
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .calendar-day:hover {
+            background-color: var(--bg-lighter);
+        }
+
+        .calendar-day.available {
+            background-color: rgba(40, 167, 69, 0.1);
+            border: 1px solid rgba(40, 167, 69, 0.2);
+        }
+
+        .calendar-day.available:hover {
+            background-color: rgba(40, 167, 69, 0.2);
+        }
+
+        .calendar-day.unavailable {
+            color: var(--text-lighter);
+            cursor: not-allowed;
+            background-color: rgba(220, 53, 69, 0.05);
+        }
+
+        .calendar-day.selected {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .calendar-day.today {
+            font-weight: 700;
+        }
+
+        .calendar-day.today::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: currentColor;
+        }
+
+        /* New Feature: Service Packages */
+        .service-packages {
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .service-packages h2 {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        .service-packages h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .packages-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .package-card {
+            background-color: #fff;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .package-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .package-header {
+            padding: 1.5rem;
+            background-color: var(--bg-lighter);
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .package-name {
+            font-size: 1.25rem;
+            margin: 0 0 0.5rem;
+        }
+
+        .package-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .package-duration {
+            color: var(--text-lighter);
+            font-size: 0.9rem;
+        }
+
+        .package-features {
+            padding: 1.5rem;
+        }
+
+        .package-feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .package-feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .package-feature-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .package-feature-item i {
+            color: var(--success-color);
+            font-size: 1.1rem;
+        }
+
+        .package-feature-item.unavailable {
+            color: var(--text-lighter);
+        }
+
+        .package-feature-item.unavailable i {
+            color: var(--text-lighter);
+        }
+
+        .package-footer {
+            padding: 1.5rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .service-details-content {
+                grid-template-columns: 1fr;
+            }
+
+            .service-details-sidebar {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .service-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .service-price {
+                align-self: flex-start;
+            }
+
+            .service-features,
+            .highlights-grid,
+            .packages-container {
+                grid-template-columns: 1fr;
+            }
+
+            .service-main-image {
+                height: 300px;
+            }
+
+            .reviews-summary {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .service-details-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .service-provider {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .service-thumbnails {
+                gap: 0.5rem;
+            }
+
+            .service-thumbnail {
+                width: 80px;
+                height: 60px;
+            }
+
+            .review-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="../img/logo.png" alt="LocoServe Logo">
+                    </a>
+                </div>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="providers.html">Providers</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <a href="login.html" class="btn btn-outline btn-sm">Login</a>
+                    <a href="register.html" class="btn btn-primary btn-sm">Sign Up</a>
+                </div>
+                <button class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Service Details Section -->
+    <section class="service-details-section">
+        <div class="container">
+            <div class="service-details-content">
+                <div class="service-details-main">
+                    <div class="service-details-header">
+                        <h1>Professional Plumbing Services</h1>
+                        <div class="service-meta">
+                            <div class="service-provider">
+                                <img src="../img/providers/provider-1.jpg" alt="John Smith">
+                                <div class="provider-info">
+                                    <h3>John Smith</h3>
+                                    <div class="provider-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                        <span>4.8 (124 reviews)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="service-price">
+                                <div class="price-label">Starting from</div>
+                                <div class="price-value">$75/hr</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service-gallery">
+                        <div class="service-main-image">
+                            <img src="../img/services/plumbing-main.jpg" alt="Professional Plumbing Services" id="main-service-image">
+                        </div>
+                        <div class="service-thumbnails">
+                            <div class="service-thumbnail active" data-img="../img/services/plumbing-main.jpg">
+                                <img src="../img/services/plumbing-main.jpg" alt="Plumbing Service">
+                            </div>
+                            <div class="service-thumbnail" data-img="../img/services/plumbing-2.jpg">
+                                <img src="../img/services/plumbing-2.jpg" alt="Plumbing Service">
+                            </div>
+                            <div class="service-thumbnail" data-img="../img/services/plumbing-3.jpg">
+                                <img src="../img/services/plumbing-3.jpg" alt="Plumbing Service">
+                            </div>
+                            <div class="service-thumbnail" data-img="../img/services/plumbing-4.jpg">
+                                <img src="../img/services/plumbing-4.jpg" alt="Plumbing Service">
+                            </div>
+                            <div class="service-thumbnail" data-img="../img/services/plumbing-5.jpg">
+                                <img src="../img/services/plumbing-5.jpg" alt="Plumbing Service">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service-description">
+                        <h2>Service Description</h2>
+                        <p>Our professional plumbing services are designed to address all your plumbing needs, from minor repairs to major installations. With over 15 years of experience in the industry, we provide reliable, efficient, and high-quality plumbing solutions for residential and commercial properties.</p>
+                        
+                        <p>Whether you're dealing with a leaky faucet, clogged drain, or need a complete bathroom renovation, our team of licensed and insured plumbers has the expertise to handle it all. We use the latest tools and techniques to ensure that every job is done right the first time.</p>
+
+                        <h3>What We Offer</h3>
+                        <div class="service-features">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-wrench"></i>
+                                </div>
+                                <div class="feature-title">Repairs & Maintenance</div>
+                                <div class="feature-description">Fix leaks, clogs, and other plumbing issues quickly and efficiently.</div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-shower"></i>
+                                </div>
+                                <div class="feature-title">Fixture Installation</div>
+                                <div class="feature-description">Install new sinks, toilets, showers, and other fixtures with precision.</div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-tint"></i>
+                                </div>
+                                <div class="feature-title">Water Heater Services</div>
+                                <div class="feature-description">Repair, maintain, and install water heaters for consistent hot water.</div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-tools"></i>
+                                </div>
+                                <div class="feature-title">Pipe Work</div>
+                                <div class="feature-description">Replace, repair, and install pipes with minimal disruption.</div>
+                            </div>
+                        </div>
+
+                        <h3>Why Choose Us</h3>
+                        <ul>
+                            <li><strong>Licensed & Insured:</strong> All our plumbers are fully licensed and insured for your peace of mind.</li>
+                            <li><strong>Experienced Team:</strong> With over 15 years in the industry, we have the expertise to handle any plumbing challenge.</li>
+                            <li><strong>Transparent Pricing:</strong> We provide detailed estimates before starting any work, so there are no surprises.</li>
+                            <li><strong>24/7 Emergency Service:</strong> Plumbing emergencies don't wait, and neither do we. Our team is available around the clock.</li>
+                            <li><strong>Satisfaction Guaranteed:</strong> We're not satisfied until you are. We stand behind our work with a 100% satisfaction guarantee.</li>
+                        </ul>
+
+                        <p>Contact us today to schedule a consultation or to learn more about how we can help with your plumbing needs. We serve the entire metropolitan area and surrounding suburbs.</p>
+                    </div>
+
+                    <div class="service-packages">
+                        <h2>Service Packages</h2>
+                        <div class="packages-container">
+                            <div class="package-card">
+                                <div class="package-header">
+                                    <h3 class="package-name">Basic Inspection</h3>
+                                    <div class="package-price">$99</div>
+                                    <div class="package-duration">One-time service</div>
+                                </div>
+                                <div class="package-features">
+                                    <ul class="package-feature-list">
+                                        <li class="package-feature-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Complete plumbing system inspection</span>
+                                        </li>
+                                        <li class="package-feature-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Water pressure testing</span>
+                                        </li>
+                                        <li class="package-feature-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Leak detection</span>
+                                        </li>
+                                        <li class="package-feature-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Written report of findings</span>
+                                        </li>
+                                        <li class="package-feature-item unavailable">
+                                            <i class="fas fa-times-circle"></i>
+                                            <span>Minor repairs included</span>
+                                        </li>
+                                        <li class="package-feature-item unavailable">
+                                            <i class="fas fa-times-circle"></i>
+                                            <span>Priority scheduling</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="package-footer">
+                                    <button class="btn btn-outline btn-block select-package" data-package="Basic Inspection">Select Package</button>
+                                </div>
+                            </div>
+
+                            <div class="package-card">
+                                <div class="package-header">
+                                    <h3 class="package-name">Standard Service</h3>
+                                    <div class="package-price">$199</div>
+                                    <div class="package-duration">One-time service</div>
+                                </div>
+                                <div class="package-features">
+                                    <ul class="package-feature-list">
+                                        <li class="package-feature-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Complete plumbing system inspection</span>
+                                        </li>
+                                        <li class="package-feature-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Water pressure testing</span>
+                                        </li>
+                                        <li class="package-feature-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Leak detection</span>
+                                        </li>
+                                        <li class="package-feature-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Written report of findings</span>
+                                        </li>
+                                        <li class="package-feature-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Minor repairs included</span>
+                                        </li>
+                                        <li class="package-feature-item unavailable">
+                                            <i class="fas fa-times-circle"></i>
+                                            <span>Priority scheduling</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="package-footer">
+                                    <button class="btn btn-primary btn-block select-package" data-package="Standard Service">Select Package</button>
+                                </div>
+                            </div>
+
+                            <div class="package-card">
+                                <div class="package-header">
+                                    <h3 class="package-name">Premium Service</h3>
+                                    <div class="package-price">$349</div>
+                                    <div class="package-duration">One-time service</div>
+                                </div>
+                                <div class="package-features">
+                                    <ul class="package-feature-list">
+                                        <li class="package-feature-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Complete plumbing system inspection</span>
+                                        </li>
+                                        <li class="package-feature-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Water pressure testing</span>
+                                        </li>
+                                        <li class="package-feature-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Leak detection</span>
+                                        </li>
+                                        <li class="package-feature-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Written report of findings</span>
+                                        </li>
+                                        <li class="package-feature-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Minor repairs included</span>
+                                        </li>
+                                        <li class="package-feature-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Priority scheduling</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="package-footer">
+                                    <button class="btn btn-primary btn-block select-package" data-package="Premium Service">Select Package</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service-faq">
+                        <h2>Frequently Asked Questions</h2>
+                        <div class="faq-list">
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <span>How quickly can you respond to emergency calls?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>For emergency plumbing situations, we typically respond within 1-2 hours. Our emergency service is available 24/7, including weekends and holidays. We understand that plumbing emergencies can cause significant damage if not addressed promptly, so we prioritize these calls.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <span>Do you provide free estimates?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>Yes, we provide free estimates for all plumbing projects. After assessing your plumbing needs, we'll provide a detailed written estimate that outlines all costs involved. We believe in transparent pricing with no hidden fees or surprises.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <span>Are your plumbers licensed and insured?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>Absolutely. All our plumbers are fully licensed, bonded, and insured. We maintain all necessary certifications and stay up-to-date with the latest plumbing codes and regulations. This ensures that all work is performed safely and to the highest standards.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <span>What areas do you serve?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>We serve the entire metropolitan area and surrounding suburbs within a 50-mile radius. If you're unsure whether we service your area, please contact us, and we'll be happy to let you know.</p>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <span>Do you offer any warranties on your work?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>Yes, we stand behind our work with a 1-year warranty on all labor. Additionally, any parts or fixtures we install are covered by the manufacturer's warranty. If you experience any issues with our work, we'll return to fix it at no additional cost.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service-reviews">
+                        <h2>Customer Reviews</h2>
+                        <div class="reviews-summary">
+                            <div class="average-rating">4.8</div>
+                            <div>
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <div class="total-reviews">Based on 124 reviews</div>
+                            </div>
+                        </div>
+                        <div class="reviews-list">
+                            <div class="review-item">
+                                <div class="review-header">
+                                    <img src="../img/users/user-1.jpg" alt="Sarah Johnson" class="review-avatar">
+                                    <div class="review-meta">
+                                        <h4 class="review-author">Sarah Johnson</h4>
+                                        <div class="review-date">2 weeks ago</div>
+                                    </div>
+                                    <div class="review-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="review-content">
+                                    <p>John was fantastic! He arrived on time, quickly diagnosed the issue with our kitchen sink, and fixed it in less than an hour. He was professional, courteous, and even gave us some tips on how to prevent future clogs. Highly recommend!</p>
+                                </div>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-header">
+                                    <img src="../img/users/user-2.jpg" alt="Michael Thompson" class="review-avatar">
+                                    <div class="review-meta">
+                                        <h4 class="review-author">Michael Thompson</h4>
+                                        <div class="review-date">1 month ago</div>
+                                    </div>
+                                    <div class="review-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="review-content">
+                                    <p>We had a major leak in our bathroom that required immediate attention. John responded to our emergency call within an hour and worked diligently to fix the issue. The price was fair, and the quality of work was excellent. Would definitely use his services again.</p>
+                                </div>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-header">
+                                    <img src="../img/users/user-3.jpg" alt="Emily Rodriguez" class="review-avatar">
+                                    <div class="review-meta">
+                                        <h4 class="review-author">Emily Rodriguez</h4>
+                                        <div class="review-date">2 months ago</div>
+                                    </div>
+                                    <div class="review-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="review-content">
+                                    <p>John installed a new water heater for us, and we couldn't be happier with the result. He explained all our options, helped us choose the right model for our needs, and completed the installation efficiently. The new water heater works perfectly, and the area was left clean after the job was done.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align: center; margin-top: 2rem;">
+                            <a href="#" class="btn btn-outline">View All Reviews</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-details-sidebar">
+                    <div class="booking-card">
+                        <h3>Book This Service</h3>
+                        <form id="booking-form">
+                            <div class="form-group">
+                                <label for="service-date">Select Date</label>
+                                <input type="date" id="service-date" name="service-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="service-time">Select Time</label>
+                                <select id="service-time" name="service-time" required>
+                                    <option value="">Choose a time slot</option>
+                                    <option value="09:00">09:00 AM</option>
+                                    <option value="10:00">10:00 AM</option>
+                                    <option value="11:00">11:00 AM</option>
+                                    <option value="12:00">12:00 PM</option>
+                                    <option value="13:00">01:00 PM</option>
+                                    <option value="14:00">02:00 PM</option>
+                                    <option value="15:00">03:00 PM</option>
+                                    <option value="16:00">04:00 PM</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="service-package">Service Package</label>
+                                <select id="service-package" name="service-package" required>
+                                    <option value="">Select a package</option>
+                                    <option value="Basic Inspection">Basic Inspection - $99</option>
+                                    <option value="Standard Service">Standard Service - $199</option>
+                                    <option value="Premium Service">Premium Service - $349</option>
+                                    <option value="Hourly Rate">Hourly Rate - $75/hr</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="service-details">Service Details</label>
+                                <textarea id="service-details" name="service-details" rows="4" placeholder="Please describe your plumbing issue or service needs..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Book Now</button>
+                        </form>
+
+                        <div class="availability-calendar">
+                            <div class="calendar-header">
+                                <div class="calendar-month">September 2023</div>
+                                <div class="calendar-nav">
+                                    <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+                                    <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+                                </div>
+                            </div>
+                            <div class="calendar-grid">
+                                <div class="calendar-day-header">Sun</div>
+                                <div class="calendar-day-header">Mon</div>
+                                <div class="calendar-day-header">Tue</div>
+                                <div class="calendar-day-header">Wed</div>
+                                <div class="calendar-day-header">Thu</div>
+                                <div class="calendar-day-header">Fri</div>
+                                <div class="calendar-day-header">Sat</div>
+                                <!-- Calendar days will be generated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <h3>Contact Provider</h3>
+                        <div class="provider-contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <span>(555) 123-4567</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>john.smith@locoserve.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Serving within 50 miles of Downtown</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Available Mon-Sat, 8AM-6PM</span>
+                            </div>
+                        </div>
+                        <button id="message-provider-btn" class="btn btn-outline btn-block">Message Provider</button>
+                    </div>
+
+                    <div class="similar-services">
+                        <h3>Similar Services</h3>
+                        <div class="similar-services-list">
+                            <div class="similar-service-item">
+                                <img src="../img/services/plumbing-similar-1.jpg" alt="Drain Cleaning">
+                                <div class="similar-service-info">
+                                    <h4>Drain Cleaning Services</h4>
+                                    <div class="similar-service-price">$85/hr</div>
+                                    <a href="service-details.html?id=2" class="btn btn-sm btn-outline">View Details</a>
+                                </div>
+                            </div>
+                            <div class="similar-service-item">
+                                <img src="../img/services/plumbing-similar-2.jpg" alt="Water Heater">
+                                <div class="similar-service-info">
+                                    <h4>Water Heater Installation</h4>
+                                    <div class="similar-service-price">$250</div>
+                                    <a href="service-details.html?id=3" class="btn btn-sm btn-outline">View Details</a>
+                                </div>
+                            </div>
+                            <div class="similar-service-item">
+                                <img src="../img/services/plumbing-similar-3.jpg" alt="Bathroom Remodel">
+                                <div class="similar-service-info">
+                                    <h4>Bathroom Plumbing Remodel</h4>
+                                    <div class="similar-service-price">$95/hr</div>
+                                    <a href="service-details.html?id=4" class="btn btn-sm btn-outline">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Confirmation Modal -->
+    <div class="modal" id="booking-confirmation-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Booking Confirmation</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="confirmation-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>Your booking has been confirmed!</h3>
+                <div class="booking-details">
+                    <div class="booking-detail-item">
+                        <span class="detail-label">Service:</span>
+                        <span class="detail-value" id="confirm-service">Professional Plumbing Services</span>
+                    </div>
+                    <div class="booking-detail-item">
+                        <span class="detail-label">Package:</span>
+                        <span class="detail-value" id="confirm-package">Standard Service</span>
+                    </div>
+                    <div class="booking-detail-item">
+                        <span class="detail-label">Date:</span>
+                        <span class="detail-value" id="confirm-date">September 15, 2023</span>
+                    </div>
+                    <div class="booking-detail-item">
+                        <span class="detail-label">Time:</span>
+                        <span class="detail-value" id="confirm-time">10:00 AM</span>
+                    </div>
+                    <div class="booking-detail-item">
+                        <span class="detail-label">Provider:</span>
+                        <span class="detail-value">John Smith</span>
+                    </div>
+                </div>
+                <p class="confirmation-message">
+                    Thank you for booking with us! You will receive a confirmation email shortly with all the details of your appointment. The service provider will contact you 24 hours before the appointment to confirm.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="view-bookings-btn">View My Bookings</button>
+                <button class="btn btn-outline" id="close-modal-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Provider Modal -->
+    <div class="modal" id="message-provider-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Message Provider</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="provider-chat-header">
+                    <img src="../img/providers/provider-1.jpg" alt="John Smith">
+                    <div>
+                        <h3>John Smith</h3>
+                        <p>Professional Plumber</p>
+                    </div>
+                </div>
+                <div class="message-form">
+                    <div class="form-group">
+                        <label for="message-subject">Subject</label>
+                        <input type="text" id="message-subject" placeholder="Enter message subject">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-content">Message</label>
+                        <textarea id="message-content" rows="5" placeholder="Type your message here..."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="send-message-btn">Send Message</button>
+                <button class="btn btn-outline" id="cancel-message-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="../img/logo-white.png" alt="LocoServe Logo">
+                    <p>Connecting you with trusted local service providers.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="careers.html">Careers</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="press.html">Press</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Services</h3>
+                        <ul>
+                            <li><a href="services.html?category=home">Home Services</a></li>
+                            <li><a href="services.html?category=professional">Professional Services</a></li>
+                            <li><a href="services.html?category=wellness">Wellness</a></li>
+                            <li><a href="services.html?category=events">Events</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Support</h3>
+                        <ul>
+                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="terms.html">Terms of Service</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Subscribe to Our Newsletter</h3>
+                    <p>Get the latest updates on new services and special promotions.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 LocoServe. All rights reserved.</p>
+                <div class="footer-app-links">
+                    <a href="#"><img src="../img/app-store.png" alt="Download on App Store"></a>
+                    <a href="#"><img src="../img/google-play.png" alt="Get it on Google Play"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get service ID from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const serviceId = parseInt(urlParams.get('id')) || 1; // Default to first service if no ID provided
+            
+            // Service data (in a real app, this would come from an API)
+            const servicesData = [
+                {
+                    id: 1,
+                    title: 'Professional Plumbing Services',
+                    provider: {
+                        id: 1,
+                        name: 'John Smith',
+                        avatar: '../img/providers/provider-1.jpg',
+                        rating: 4.8,
+                        reviews: 56,
+                        phone: '(555) 123-4567',
+                        email: 'john.smith@locoserve.com',
+                        location: 'Serving within 50 miles of Downtown',
+                        availability: 'Available Mon-Sat, 8AM-6PM'
+                    },
+                    category: 'plumbing',
+                    price: '$75 / hour',
+                    priceLevel: 'mid',
+                    images: [
+                        '../img/services/plumbing-1.jpg',
+                        '../img/services/plumbing-2.jpg',
+                        '../img/services/plumbing-3.jpg',
+                        '../img/services/plumbing-4.jpg'
+                    ],
+                    description: 'Expert plumbing services for residential and commercial properties. Our professional plumbing services cover all aspects of plumbing needs.',
+                    longDescription: 'Our professional plumbing services cover all aspects of plumbing needs, from routine maintenance to emergency repairs. With over 15 years of experience, we provide reliable, high-quality plumbing services for both residential and commercial properties. Our team of licensed plumbers is equipped to handle any plumbing issue, big or small.',
+                    tags: ['Residential', 'Commercial', 'Repairs'],
+                    featured: true,
+                    packages: [
+                        {
+                            name: 'Basic Inspection',
+                            price: '$99',
+                            duration: 'One-time service',
+                            features: [
+                                {available: true, text: 'Complete plumbing system inspection'},
+                                {available: true, text: 'Water pressure testing'},
+                                {available: true, text: 'Leak detection'},
+                                {available: true, text: 'Written report of findings'},
+                                {available: false, text: 'Minor repairs included'},
+                                {available: false, text: 'Priority scheduling'}
+                            ]
+                        },
+                        {
+                            name: 'Standard Service',
+                            price: '$199',
+                            duration: 'One-time service',
+                            features: [
+                                {available: true, text: 'Complete plumbing system inspection'},
+                                {available: true, text: 'Water pressure testing'},
+                                {available: true, text: 'Leak detection'},
+                                {available: true, text: 'Written report of findings'},
+                                {available: true, text: 'Minor repairs included'},
+                                {available: false, text: 'Priority scheduling'}
+                            ]
+                        },
+                        {
+                            name: 'Premium Service',
+                            price: '$349',
+                            duration: 'One-time service',
+                            features: [
+                                {available: true, text: 'Complete plumbing system inspection'},
+                                {available: true, text: 'Water pressure testing'},
+                                {available: true, text: 'Leak detection'},
+                                {available: true, text: 'Written report of findings'},
+                                {available: true, text: 'Minor repairs included'},
+                                {available: true, text: 'Priority scheduling'}
+                            ]
+                        }
+                    ],
+                    faqs: [
+                        {
+                            question: 'How quickly can you respond to emergency calls?',
+                            answer: 'For emergency plumbing situations, we typically respond within 1-2 hours. Our emergency service is available 24/7, including weekends and holidays. We understand that plumbing emergencies can cause significant damage if not addressed promptly, so we prioritize these calls.'
+                        },
+                        {
+                            question: 'Do you provide free estimates?',
+                            answer: 'Yes, we provide free estimates for all plumbing projects. After assessing your plumbing needs, we\'ll provide a detailed written estimate that outlines all costs involved. We believe in transparent pricing with no hidden fees or surprises.'
+                        },
+                        {
+                            question: 'Are your plumbers licensed and insured?',
+                            answer: 'Absolutely. All our plumbers are fully licensed, bonded, and insured. We maintain all necessary certifications and stay up-to-date with the latest plumbing codes and regulations. This ensures that all work is performed safely and to the highest standards.'
+                        },
+                        {
+                            question: 'What areas do you serve?',
+                            answer: 'We serve the entire metropolitan area and surrounding suburbs within a 50-mile radius. If you\'re unsure whether we service your area, please contact us, and we\'ll be happy to let you know.'
+                        },
+                        {
+                            question: 'Do you offer any warranties on your work?',
+                            answer: 'Yes, we stand behind our work with a 1-year warranty on all labor. Additionally, any parts or fixtures we install are covered by the manufacturer\'s warranty. If you experience any issues with our work, we\'ll return to fix it at no additional cost.'
+                        }
+                    ],
+                    reviews: [
+                        {
+                            author: 'Sarah Johnson',
+                            avatar: '../img/users/user-1.jpg',
+                            date: '2 weeks ago',
+                            rating: 5,
+                            content: 'John was fantastic! He arrived on time, quickly diagnosed the issue with our kitchen sink, and fixed it in less than an hour. He was professional, courteous, and even gave us some tips on how to prevent future clogs. Highly recommend!'
+                        },
+                        {
+                            author: 'Michael Thompson',
+                            avatar: '../img/users/user-2.jpg',
+                            date: '1 month ago',
+                            rating: 4,
+                            content: 'We had a major leak in our bathroom that required immediate attention. John responded to our emergency call within an hour and worked diligently to fix the issue. The price was fair, and the quality of work was excellent. Would definitely use his services again.'
+                        },
+                        {
+                            author: 'Emily Rodriguez',
+                            avatar: '../img/users/user-3.jpg',
+                            date: '2 months ago',
+                            rating: 4.5,
+                            content: 'John installed a new water heater for us, and we couldn\'t be happier with the result. He explained all our options, helped us choose the right model for our needs, and completed the installation efficiently. The new water heater works perfectly, and the area was left clean after the job was done.'
+                        }
+                    ],
+                    similarServices: [
+                        {
+                            id: 2,
+                            title: 'Drain Cleaning Services',
+                            price: '$85/hr',
+                            image: '../img/services/plumbing-similar-1.jpg'
+                        },
+                        {
+                            id: 3,
+                            title: 'Water Heater Installation',
+                            price: '$250',
+                            image: '../img/services/plumbing-similar-2.jpg'
+                        },
+                        {
+                            id: 4,
+                            title: 'Bathroom Plumbing Remodel',
+                            price: '$95/hr',
+                            image: '../img/services/plumbing-similar-3.jpg'
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    title: 'Electrical Wiring Installation',
+                    provider: {
+                        id: 3,
+                        name: 'Robert Chen',
+                        avatar: '../img/providers/provider-3.jpg',
+                        rating: 4.9,
+                        reviews: 78,
+                        phone: '(555) 987-6543',
+                        email: 'robert.chen@locoserve.com',
+                        location: 'Serving within 30 miles of Downtown',
+                        availability: 'Available Mon-Fri, 7AM-5PM'
+                    },
+                    category: 'electrical',
+                    price: '$90 / hour',
+                    priceLevel: 'premium',
+                    images: [
+                        '../img/services/electrical-1.jpg',
+                        '../img/services/electrical-2.jpg',
+                        '../img/services/electrical-3.jpg',
+                        '../img/services/electrical-4.jpg'
+                    ],
+                    description: 'Professional electrical wiring installation for new constructions and renovations. All work complies with local electrical codes and safety standards.',
+                    longDescription: 'Our electrical wiring installation services are designed for both new constructions and renovation projects. We ensure all work complies with local electrical codes and safety standards. Our team of certified electricians has extensive experience in residential and commercial electrical installations.',
+                    tags: ['Wiring', 'Installation', 'Code Compliant'],
+                    featured: true,
+                    packages: [
+                        {
+                            name: 'Basic Electrical Inspection',
+                            price: '$120',
+                            duration: 'One-time service',
+                            features: [
+                                {available: true, text: 'Complete electrical system inspection'},
+                                {available: true, text: 'Circuit load testing'},
+                                {available: true, text: 'Safety assessment'},
+                                {available: true, text: 'Written report of findings'},
+                                {available: false, text: 'Minor repairs included'},
+                                {available: false, text: 'Priority scheduling'}
+                            ]
+                        },
+                        {
+                            name: 'Standard Electrical Service',
+                            price: '$250',
+                            duration: 'One-time service',
+                            features: [
+                                {available: true, text: 'Complete electrical system inspection'},
+                                {available: true, text: 'Circuit load testing'},
+                                {available: true, text: 'Safety assessment'},
+                                {available: true, text: 'Written report of findings'},
+                                {available: true, text: 'Minor repairs included'},
+                                {available: false, text: 'Priority scheduling'}
+                            ]
+                        },
+                        {
+                            name: 'Premium Electrical Service',
+                            price: '$399',
+                            duration: 'One-time service',
+                            features: [
+                                {available: true, text: 'Complete electrical system inspection'},
+                                {available: true, text: 'Circuit load testing'},
+                                {available: true, text: 'Safety assessment'},
+                                {available: true, text: 'Written report of findings'},
+                                {available: true, text: 'Minor repairs included'},
+                                {available: true, text: 'Priority scheduling'}
+                            ]
+                        }
+                    ],
+                    faqs: [
+                        {
+                            question: 'Are you licensed and insured for electrical work?',
+                            answer: 'Yes, all our electricians are fully licensed, bonded, and insured. We comply with all local and national electrical codes and regulations to ensure your safety and the quality of our work.'
+                        },
+                        {
+                            question: 'How long does a typical wiring installation take?',
+                            answer: 'The duration depends on the scope of the project. A small room might take 1-2 days, while a complete house rewiring could take 5-7 days. We provide a detailed timeline before starting any project.'
+                        },
+                        {
+                            question: 'Do you offer warranties on electrical installations?',
+                            answer: 'Yes, we provide a 2-year warranty on all our electrical installations. This covers both parts and labor. If any issues arise from our installation work, we\'ll fix it at no additional cost.'
+                        },
+                        {
+                            question: 'Can you work with existing wiring?',
+                            answer: 'Yes, we can work with existing wiring if it\'s in good condition and up to code. However, we\'ll always perform an inspection first to ensure safety and compliance with current electrical codes.'
+                        },
+                        {
+                            question: 'Do you provide emergency electrical services?',
+                            answer: 'Yes, we offer emergency electrical services 24/7. For urgent electrical issues that pose safety risks, we aim to respond within 1-2 hours of your call.'
+                        }
+                    ],
+                    reviews: [
+                        {
+                            author: 'David Wilson',
+                            avatar: '../img/users/user-4.jpg',
+                            date: '3 weeks ago',
+                            rating: 5,
+                            content: 'Robert did an excellent job rewiring our kitchen during our renovation. He was professional, knowledgeable, and completed the work ahead of schedule. Everything works perfectly, and his attention to detail was impressive.'
+                        },
+                        {
+                            author: 'Jennifer Lee',
+                            avatar: '../img/users/user-5.jpg',
+                            date: '2 months ago',
+                            rating: 5,
+                            content: 'We hired Robert to install new lighting fixtures throughout our home. He provided great suggestions for energy-efficient options and completed the installation flawlessly. Very satisfied with his work!'
+                        },
+                        {
+                            author: 'Thomas Brown',
+                            avatar: '../img/users/user-6.jpg',
+                            date: '3 months ago',
+                            rating: 4,
+                            content: 'Robert installed a new electrical panel in our home. He was thorough in explaining the process and benefits of the upgrade. The work was completed professionally and our electrical system has been working great since.'
+                        }
+                    ],
+                    similarServices: [
+                        {
+                            id: 5,
+                            title: 'Lighting Installation',
+                            price: '$80/hr',
+                            image: '../img/services/electrical-similar-1.jpg'
+                        },
+                        {
+                            id: 6,
+                            title: 'Electrical Panel Upgrade',
+                            price: '$450',
+                            image: '../img/services/electrical-similar-2.jpg'
+                        },
+                        {
+                            id: 7,
+                            title: 'Home Automation Wiring',
+                            price: '$110/hr',
+                            image: '../img/services/electrical-similar-3.jpg'
+                        }
+                    ]
+                },
+                {
+                    id: 3,
+                    title: 'Home Cleaning Service',
+                    provider: {
+                        id: 4,
+                        name: 'Maria Garcia',
+                        avatar: '../img/providers/provider-4.jpg',
+                        rating: 4.7,
+                        reviews: 92,
+                        phone: '(555) 456-7890',
+                        email: 'maria.garcia@locoserve.com',
+                        location: 'Serving within 25 miles of Downtown',
+                        availability: 'Available Mon-Sat, 9AM-7PM'
+                    },
+                    category: 'cleaning',
+                    price: '$35 / hour',
+                    priceLevel: 'budget',
+                    images: [
+                        '../img/services/cleaning-1.jpg',
+                        '../img/services/cleaning-2.jpg',
+                        '../img/services/cleaning-3.jpg',
+                        '../img/services/cleaning-4.jpg'
+                    ],
+                    description: 'Thorough home cleaning services including dusting, vacuuming, mopping, and bathroom sanitizing. We use eco-friendly cleaning products upon request.',
+                    longDescription: 'Our home cleaning services provide a thorough cleaning of your entire home. Services include dusting, vacuuming, mopping, and bathroom sanitizing. We can use eco-friendly cleaning products upon request. Our team is trained to pay attention to detail and ensure your home is spotless.',
+                    tags: ['Residential', 'Eco-friendly', 'Regular Service'],
+                    featured: true,
+                    packages: [
+                        {
+                            name: 'Basic Cleaning',
+                            price: '$120',
+                            duration: 'One-time service',
+                            features: [
+                                {available: true, text: 'Dusting all accessible surfaces'},
+                                {available: true, text: 'Vacuuming floors and carpets'},
+                                {available: true, text: 'Mopping hard floors'},
+                                {available: true, text: 'Bathroom cleaning'},
+                                {available: false, text: 'Kitchen deep cleaning'},
+                                {available: false, text: 'Inside cabinet cleaning'}
+                            ]
+                        },
+                        {
+                            name: 'Standard Cleaning',
+                            price: '$180',
+                            duration: 'One-time service',
+                            features: [
+                                {available: true, text: 'Dusting all accessible surfaces'},
+                                {available: true, text: 'Vacuuming floors and carpets'},
+                                {available: true, text: 'Mopping hard floors'},
+                                {available: true, text: 'Bathroom cleaning'},
+                                {available: true, text: 'Kitchen deep cleaning'},
+                                {available: false, text: 'Inside cabinet cleaning'}
+                            ]
+                        },
+                        {
+                            name: 'Deep Cleaning',
+                            price: '$250',
+                            duration: 'One-time service',
+                            features: [
+                                {available: true, text: 'Dusting all accessible surfaces'},
+                                {available: true, text: 'Vacuuming floors and carpets'},
+                                {available: true, text: 'Mopping hard floors'},
+                                {available: true, text: 'Bathroom cleaning'},
+                                {available: true, text: 'Kitchen deep cleaning'},
+                                {available: true, text: 'Inside cabinet cleaning'}
+                            ]
+                        }
+                    ],
+                    faqs: [
+                        {
+                            question: 'How often do you recommend professional cleaning?',
+                            answer: 'For most homes, we recommend a standard cleaning every 2-4 weeks. However, this can vary based on factors like household size, presence of pets, and personal preferences. We can help you determine the optimal schedule for your needs.'
+                        },
+                        {
+                            question: 'Do I need to provide cleaning supplies?',
+                            answer: 'No, we bring all necessary cleaning supplies and equipment. We use professional-grade products that are effective yet safe. If you prefer eco-friendly or specific products, please let us know in advance.'
+                        },
+                        {
+                            question: 'How many cleaners will come to my home?',
+                            answer: 'Typically, we send 1-2 cleaners depending on the size of your home and the service package you select. For larger homes or deep cleaning services, we may send a team of 3-4 cleaners to ensure efficiency.'
+                        },
+                        {
+                            question: 'Do I need to be home during the cleaning?',
+                            answer: 'No, you don\'t need to be home. Many of our clients provide a key or access code. We are fully insured and all our cleaners undergo thorough background checks. However, if you prefer to be present for the first cleaning, we completely understand.'
+                        },
+                        {
+                            question: 'What is your cancellation policy?',
+                            answer: 'We request at least 24 hours notice for cancellations. Cancellations with less than 24 hours notice may be subject to a cancellation fee of 50% of the service cost. We understand that emergencies happen, so please contact us as soon as possible if you need to reschedule.'
+                        }
+                    ],
+                    reviews: [
+                        {
+                            author: 'Rebecca Martinez',
+                            avatar: '../img/users/user-7.jpg',
+                            date: '1 week ago',
+                            rating: 5,
+                            content: 'Maria and her team did an amazing job with our deep cleaning. They were thorough, efficient, and paid attention to every detail. Our home has never looked so clean! Will definitely be booking regular cleanings.'
+                        },
+                        {
+                            author: 'James Wilson',
+                            avatar: '../img/users/user-8.jpg',
+                            date: '3 weeks ago',
+                            rating: 4,
+                            content: 'Very satisfied with the cleaning service. They arrived on time and completed everything in the checklist. The only reason I\'m not giving 5 stars is because they missed cleaning under the couch, but when I pointed it out, they immediately took care of it.'
+                        },
+                        {
+                            author: 'Sophia Kim',
+                            avatar: '../img/users/user-9.jpg',
+                            date: '1 month ago',
+                            rating: 5,
+                            content: 'I\'ve tried several cleaning services in the past, but Maria\'s team is by far the best. They are consistent, reliable, and always go above and beyond. I especially appreciate that they use eco-friendly products as requested.'
+                        }
+                    ],
+                    similarServices: [
+                        {
+                            id: 8,
+                            title: 'Move-Out Cleaning',
+                            price: '$250',
+                            image: '../img/services/cleaning-similar-1.jpg'
+                        },
+                        {
+                            id: 9,
+                            title: 'Carpet Cleaning',
+                            price: '$120',
+                            image: '../img/services/cleaning-similar-2.jpg'
+                        },
+                        {
+                            id: 10,
+                            title: 'Window Cleaning',
+                            price: '$45/hr',
+                            image: '../img/services/cleaning-similar-3.jpg'
+                        }
+                    ]
+                }
+            ];
+            
+            // Find the selected service based on ID
+            const selectedService = servicesData.find(service => service.id === serviceId) || servicesData[0];
+            
+            // Update page title and breadcrumb
+            document.title = `${selectedService.title} | LocoServe`;
+            document.querySelector('.breadcrumb-item.active').textContent = selectedService.title;
+            
+            // Update service details
+            document.querySelector('.service-title').textContent = selectedService.title;
+            document.querySelector('.service-category').textContent = selectedService.category.charAt(0).toUpperCase() + selectedService.category.slice(1);
+            document.querySelector('.service-price').textContent = selectedService.price;
+            document.querySelector('.service-description').innerHTML = selectedService.longDescription;
+            
+            // Update provider information
+            const provider = selectedService.provider;
+            document.querySelector('.provider-name').textContent = provider.name;
+            document.querySelector('.provider-avatar').src = provider.avatar;
+            document.querySelector('.provider-avatar').alt = provider.name;
+            document.querySelector('.provider-rating').textContent = provider.rating.toFixed(1);
+            document.querySelector('.provider-reviews-count').textContent = `(${provider.reviews} reviews)`;
+            
+            // Update contact card
+            const contactItems = document.querySelectorAll('.contact-item span');
+            contactItems[0].textContent = provider.phone;
+            contactItems[1].textContent = provider.email;
+            contactItems[2].textContent = provider.location;
+            contactItems[3].textContent = provider.availability;
+            
+            // Update provider chat modal
+            document.querySelector('.provider-chat-header img').src = provider.avatar;
+            document.querySelector('.provider-chat-header img').alt = provider.name;
+            document.querySelector('.provider-chat-header h3').textContent = provider.name;
+            document.querySelector('.provider-chat-header p').textContent = `Professional ${selectedService.category.charAt(0).toUpperCase() + selectedService.category.slice(1)}`;
+            
+            // Update booking confirmation modal
+            document.getElementById('confirm-service').textContent = selectedService.title;
+            document.querySelector('.booking-detail-item:last-child .detail-value').textContent = provider.name;
+            
+            // Update service details textarea placeholder
+            document.getElementById('service-details').placeholder = `Please describe your ${selectedService.category} issue or service needs...`;
+            
+            // Update package select options
+            const packageSelect = document.getElementById('service-package');
+            packageSelect.innerHTML = '<option value="">Select a package</option>';
+            selectedService.packages.forEach(pkg => {
+                packageSelect.innerHTML += `<option value="${pkg.name}">${pkg.name} - ${pkg.price}</option>`;
+            });
+            
+            // Get main image element
+            const mainImage = document.querySelector('.service-main-image img');
+            
+            // Calendar functionality
+            const calendarGrid = document.querySelector('.calendar-grid');
+            const calendarMonth = document.querySelector('.calendar-month');
+            const prevMonthBtn = document.getElementById('prev-month');
+            const nextMonthBtn = document.getElementById('next-month');
+            
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const today = new Date();
+            let currentMonth = today.getMonth();
+            let currentYear = today.getFullYear();
+            
+            function generateCalendar(month, year) {
+                // Clear previous days
+                const dayElements = document.querySelectorAll('.calendar-day:not(.calendar-day-header)');
+                dayElements.forEach(day => day.remove());
+                
+                // Update month display
+                calendarMonth.textContent = `${months[month]} ${year}`;
+                
+                // Get first day of month and total days in month
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                
+                // Add empty cells for days before first day of month
+                for (let i = 0; i < firstDay; i++) {
+                    const emptyDay = document.createElement('div');
+                    emptyDay.className = 'calendar-day empty';
+                    calendarGrid.appendChild(emptyDay);
+                }
+                
+                // Add days of month
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const day = document.createElement('div');
+                    day.className = 'calendar-day';
+                    day.textContent = i;
+                    
+                    // Check if day is in the past
+                    const currentDate = new Date(year, month, i);
+                    if (currentDate < today && !(currentDate.getDate() === today.getDate() && 
+                                                currentDate.getMonth() === today.getMonth() && 
+                                                currentDate.getFullYear() === today.getFullYear())) {
+                        day.classList.add('past');
+                    } else {
+                        // Randomly determine if day is available (for demo purposes)
+                        const isAvailable = Math.random() > 0.3;
+                        if (isAvailable) {
+                            day.classList.add('available');
+                            
+                            // Make available days selectable
+                            day.addEventListener('click', function() {
+                                // Remove selected class from all days
+                                document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
+                                
+                                // Add selected class to clicked day
+                                this.classList.add('selected');
+                                
+                                // Update date input
+                                const dateInput = document.getElementById('service-date');
+                                const selectedDate = new Date(year, month, i);
+                                const formattedDate = selectedDate.toISOString().split('T')[0];
+                                dateInput.value = formattedDate;
+                            });
+                        } else {
+                            day.classList.add('unavailable');
+                        }
+                    }
+                    
+                    calendarGrid.appendChild(day);
+                }
+            }
+            
+            // Initialize calendar
+            generateCalendar(currentMonth, currentYear);
+            
+            // Previous month button
+            prevMonthBtn.addEventListener('click', function() {
+                currentMonth--;
+                if (currentMonth < 0) {
+                    currentMonth = 11;
+                    currentYear--;
+                }
+                generateCalendar(currentMonth, currentYear);
+            });
+            
+            // Next month button
+            nextMonthBtn.addEventListener('click', function() {
+                currentMonth++;
+                if (currentMonth > 11) {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+                generateCalendar(currentMonth, currentYear);
+            });
+    
+            // Package Selection
+            const packageButtons = document.querySelectorAll('.select-package');
+            
+            packageButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const packageName = this.getAttribute('data-package');
+                    
+                    // Set the select value
+                    for (let i = 0; i < packageSelect.options.length; i++) {
+                        if (packageSelect.options[i].value === packageName) {
+                            packageSelect.selectedIndex = i;
+                            break;
+                        }
+                    }
+                    
+                    // Scroll to booking form
+                    document.querySelector('.booking-card').scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+    
+            // Booking Form Submission
+            const bookingForm = document.getElementById('booking-form');
+            const bookingModal = document.getElementById('booking-confirmation-modal');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            const modalClose = document.querySelectorAll('.modal-close');
+            
+            bookingForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const date = document.getElementById('service-date').value;
+                const time = document.getElementById('service-time').value;
+                const package = document.getElementById('service-package').value;
+                
+                // Format date for display
+                const formattedDate = new Date(date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                // Format time for display
+                const formattedTime = new Date(`2000-01-01T${time}`).toLocaleTimeString('en-US', {
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    hour12: true
+                });
+                
+                // Update confirmation modal with booking details
+                document.getElementById('confirm-date').textContent = formattedDate;
+                document.getElementById('confirm-time').textContent = formattedTime;
+                document.getElementById('confirm-package').textContent = package;
+                
+                // Show confirmation modal
+                bookingModal.classList.add('active');
+            });
+            
+            // Close modal buttons
+            modalClose.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const modal = this.closest('.modal');
+                    modal.classList.remove('active');
+                });
+            });
+            
+            // Close modal when clicking outside
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('modal')) {
+                    e.target.classList.remove('active');
+                }
+            });
+            
+            // Message Provider Button
+            const messageBtn = document.getElementById('message-provider-btn');
+            const messageModal = document.getElementById('message-modal');
+            
+            messageBtn.addEventListener('click', function() {
+                messageModal.classList.add('active');
+            });
+            
+            // Send Message Button
+            const sendMessageBtn = document.getElementById('send-message-btn');
+            const cancelMessageBtn = document.getElementById('cancel-message-btn');
+            
+            sendMessageBtn.addEventListener('click', function() {
+                const messageContent = document.getElementById('message-content').value;
+                
+                if (messageContent.trim() !== '') {
+                    // In a real app, this would send the message to the provider
+                    // For demo purposes, just show a success message and close the modal
+                    alert('Message sent successfully!');
+                    messageModal.classList.remove('active');
+                    document.getElementById('message-content').value = '';
+                } else {
+                    alert('Please enter a message before sending.');
+                }
+            });
+            
+            cancelMessageBtn.addEventListener('click', function() {
+                messageModal.classList.remove('active');
+                document.getElementById('message-content').value = '';
+            });
+            
+            // Initialize service images
+            const serviceImages = selectedService.images;
+            const thumbnailsContainer = document.querySelector('.service-thumbnails');
+            
+            // Clear existing thumbnails
+            thumbnailsContainer.innerHTML = '';
+            
+            // Set main image
+            mainImage.src = serviceImages[0];
+            
+            // Create thumbnails
+            serviceImages.forEach((image, index) => {
+                const thumbnail = document.createElement('div');
+                thumbnail.className = 'service-thumbnail';
+                if (index === 0) {
+                    thumbnail.classList.add('active');
+                }
+                thumbnail.setAttribute('data-img', image);
+                thumbnail.innerHTML = `<img src="${image}" alt="${selectedService.title} ${index + 1}">`;
+                // Add click event to thumbnails
+                thumbnail.addEventListener('click', function() {
+                    // Update main image
+                    mainImage.src = this.getAttribute('data-img');
+                    
+                    // Update active thumbnail
+                    document.querySelectorAll('.service-thumbnail').forEach(thumb => {
+                        thumb.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+                
+                thumbnailsContainer.appendChild(thumbnail);
+            });
+            
+            // Populate service packages
+            const packagesContainer = document.querySelector('.service-packages');
+            packagesContainer.innerHTML = '';
+            
+            selectedService.packages.forEach(pkg => {
+                const packageCard = document.createElement('div');
+                packageCard.className = 'package-card';
+                
+                let featuresHTML = '';
+                pkg.features.forEach(feature => {
+                    featuresHTML += `
+                        <li class="${feature.available ? 'available' : 'unavailable'}">
+                            <i class="fas ${feature.available ? 'fa-check' : 'fa-times'}"></i>
+                            ${feature.text}
+                        </li>
+                    `;
+                });
+                
+                packageCard.innerHTML = `
+                    <div class="package-header">
+                        <h3>${pkg.name}</h3>
+                        <div class="package-price">${pkg.price}</div>
+                        <div class="package-duration">${pkg.duration}</div>
+                    </div>
+                    <div class="package-features">
+                        <ul>
+                            ${featuresHTML}
+                        </ul>
+                    </div>
+                    <button class="btn btn-primary select-package" data-package="${pkg.name}">Select Package</button>
+                `;
+                
+                packagesContainer.appendChild(packageCard);
+            });
+            
+            // Re-attach event listeners to newly created package buttons
+            document.querySelectorAll('.select-package').forEach(button => {
+                button.addEventListener('click', function() {
+                    const packageName = this.getAttribute('data-package');
+                    
+                    // Set the select value
+                    for (let i = 0; i < packageSelect.options.length; i++) {
+                        if (packageSelect.options[i].value === packageName) {
+                            packageSelect.selectedIndex = i;
+                            break;
+                        }
+                    }
+                    
+                    // Scroll to booking form
+                    document.querySelector('.booking-card').scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+            
+            // Populate FAQs
+            const faqsContainer = document.querySelector('.service-faqs');
+            faqsContainer.innerHTML = '';
+            
+            selectedService.faqs.forEach((faq, index) => {
+                const faqItem = document.createElement('div');
+                faqItem.className = 'faq-item';
+                faqItem.innerHTML = `
+                    <div class="faq-question" data-toggle="faq-${index}">
+                        <h4>${faq.question}</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer" id="faq-${index}">
+                        <p>${faq.answer}</p>
+                    </div>
+                `;
+                
+                faqsContainer.appendChild(faqItem);
+            });
+            
+            // Add FAQ toggle functionality
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('click', function() {
+                    const answerId = this.getAttribute('data-toggle');
+                    const answer = document.getElementById(answerId);
+                    
+                    // Toggle answer visibility
+                    if (answer.style.maxHeight) {
+                        answer.style.maxHeight = null;
+                        this.classList.remove('active');
+                    } else {
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                        this.classList.add('active');
+                    }
+                });
+            });
+            
+            // Populate reviews
+            const reviewsContainer = document.querySelector('.service-reviews');
+            reviewsContainer.innerHTML = '';
+            
+            selectedService.reviews.forEach(review => {
+                const reviewItem = document.createElement('div');
+                reviewItem.className = 'review-item';
+                
+                // Generate stars based on rating
+                let starsHTML = '';
+                const fullStars = Math.floor(review.rating);
+                const hasHalfStar = review.rating % 1 !== 0;
+                
+                for (let i = 1; i <= 5; i++) {
+                    if (i <= fullStars) {
+                        starsHTML += '<i class="fas fa-star"></i>';
+                    } else if (i === fullStars + 1 && hasHalfStar) {
+                        starsHTML += '<i class="fas fa-star-half-alt"></i>';
+                    } else {
+                        starsHTML += '<i class="far fa-star"></i>';
+                    }
+                }
+                
+                reviewItem.innerHTML = `
+                    <div class="review-header">
+                        <div class="reviewer-info">
+                            <img src="${review.avatar}" alt="${review.author}" class="reviewer-avatar">
+                            <div>
+                                <h4>${review.author}</h4>
+                                <div class="review-date">${review.date}</div>
+                            </div>
+                        </div>
+                        <div class="review-rating">
+                            ${starsHTML}
+                        </div>
+                    </div>
+                    <div class="review-content">
+                        <p>${review.content}</p>
+                    </div>
+                `;
+                
+                reviewsContainer.appendChild(reviewItem);
+            });
+            
+            // Populate similar services
+            const similarServicesContainer = document.querySelector('.similar-services-grid');
+            similarServicesContainer.innerHTML = '';
+            
+            selectedService.similarServices.forEach(service => {
+                const serviceCard = document.createElement('div');
+                serviceCard.className = 'service-card';
+                serviceCard.innerHTML = `
+                    <a href="service-details.html?id=${service.id}" class="service-card-link">
+                        <div class="service-card-image">
+                            <img src="${service.image}" alt="${service.title}">
+                        </div>
+                        <div class="service-card-content">
+                            <h3>${service.title}</h3>
+                            <div class="service-card-price">${service.price}</div>
+                        </div>
+                    </a>
+                `;
+                
+                similarServicesContainer.appendChild(serviceCard);
+            });
+            
+            // Populate service tags
+            const tagsContainer = document.querySelector('.service-tags');
+            tagsContainer.innerHTML = '';
+            
+            selectedService.tags.forEach(tag => {
+                const tagElement = document.createElement('span');
+                tagElement.className = 'service-tag';
+                tagElement.textContent = tag;
+                tagsContainer.appendChild(tagElement);
+            });
+            
+            // Initialize time slots
+            const timeSelect = document.getElementById('service-time');
+            timeSelect.innerHTML = '';
+            
+            // Generate time slots from 8 AM to 6 PM
+            for (let hour = 8; hour <= 18; hour++) {
+                for (let minute = 0; minute < 60; minute += 30) {
+                    if (hour === 18 && minute > 0) continue; // Don't go past 6 PM
+                    
+                    const h = hour % 12 || 12; // Convert to 12-hour format
+                    const m = minute.toString().padStart(2, '0');
+                    const ampm = hour < 12 ? 'AM' : 'PM';
+                    
+                    const timeValue = `${hour.toString().padStart(2, '0')}:${m}`;
+                    const timeDisplay = `${h}:${m} ${ampm}`;
+                    
+                    // Randomly make some time slots unavailable (for demo purposes)
+                    const isAvailable = Math.random() > 0.3;
+                    
+                    if (isAvailable) {
+                        timeSelect.innerHTML += `<option value="${timeValue}">${timeDisplay}</option>`;
+                    } else {
+                        timeSelect.innerHTML += `<option value="${timeValue}" disabled>${timeDisplay} (Unavailable)</option>`;
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

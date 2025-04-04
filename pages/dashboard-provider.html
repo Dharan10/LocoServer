@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Provider Dashboard - LocoServe</title>
+        <link rel="stylesheet" href="../css/normalize.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/components.css">
+        <link rel="stylesheet" href="../css/responsive.css">
+        <link rel="stylesheet" href="../css/dashboard.css">
+        <link rel="stylesheet" href="../css/dashboard-provider.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    </head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">
+                    <h1>Loco<span>Serve</span></h1>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="how-it-works.html">How It Works</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </nav>
+            <nav class="auth-nav">
+                <ul class="auth-links">
+                    <!-- Will be populated by auth.js -->
+                </ul>
+            </nav>
+            <button class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <aside class="dashboard-sidebar">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <img src="../assets/images/default-avatar.jpg" alt="User Avatar" id="user-avatar">
+                </div>
+                <div class="user-details">
+                    <h3 id="user-name">Loading...</h3>
+                    <p id="user-email">Loading...</p>
+                </div>
+            </div>
+            <nav class="dashboard-nav">
+                <ul>
+                    <li class="active"><a href="#overview" data-section="overview"><i class="fas fa-home"></i> Overview</a></li>
+                    <li><a href="#services" data-section="services"><i class="fas fa-tools"></i> My Services</a></li>
+                    <li><a href="#bookings" data-section="bookings"><i class="fas fa-calendar-alt"></i> Bookings</a></li>
+                    <li><a href="#earnings" data-section="earnings"><i class="fas fa-dollar-sign"></i> Earnings</a></li>
+                    <li><a href="#reviews" data-section="reviews"><i class="fas fa-star"></i> Reviews</a></li>
+                    <li><a href="#messages" data-section="messages"><i class="fas fa-envelope"></i> Messages</a></li>
+                    <li><a href="#profile" data-section="profile"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="#settings" data-section="settings"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="btn btn-outline"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </aside>
+
+        <main class="dashboard-content">
+            <!-- Overview Section -->
+            <section id="overview" class="dashboard-section active">
+                <h2>Dashboard Overview</h2>
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="active-bookings-count">0</h3>
+                            <p>Active Bookings</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="completed-bookings-count">0</h3>
+                            <p>Completed Jobs</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="total-earnings">$0</h3>
+                            <p>Total Earnings</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="average-rating">0.0</h3>
+                            <p>Average Rating</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-activity">
+                    <div class="section-header">
+                        <h3>Recent Activity</h3>
+                        <a href="#bookings" class="view-all">View All</a>
+                    </div>
+                    <div class="activity-list" id="recent-activity-list">
+                        <div class="loading-spinner">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading recent activity...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="upcoming-bookings">
+                    <div class="section-header">
+                        <h3>Upcoming Bookings</h3>
+                        <a href="#bookings" class="view-all">View All</a>
+                    </div>
+                    <div class="bookings-list" id="upcoming-bookings-list">
+                        <div class="loading-spinner">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading upcoming bookings...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="earnings-chart">
+                    <div class="section-header">
+                        <h3>Earnings Overview</h3>
+                        <a href="#earnings" class="view-all">View Details</a>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="earnings-chart-canvas"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Section -->
+            <section id="services" class="dashboard-section">
+                <div class="section-header-with-action">
+                    <h2>My Services</h2>
+                    <button id="add-service-btn" class="btn btn-primary"><i class="fas fa-plus"></i> Add New Service</button>
+                </div>
+                <div class="services-list" id="provider-services-list">
+                    <div class="loading-spinner">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Loading your services...</p>
+                    </div>
+                </div>
+
+                <!-- Add/Edit Service Modal -->
+                <div class="modal" id="service-modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 id="service-modal-title">Add New Service</h3>
+                            <button class="close-modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="service-form">
+                                <input type="hidden" id="service-id" name="serviceId">
+                                <div class="form-group">
+                                    <label for="service-title">Service Title</label>
+                                    <input type="text" id="service-title" name="title" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="service-category">Category</label>
+                                    <select id="service-category" name="category" required>
+                                        <option value="">Select Category</option>
+                                        <option value="plumbing">Plumbing</option>
+                                        <option value="electrical">Electrical</option>
+                                        <option value="carpentry">Carpentry</option>
+                                        <option value="cleaning">Cleaning</option>
+                                        <option value="painting">Painting</option>
+                                        <option value="gardening">Gardening</option>
+                                        <option value="appliance">Appliance Repair</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="service-description">Description</label>
+                                    <textarea id="service-description" name="description" rows="4" required></textarea>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="service-price">Price ($)</label>
+                                        <input type="number" id="service-price" name="price" min="0" step="0.01" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="service-price-type">Price Type</label>
+                                        <select id="service-price-type" name="priceType" required>
+                                            <option value="hourly">Per Hour</option>
+                                            <option value="fixed">Fixed Price</option>
+                                            <option value="starting">Starting From</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="service-location">Service Area</label>
+                                    <input type="text" id="service-location" name="location" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="service-images">Service Images</label>
+                                    <input type="file" id="service-images" name="images" multiple accept="image/*">
+                                    <div class="image-preview" id="image-preview"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Availability</label>
+                                    <div class="availability-container" id="availability-container">
+                                        <!-- Availability options will be added here -->
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Save Service</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bookings Section -->
+            <section id="bookings" class="dashboard-section">
+                <h2>Bookings Management</h2>
+                <div class="bookings-tabs">
+                    <button class="tab-btn active" data-tab="new">New Requests</button>
+                    <button class="tab-btn" data-tab="upcoming">Upcoming</button>
+                    <button class="tab-btn" data-tab="ongoing">Ongoing</button>
+                    <button class="tab-btn" data-tab="completed">Completed</button>
+                    <button class="tab-btn" data-tab="cancelled">Cancelled</button>
+                </div>
+                <div class="bookings-tab-content">
+                    <div id="new-tab" class="tab-pane active">
+                        <div class="bookings-list" id="new-booking-requests">
+                            <div class="loading-spinner">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <p>Loading new booking requests...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="upcoming-tab" class="tab-pane">
+                        <div class="bookings-list" id="upcoming-bookings">
+                            <div class="loading-spinner">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <p>Loading upcoming bookings...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="ongoing-tab" class="tab-pane">
+                        <div class="bookings-list" id="ongoing-bookings">
+                            <div class="loading-spinner">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <p>Loading ongoing bookings...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="completed-tab" class="tab-pane">
+                        <div class="bookings-list" id="completed-bookings">
+                            <div class="loading-spinner">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <p>Loading completed bookings...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="cancelled-tab" class="tab-pane">
+                        <div class="bookings-list" id="cancelled-bookings">
+                            <div class="loading-spinner">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <p>Loading cancelled bookings...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Earnings Section -->
+            <section id="earnings" class="dashboard-section">
+                <h2>Earnings & Payments</h2>
+                <div class="earnings-summary">
+                    <div class="summary-card">
+                        <h3>Total Earnings</h3>
+                        <p class="amount" id="total-earnings-amount">$0.00</p>
+                    </div>
+                    <div class="summary-card">
+                        <h3>This Month</h3>
+                        <p class="amount" id="month-earnings">$0.00</p>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Pending Payments</h3>
+                        <p class="amount" id="pending-payments">$0.00</p>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Available for Withdrawal</h3>
+                        <p class="amount" id="available-withdrawal">$0.00</p>
+                    </div>
+                </div>
+
+                <div class="earnings-chart-container">
+                    <div class="chart-filters">
+                        <button class="chart-filter active" data-period="week">Week</button>
+                        <button class="chart-filter" data-period="month">Month</button>
+                        <button class="chart-filter" data-period="year">Year</button>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="detailed-earnings-chart"></canvas>
+                    </div>
+                </div>
+
+                <div class="transactions-section">
+                    <h3>Recent Transactions</h3>
+                    <div class="transactions-list" id="transactions-list">
+                        <div class="loading-spinner">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading transactions...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="payment-methods-section">
+                    <div class="section-header-with-action">
+                        <h3>Payment Methods</h3>
+                        <button id="add-payment-method-btn" class="btn btn-secondary"><i class="fas fa-plus"></i> Add Payment Method</button>
+                    </div>
+                    <div class="payment-methods-list" id="payment-methods-list">
+                        <div class="loading-spinner">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading payment methods...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reviews Section -->
+            <section id="reviews" class="dashboard-section">
+                <h2>My Reviews</h2>
+                <div class="reviews-summary">
+                    <div class="rating-overview">
+                        <div class="average-rating">
+                            <h3 id="overall-rating">0.0</h3>
+                            <div class="stars" id="overall-stars">
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <p><span id="total-reviews">0</span> reviews</p>
+                        </div>
+                        <div class="rating-bars">
+                            <div class="rating-bar-item">
+                                <span>5 stars</span>
+                                <div class="rating-bar">
+                                    <div class="rating-fill" id="five-star-fill" style="width: 0%"></div>
+                                </div>
+                                <span id="five-star-count">0</span>
+                            </div>
+                            <div class="rating-bar-item">
+                                <span>4 stars</span>
+                                <div class="rating-bar">
+                                    <div class="rating-fill" id="four-star-fill" style="width: 0%"></div>
+                                </div>
+                                <span id="four-star-count">0</span>
+                            </div>
+                            <div class="rating-bar-item">
+                                <span>3 stars</span>
+                                <div class="rating-bar">
+                                    <div class="rating-fill" id="three-star-fill" style="width: 0%"></div>
+                                </div>
+                                <span id="three-star-count">0</span>
+                            </div>
+                            <div class="rating-bar-item">
+                                <span>2 stars</span>
+                                <div class="rating-bar">
+                                    <div class="rating-fill" id="two-star-fill" style="width: 0%"></div>
+                                </div>
+                                <span id="two-star-count">0</span>
+                            </div>
+                            <div class="rating-bar-item">
+                                <span>1 star</span>
+                                <div class="rating-bar">
+                                    <div class="rating-fill" id="one-star-fill" style="width: 0%"></div>
+                                </div>
+                                <span id="one-star-count">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reviews-list" id="provider-reviews-list">
+                    <div class="loading-spinner">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Loading reviews...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Messages Section -->
+            <section id="messages" class="dashboard-section">
+                <h2>Messages</h2>
+                <div class="messages-container">
+                    <div class="conversations-list" id="conversations-list">
+                        <div class="loading-spinner">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading conversations...</p>
+                        </div>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-header" id="message-header">
+                            <p>Select a conversation to view messages</p>
+                        </div>
+                        <div class="messages" id="messages-list">
+                            <!-- Messages will be loaded here -->
+                        </div>
+                        <div class="message-input" id="message-input-container">
+                            <form id="message-form">
+                                <input type="text" id="message-input" placeholder="Type your message..." disabled>
+                                <button type="submit" id="send-message-btn" disabled>
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile" class="dashboard-section">
+            <h2>My Profile</h2>
+            <div class="profile-container">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <img src="../assets/images/default-avatar.jpg" alt="Profile Avatar" id="profile-avatar">
+                        <button class="change-avatar-btn" id="change-avatar-btn">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <h3 id="profile-name">Loading...</h3>
+                        <p id="profile-email">Loading...</p>
+                        <p id="profile-member-since">Member since: Loading...</p>
+                    </div>
+                </div>
+                <div class="profile-form-container">
+                    <form id="profile-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="profile-fullname">Full Name</label>
+                                <input type="text" id="profile-fullname" name="fullname">
+                            </div>
+                            <div class="form-group">
+                                <label for="profile-phone">Phone Number</label>
+                                <input type="tel" id="profile-phone" name="phone">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-bio">Professional Bio</label>
+                            <textarea id="profile-bio" name="bio" rows="4"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-address">Business Address</label>
+                            <textarea id="profile-address" name="address" rows="3"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="profile-city">City</label>
+                                <input type="text" id="profile-city" name="city">
+                            </div>
+                            <div class="form-group">
+                                <label for="profile-state">State</label>
+                                <input type="text" id="profile-state" name="state">
+                            </div>
+                            <div class="form-group">
+                                <label for="profile-zip">ZIP Code</label>
+                                <input type="text" id="profile-zip" name="zip">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-service-area">Service Area (miles)</label>
+                            <input type="number" id="profile-service-area" name="serviceArea" min="1" max="100">
+                        </div>
+                        <div class="form-group">
+                            <label>Qualifications & Certifications</label>
+                            <div id="qualifications-container">
+                                <!-- Qualifications will be added here -->
+                            </div>
+                            <button type="button" id="add-qualification-btn" class="btn btn-secondary btn-sm">
+                                <i class="fas fa-plus"></i> Add Qualification
+                            </button>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings" class="dashboard-section">
+            <h2>Account Settings</h2>
+            <div class="settings-container">
+                <div class="settings-card">
+                    <h3>Change Password</h3>
+                    <form id="password-form">
+                        <div class="form-group">
+                            <label for="current-password">Current Password</label>
+                            <input type="password" id="current-password" name="currentPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="new-password">New Password</label>
+                            <input type="password" id="new-password" name="newPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-new-password">Confirm New Password</label>
+                            <input type="password" id="confirm-new-password" name="confirmNewPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Password</button>
+                    </form>
+                </div>
+                <div class="settings-card">
+                    <h3>Notification Settings</h3>
+                    <form id="notification-form">
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="email-notifications" name="emailNotifications" checked>
+                            <label for="email-notifications">Email Notifications</label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="sms-notifications" name="smsNotifications" checked>
+                            <label for="sms-notifications">SMS Notifications</label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="booking-reminders" name="bookingReminders" checked>
+                            <label for="booking-reminders">Booking Reminders</label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="new-booking-alerts" name="newBookingAlerts" checked>
+                            <label for="new-booking-alerts">New Booking Alerts</label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="marketing-emails" name="marketingEmails">
+                            <label for="marketing-emails">Marketing Emails</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Preferences</button>
+                    </form>
+                </div>
+                <div class="settings-card">
+                    <h3>Availability Settings</h3>
+                    <form id="availability-form">
+                        <div class="availability-settings">
+                            <div class="day-availability">
+                                <h4>Monday</h4>
+                                <div class="availability-toggle">
+                                    <input type="checkbox" id="monday-available" name="mondayAvailable" class="day-toggle" checked>
+                                    <label for="monday-available">Available</label>
+                                </div>
+                                <div class="time-slots">
+                                    <div class="time-slot">
+                                        <label for="monday-start">Start Time</label>
+                                        <input type="time" id="monday-start" name="mondayStart" value="09:00">
+                                    </div>
+                                    <div class="time-slot">
+                                        <label for="monday-end">End Time</label>
+                                        <input type="time" id="monday-end" name="mondayEnd" value="17:00">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Repeat for other days of the week -->
+                            <div class="day-availability">
+                                <h4>Tuesday</h4>
+                                <div class="availability-toggle">
+                                    <input type="checkbox" id="tuesday-available" name="tuesdayAvailable" class="day-toggle" checked>
+                                    <label for="tuesday-available">Available</label>
+                                </div>
+                                <div class="time-slots">
+                                    <div class="time-slot">
+                                        <label for="tuesday-start">Start Time</label>
+                                        <input type="time" id="tuesday-start" name="tuesdayStart" value="09:00">
+                                    </div>
+                                    <div class="time-slot">
+                                        <label for="tuesday-end">End Time</label>
+                                        <input type="time" id="tuesday-end" name="tuesdayEnd" value="17:00">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- More days would be added here -->
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Availability</button>
+                    </form>
+                </div>
+                <div class="settings-card danger-zone">
+                    <h3>Danger Zone</h3>
+                    <p>Once you delete your account, there is no going back. Please be certain.</p>
+                    <button id="delete-account-btn" class="btn btn-danger">Delete Account</button>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<footer class="main-footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>Loco<span>Serve</span></h2>
+                <p>Connecting local talent with local needs</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="services.html?category=plumbing">Plumbing</a></li>
+                        <li><a href="services.html?category=electrical">Electrical</a></li>
+                        <li><a href="services.html?category=carpentry">Carpentry</a></li>
+                        <li><a href="services.html?category=cleaning">Cleaning</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="help.html">Help Center</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 LocoServe. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Modal for qualification form -->
+<div class="modal" id="qualification-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Add Qualification</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="qualification-form">
+                <input type="hidden" id="qualification-id" name="qualificationId">
+                <div class="form-group">
+                    <label for="qualification-title">Title/Certification</label>
+                    <input type="text" id="qualification-title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="qualification-issuer">Issuing Organization</label>
+                    <input type="text" id="qualification-issuer" name="issuer" required>
+                </div>
+                <div class="form-group">
+                    <label for="qualification-date">Date Obtained</label>
+                    <input type="date" id="qualification-date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="qualification-expiry">Expiry Date (if applicable)</label>
+                    <input type="date" id="qualification-expiry" name="expiry">
+                </div>
+                <div class="form-group">
+                    <label for="qualification-description">Description</label>
+                    <textarea id="qualification-description" name="description" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="qualification-document">Upload Certificate (PDF)</label>
+                    <input type="file" id="qualification-document" name="document" accept=".pdf">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Save Qualification</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="../js/app.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/dashboard-provider.js"></script>
+<script src="../js/ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>

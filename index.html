@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocoServe - Connect with Local Service Providers</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Page Loader Animation */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+        }
+        
+        .loader-content {
+            text-align: center;
+        }
+        
+        .loader-logo {
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+        
+        .loader-logo h1 {
+            font-size: 36px;
+            color: var(--dark-color);
+            margin: 0;
+        }
+        
+        .loader-logo span {
+            color: var(--primary-color);
+        }
+        
+        .loader-spinner {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto;
+        }
+        
+        .spinner-circle {
+            position: absolute;
+            border: 4px solid transparent;
+            border-radius: 50%;
+        }
+        
+        .spinner-circle-1 {
+            width: 60px;
+            height: 60px;
+            border-top-color: var(--primary-color);
+            animation: spin 1s linear infinite;
+        }
+        
+        .spinner-circle-2 {
+            width: 50px;
+            height: 50px;
+            top: 5px;
+            left: 5px;
+            border-right-color: var(--primary-color);
+            animation: spin 0.8s linear infinite reverse;
+        }
+        
+        .spinner-circle-3 {
+            width: 40px;
+            height: 40px;
+            top: 10px;
+            left: 10px;
+            border-bottom-color: var(--primary-color);
+            animation: spin 1.2s linear infinite;
+        }
+        
+        .loader-text {
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+        
+        .loader-progress {
+            width: 200px;
+            height: 4px;
+            background-color: #f1f1f1;
+            border-radius: 2px;
+            margin: 15px auto 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        /* Enhanced styles */
+        .search-container {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .search-location {
+            position: relative;
+        }
+        
+        .search-location .location-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: white;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            display: none;
+        }
+        
+        .search-location:focus-within .location-dropdown {
+            display: block;
+        }
+        
+        .location-option {
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .location-option:hover {
+            background: var(--primary-light);
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .testimonial-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 120px;
+            color: var(--primary-light);
+            font-family: Georgia, serif;
+            opacity: 0.5;
+            z-index: 0;
+        }
+        
+        .mobile-menu {
+            display: none;
+        }
+        
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: translateY(20px);
+            z-index: 99;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .scroll-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .feature-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .feature-card:hover::after {
+            width: 100%;
+        }
+        
+        .service-category-card {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .service-category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--primary-color);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+            border-radius: 8px;
+        }
+        
+        .service-category-card:hover::before {
+            opacity: 0.05;
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Loader -->
+    <div class="page-loader">
+        <div class="loader-content">
+            <div class="loader-logo">
+                <h1>Loco<span>Serve</span></h1>
+            </div>
+            <div class="loader-spinner">
+                <div class="spinner-circle spinner-circle-1"></div>
+                <div class="spinner-circle spinner-circle-2"></div>
+                <div class="spinner-circle spinner-circle-3"></div>
+            </div>
+            <div class="loader-text">Connecting you with local services...</div>
+            <div class="loader-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <h1>Loco<span>Serve</span></h1>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="pages/services.html">Services</a></li>
+                    <li><a href="pages/how-it-works.html">How It Works</a></li>
+                    <li><a href="pages/about.html">About</a></li>
+                    <li><a href="pages/contact.html">Contact</a></li>
+                    <li><a href="pages/booking.html">Book Now</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="pages/login.html" class="btn btn-outline">Login</a>
+                <a href="pages/register.html" class="btn btn-primary">Sign Up</a>
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!--Mobile Menu -->
+    <div class="mobile-menu">
+        <ul>
+            <li><a href="pages/services.html">Services</a></li>
+            <li><a href="pages/how-it-works.html">How It Works</a></li>
+            <li><a href="pages/about.html">About</a></li>
+        </ul>
+        <div class="auth-links">
+            <a href="pages/login.html" class="btn btn-outline">Login</a>
+            <a href="pages/register.html" class="btn btn-primary">Sign Up</a>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge"><i class="fas fa-check-circle"></i> Trusted by 10,000+ customers</div>
+                <h1>Find Local Services Near You</h1>
+                <p>Connect with trusted local service providers for all your home and business needs.</p>
+                <div class="hero-search">
+                    <form action="pages/services.html" method="get">
+                        <div class="search-container">
+                            <div class="search-input">
+                                <i class="fas fa-search"></i>
+                                <input type="text" placeholder="What service do you need?" name="q" autocomplete="off">
+                            </div>
+                            <div class="search-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <input type="text" placeholder="Your location" name="location" autocomplete="off">
+                                <div class="location-dropdown">
+                                    <div class="location-option"><i class="fas fa-location-arrow"></i> Current Location</div>
+                                    <div class="location-option">New York, NY</div>
+                                    <div class="location-option">Los Angeles, CA</div>
+                                    <div class="location-option">Chicago, IL</div>
+                                    <div class="location-option">Houston, TX</div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="popular-searches">
+                    <span>Popular:</span>
+                    <a href="pages/services.html?category=plumbing">Plumbing</a>
+                    <a href="pages/services.html?category=electrical">Electrical</a>
+                    <a href="pages/services.html?category=cleaning">Cleaning</a>
+                    <a href="pages/services.html?category=landscaping">Landscaping</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="assets/images/hero-image.jpg" alt="Local Service Providers">
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose LocoServe</h2>
+                <p>We connect you with the best local service providers in your area</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h3>Verified Providers</h3>
+                    <p>All service providers are verified and background-checked for your safety and peace of mind.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Rated & Reviewed</h3>
+                    <p>Read genuine reviews from real customers to help you choose the right provider.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h3>Transparent Pricing</h3>
+                    <p>Clear pricing with no hidden fees. Know exactly what you're paying for.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>Easy Booking</h3>
+                    <p>Book services online in minutes with our simple and secure booking system.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="popular-services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Popular Services</h2>
+                <p>Discover the most requested services in your area</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-category-card">
+                    <div class="service-category-icon">
+                        <i class="fas fa-wrench"></i>
+                    </div>
+                    <h3>Plumbing</h3>
+                    <p>Leaky faucets, clogged drains, pipe repairs and more</p>
+                    <a href="pages/services.html?category=plumbing" class="btn btn-outline">Find Plumbers</a>
+                </div>
+                <div class="service-category-card">
+                    <div class="service-category-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Electrical</h3>
+                    <p>Installations, repairs, wiring and electrical maintenance</p>
+                    <a href="pages/services.html?category=electrical" class="btn btn-outline">Find Electricians</a>
+                </div>
+                <div class="service-category-card">
+                    <div class="service-category-icon">
+                        <i class="fas fa-broom"></i>
+                    </div>
+                    <h3>Cleaning</h3>
+                    <p>Home cleaning, deep cleaning, and specialized cleaning services</p>
+                    <a href="pages/services.html?category=cleaning" class="btn btn-outline">Find Cleaners</a>
+                </div>
+                <div class="service-category-card">
+                    <div class="service-category-icon">
+                        <i class="fas fa-hammer"></i>
+                    </div>
+                    <h3>Carpentry</h3>
+                    <p>Furniture assembly, repairs, custom woodwork and more</p>
+                    <a href="pages/services.html?category=carpentry" class="btn btn-outline">Find Carpenters</a>
+                </div>
+                <div class="service-category-card">
+                    <div class="service-category-icon">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <h3>Landscaping</h3>
+                    <p>Lawn care, garden maintenance, tree services and more</p>
+                    <a href="pages/services.html?category=landscaping" class="btn btn-outline">Find Landscapers</a>
+                </div>
+                <div class="service-category-card">
+                    <div class="service-category-icon">
+                        <i class="fas fa-paint-roller"></i>
+                    </div>
+                    <h3>Painting</h3>
+                    <p>Interior and exterior painting services for homes and businesses</p>
+                    <a href="pages/services.html?category=painting" class="btn btn-outline">Find Painters</a>
+                </div>
+            </div>
+            <div class="view-all-services">
+                <a href="pages/services.html" class="btn btn-primary">View All Services</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>Find and book local services in just a few simple steps</p>
+            </div>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Search</h3>
+                    <p>Search for the service you need in your area</p>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h3>Compare</h3>
+                    <p>Compare providers based on ratings, reviews, and prices</p>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>Book</h3>
+                    <p>Book your service for a time that works for you</p>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Review</h3>
+                    <p>After the service, leave a review to help others</p>
+                </div>
+            </div>
+            <div class="learn-more">
+                <a href="pages/how-it-works.html" class="btn btn-outline">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Our Customers Say</h2>
+                <p>Read testimonials from satisfied customers</p>
+            </div>
+            <div class="testimonials-slider">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"I needed an emergency plumber and found one through LocoServe within minutes. The service was excellent and the price was fair. Highly recommend!"</p>
+                    <div class="testimonial-author">
+                        <img src="assets/images/testimonial-1.jpg" alt="Sarah Johnson">
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Homeowner</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"As a small business owner, I've been using LocoServe to find reliable electricians for my shop. The quality of service providers on this platform is outstanding."</p>
+                    <div class="testimonial-author">
+                        <img src="assets/images/testimonial-2.jpg" alt="Michael Rodriguez">
+                        <div class="author-info">
+                            <h4>Michael Rodriguez</h4>
+                            <p>Business Owner</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="testimonial-text">"I've been using LocoServe for all my home maintenance needs. The booking process is simple, and I love being able to see reviews before hiring someone."</p>
+                    <div class="testimonial-author">
+                        <img src="assets/images/testimonial-3.jpg" alt="Emily Chen">
+                        <div class="author-info">
+                            <h4>Emily Chen</h4>
+                            <p>Homeowner</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-controls">
+                <button class="testimonial-prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="testimonial-next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section class="become-provider">
+        <div class="container">
+            <div class="provider-cta">
+                <div class="provider-cta-content">
+                    <h2>Are You a Service Provider?</h2>
+                    <p>Join our network of professionals and grow your business. Get connected with customers in your area looking for your services.</p>
+                    <ul class="provider-benefits">
+                        <li><i class="fas fa-check"></i> Reach more customers</li>
+                        <li><i class="fas fa-check"></i> Manage your bookings</li>
+                        <li><i class="fas fa-check"></i> Get paid securely</li>
+                        <li><i class="fas fa-check"></i> Build your reputation</li>
+                    </ul>
+                    <a href="pages/register.html?type=provider" class="btn btn-primary">Become a Provider</a>
+                </div>
+                <div class="provider-cta-image">
+                    <img src="assets/images/service-provider.jpg" alt="Become a Service Provider">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Find Local Services?</h2>
+                <p>Join thousands of satisfied customers who have found reliable local service providers through LocoServe.</p>
+                <a href="pages/register.html" class="btn btn-primary btn-lg">Get Started</a>
+            </div>
+        </div>
+        <!-- Add this where you want the map to appear -->
+        <div id="map-container" style="width: 100%; height: 400px;"></div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Loco<span>Serve</span></h2>
+                    <p>Connecting local talent with local needs</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="pages/about.html">About Us</a></li>
+                            <li><a href="pages/how-it-works.html">How It Works</a></li>
+                            <li><a href="pages/careers.html">Careers</a></li>
+                            <li><a href="pages/contact.html">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Services</h3>
+                        <ul>
+                            <li><a href="pages/services.html?category=plumbing">Plumbing</a></li>
+                            <li><a href="pages/services.html?category=electrical">Electrical</a></li>
+                            <li><a href="pages/services.html?category=carpentry">Carpentry</a></li>
+                            <li><a href="pages/services.html?category=cleaning">Cleaning</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Support</h3>
+                        <ul>
+                            <li><a href="pages/faq.html">FAQ</a></li>
+                            <li><a href="pages/privacy.html">Privacy Policy</a></li>
+                            <li><a href="pages/terms.html">Terms of Service</a></li>
+                            <li><a href="pages/help.html">Help Center</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 LocoServe. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <style>
+        /* Modern Navigation Styles */
+        .main-header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        /* ... existing styles ... */
+        
+        /* Horizontal Footer Styles */
+        .main-footer {
+            background-color: #f8f9fa;
+            padding: 40px 0 20px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .footer-logo {
+            flex: 0 0 100%;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .footer-logo h2 {
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .footer-logo span {
+            color: var(--primary-color);
+        }
+        
+        .footer-logo p {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: #fff;
+            border-radius: 50%;
+            color: var(--primary-color);
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .footer-links {
+            flex: 1;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        
+        .footer-column {
+            flex: 0 0 auto;
+            margin-bottom: 20px;
+            text-align: center;
+            padding: 0 15px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 15px;
+            color: var(--dark-color);
+            font-size: 18px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-column ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .footer-bottom p {
+            margin: 0;
+            color: var(--text-color);
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .footer-logo, .footer-links {
+                flex: 0 0 100%;
+            }
+            
+            .footer-column {
+                flex: 0 0 100%;
+                margin-bottom: 30px;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .footer-column {
+                flex: 0 0 auto;
+                min-width: 160px;
+            }
+        }
+    </style>
+        <style>
+            /* Header Styles */
+            .main-header {
+                background-color: #ffffff;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+                padding: 15px 0;
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+            }
+            
+            .main-header .container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            
+            .logo {
+                display: flex;
+                align-items: center;
+            }
+            
+            .logo h1 {
+                margin: 0;
+                font-size: 24px;
+                color: var(--dark-color);
+            }
+            
+            .logo span {
+                color: var(--primary-color);
+            }
+            
+            .nav-list {
+                display: flex;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                gap: 30px;
+            }
+            
+            .nav-list a {
+                color: var(--dark-color);
+                text-decoration: none;
+                font-weight: 500;
+                transition: color 0.3s;
+                position: relative;
+            }
+            
+            .nav-list a:hover {
+                color: var(--primary-color);
+            }
+            
+            .nav-list a::after {
+                content: '';
+                position: absolute;
+                bottom: -5px;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background-color: var(--primary-color);
+                transition: width 0.3s;
+            }
+            
+            .nav-list a:hover::after {
+                width: 100%;
+            }
+            
+            .auth-buttons {
+                display: flex;
+                gap: 15px;
+            }
+            
+            /* Horizontal Footer Styles */
+            .main-footer {
+                background-color: #f8f9fa;
+                padding: 40px 0 20px;
+                border-top: 1px solid #e9ecef;
+            }
+            
+            .footer-content {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                margin-bottom: 30px;
+            }
+            
+            .footer-logo {
+                flex: 0 0 100%;
+                margin-bottom: 30px;
+                text-align: center;
+            }
+            
+            .footer-logo h2 {
+                margin-bottom: 10px;
+                color: var(--dark-color);
+            }
+            
+            .footer-logo span {
+                color: var(--primary-color);
+            }
+            
+            .footer-logo p {
+                margin-bottom: 15px;
+                color: var(--text-color);
+            }
+            
+            .social-links {
+                display: flex;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .social-links a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 36px;
+                height: 36px;
+                background-color: #fff;
+                border-radius: 50%;
+                color: var(--primary-color);
+                transition: all 0.3s;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+            
+            .social-links a:hover {
+                background-color: var(--primary-color);
+                color: white;
+                transform: translateY(-3px);
+            }
+            
+            .footer-links {
+                flex: 1;
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+            }
+            
+            .footer-column {
+                flex: 0 0 auto;
+                margin-bottom: 20px;
+                text-align: center;
+                padding: 0 15px;
+            }
+            
+            .footer-column h3 {
+                margin-bottom: 15px;
+                color: var(--dark-color);
+                font-size: 18px;
+                position: relative;
+                display: inline-block;
+            }
+            
+            .footer-column h3:after {
+                content: '';
+                position: absolute;
+                bottom: -5px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 40px;
+                height: 2px;
+                background-color: var(--primary-color);
+            }
+            
+            .footer-column ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            
+            .footer-column ul li {
+                margin-bottom: 8px;
+            }
+            
+            .footer-column ul li a {
+                color: var(--text-color);
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+            
+            .footer-column ul li a:hover {
+                color: var(--primary-color);
+            }
+            
+            .footer-bottom {
+                text-align: center;
+                padding-top: 20px;
+                border-top: 1px solid #e9ecef;
+            }
+            
+            .footer-bottom p {
+                margin: 0;
+                color: var(--text-color);
+                font-size: 14px;
+            }
+            
+            /* Mobile menu styles */
+            .mobile-menu-toggle {
+                display: none;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 30px;
+                height: 21px;
+                cursor: pointer;
+                z-index: 1000;
+            }
+            
+            .mobile-menu-toggle span {
+                display: block;
+                width: 100%;
+                height: 3px;
+                background-color: var(--dark-color);
+                border-radius: 3px;
+                transition: all 0.3s ease;
+            }
+            
+            @media (max-width: 768px) {
+                .main-nav, .auth-buttons {
+                    display: none;
+                }
+                
+                .mobile-menu-toggle {
+                    display: flex;
+                }
+                
+                .footer-content {
+                    flex-direction: column;
+                }
+                
+                .footer-logo, .footer-links {
+                    flex: 0 0 100%;
+                }
+                
+                .footer-column {
+                    flex: 0 0 100%;
+                    margin-bottom: 30px;
+                }
+            }
+            
+            @media (min-width: 769px) {
+                .footer-column {
+                    flex: 0 0 auto;
+                    min-width: 160px;
+                }
+            }
+        </style>
+
+    <div class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/home.js"></script>
+    <script>
+       // Page Loader Animation
+       document.addEventListener('DOMContentLoaded', function() {
+            const loader = document.querySelector('.page-loader');
+            const progressBar = document.querySelector('.progress-bar');
+            let width = 0;
+            
+            // Simulate loading progress
+            const interval = setInterval(function() {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    // Hide loader after progress reaches 100%
+                    setTimeout(function() {
+                        loader.style.opacity = '0';
+                        loader.style.visibility = 'hidden';
+                        document.body.style.overflow = 'visible';
+                    }, 500);
+                } else {
+                    width += Math.floor(Math.random() * 10) + 1;
+                    if (width > 100) width = 100;
+                    progressBar.style.width = width + '%';
+                }
+            }, 200);
+            
+            // Ensure loader is hidden even if something goes wrong
+            window.addEventListener('load', function() {
+                setTimeout(function() {
+                    loader.style.opacity = '0';
+                    loader.style.visibility = 'hidden';
+                    document.body.style.overflow = 'visible';
+                }, 1000);
+            });
+            
+            // Enhanced JavaScript for new features
+            // Mobile menu toggle
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            });
+            
+            // Scroll to top button
+            const scrollBtn = document.querySelector('.scroll-to-top');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollBtn.classList.add('visible');
+                } else {
+                    scrollBtn.classList.remove('visible');
+                }
+            });
+            
+            scrollBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Location dropdown functionality
+            const locationOptions = document.querySelectorAll('.location-option');
+            const locationInput = document.querySelector('.search-location input');
+            
+            locationOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    locationInput.value = this.textContent.trim();
+                });
+            });
+            
+            // Testimonial slider
+            const testimonialSlider = document.querySelector('.testimonials-slider');
+            const prevBtn = document.querySelector('.testimonial-prev');
+            const nextBtn = document.querySelector('.testimonial-next');
+            
+            nextBtn.addEventListener('click', function() {
+                testimonialSlider.scrollBy({
+                    left: 350,
+                    behavior: 'smooth'
+                });
+            });
+            
+            prevBtn.addEventListener('click', function() {
+                testimonialSlider.scrollBy({
+                    left: -350,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+    <script src="js/config.js"></script>
+    <script src="js/google-services.js"></script>
+    <script>
+        // Dynamically create and append the Google Maps script
+        function loadGoogleMapsScript() {
+            const script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${CONFIG.getGoogleApiKey()}&libraries=places&callback=initMap`;
+            script.async = true;
+            script.defer = true;
+            document.body.appendChild(script);
+        }
+        
+        // Load the script after our config is loaded
+        if (typeof CONFIG !== 'undefined') {
+            loadGoogleMapsScript();
+        } else {
+            console.error('Config file not loaded properly');
+        }
+    </script>
+    <style>
+        /* Modern Navigation Styles */
+        .main-header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .main-header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
+            padding: 5px 0;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn-sign-up {
+            background-color: #4361ee;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-sign-up:hover {
+            background-color: #3a56d4;
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links, .auth-buttons {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard - LocoServe</title>
+    <link rel="stylesheet" href="../css/dash.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/style2.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Page Loader -->
+    <div class="page-loader">
+        <div class="loader-content">
+            <div class="loader-logo">
+                <h2>Loco<span>Serve</span></h2>
+            </div>
+            <div class="loader-progress">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="loader-text">Loading your dashboard...</div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="../index.html">
+                        <h2>Loco<span>Serve</span></h2>
+                    </a>
+                </div>
+                <nav class="main-nav">
+                    <ul class="nav-list">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <a href="booking.html" class="btn btn-primary">Book a Service</a>
+                    <div class="user-menu">
+                        <div class="user-avatar">
+                            <img src="../assets/images/avatar.jpg" alt="User Avatar">
+                        </div>
+                        <div class="user-dropdown">
+                            <ul>
+                                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                                <li><a href="profile.html">My Profile</a></li>
+                                <li><a href="settings.html">Settings</a></li>
+                                <li><a href="../index.html">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu (Hidden by default) -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <h2>Loco<span>Serve</span></h2>
+            </div>
+            <div class="mobile-menu-close">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <nav class="mobile-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="how-it-works.html">How It Works</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-actions">
+            <a href="booking.html" class="btn btn-primary">Book a Service</a>
+            <a href="dashboard.html" class="btn btn-outline">My Dashboard</a>
+        </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard-section">
+        <div class="container">
+            <div class="dashboard-container">
+                <!-- Dashboard Sidebar -->
+                <div class="dashboard-sidebar">
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <img src="../assets/images/avatar.jpg" alt="User Avatar">
+                        </div>
+                        <div class="user-info">
+                            <h3>John Doe</h3>
+                            <p>john.doe@example.com</p>
+                        </div>
+                    </div>
+                    <nav class="dashboard-nav">
+                        <ul>
+                            <li class="active"><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li><a href="my-bookings.html"><i class="fas fa-calendar-check"></i> My Bookings</a></li>
+                            <li><a href="favorites.html"><i class="fas fa-heart"></i> Favorite Providers</a></li>
+                            <li><a href="reviews.html"><i class="fas fa-star"></i> My Reviews</a></li>
+                            <li><a href="messages.html"><i class="fas fa-envelope"></i> Messages</a></li>
+                            <li><a href="profile.html"><i class="fas fa-user"></i> My Profile</a></li>
+                            <li><a href="payment-methods.html"><i class="fas fa-credit-card"></i> Payment Methods</a></li>
+                            <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li class="logout"><a href="../index.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                
+                <!-- Dashboard Content -->
+                <div class="dashboard-content">
+                    <div class="dashboard-header">
+                        <h1>My Dashboard</h1>
+                        <div class="dashboard-actions">
+                            <a href="booking.html" class="btn btn-primary"><i class="fas fa-plus"></i> Book New Service</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Dashboard Overview -->
+                    <div class="dashboard-overview">
+                        <div class="overview-card">
+                            <div class="overview-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="overview-info">
+                                <h3>3</h3>
+                                <p>Active Bookings</p>
+                            </div>
+                        </div>
+                        <div class="overview-card">
+                            <div class="overview-icon">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <div class="overview-info">
+                                <h3>12</h3>
+                                <p>Past Services</p>
+                            </div>
+                        </div>
+                        <div class="overview-card">
+                            <div class="overview-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="overview-info">
+                                <h3>5</h3>
+                                <p>Favorite Providers</p>
+                            </div>
+                        </div>
+                        <div class="overview-card">
+                            <div class="overview-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="overview-info">
+                                <h3>8</h3>
+                                <p>Reviews Given</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Upcoming Bookings -->
+                    <div class="dashboard-section-title">
+                        <h2>Upcoming Bookings</h2>
+                        <a href="my-bookings.html" class="view-all">View All</a>
+                    </div>
+                    
+                    <div class="booking-cards">
+                        <div class="booking-card">
+                            <div class="booking-status upcoming">Upcoming</div>
+                            <div class="booking-details">
+                                <div class="booking-service">
+                                    <h3>Plumbing Repair</h3>
+                                    <p class="booking-id">Booking ID: LS-2023-11-15-1234</p>
+                                </div>
+                                <div class="booking-info">
+                                    <div class="booking-info-item">
+                                        <i class="fas fa-user"></i>
+                                        <span>John Smith</span>
+                                    </div>
+                                    <div class="booking-info-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>November 15, 2023</span>
+                                    </div>
+                                    <div class="booking-info-item">
+                                        <i class="fas fa-clock"></i>
+                                        <span>9:00 AM</span>
+                                    </div>
+                                    <div class="booking-info-item">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>123 Main St, Anytown</span>
+                                    </div>
+                                </div>
+                                <div class="booking-price">$91.80</div>
+                            </div>
+                            <div class="booking-actions">
+                                <button class="btn btn-outline btn-sm">Reschedule</button>
+                                <button class="btn btn-danger btn-sm">Cancel</button>
+                                <button class="btn btn-primary btn-sm">View Details</button>
+                            </div>
+                        </div>
+                        
+                        <div class="booking-card">
+                            <div class="booking-status upcoming">Upcoming</div>
+                            <div class="booking-details">
+                                <div class="booking-service">
+                                    <h3>Fixture Installation</h3>
+                                    <p class="booking-id">Booking ID: LS-2023-11-20-5678</p>
+                                </div>
+                                <div class="booking-info">
+                                    <div class="booking-info-item">
+                                        <i class="fas fa-user"></i>
+                                        <span>Sarah Johnson</span>
+                                    </div>
+                                    <div class="booking-info-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>November 20, 2023</span>
+                                    </div>
+                                    <div class="booking-info-item">
+                                        <i class="fas fa-clock"></i>
+                                        <span>2:00 PM</span>
+                                    </div>
+                                    <div class="booking-info-item">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>123 Main St, Anytown</span>
+                                    </div>
+                                </div>
+                                <div class="booking-price">$129.60</div>
+                            </div>
+                            <div class="booking-actions">
+                                <button class="btn btn-outline btn-sm">Reschedule</button>
+                                <button class="btn btn-danger btn-sm">Cancel</button>
+                                <button class="btn btn-primary btn-sm">View Details</button>
+                            </div>
+                        </div>
+                        
+                        <div class="booking-card">
+                            <div class="booking-status upcoming">Upcoming</div>
+                            <div class="booking-details">
+                                <div class="booking-service">
+                                    <h3>Drain Cleaning</h3>
+                                    <p class="booking-id">Booking ID: LS-2023-12-05-9012</p>
+                                </div>
+                                <div class="booking-info">
+                                    <div class="booking-info-item">
+                                        <i class="fas fa-user"></i>
+                                        <span>Michael Rodriguez</span>
+                                    </div>
+                                    <div class="booking-info-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>December 5, 2023</span>
+                                    </div>
+                                    <div class="booking-info-item">
+                                        <i class="fas fa-clock"></i>
+                                        <span>11:00 AM</span>
+                                    </div>
+                                    <div class="booking-info-item">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>123 Main St, Anytown</span>
+                                    </div>
+                                </div>
+                                <div class="booking-price">$81.00</div>
+                            </div>
+                            <div class="booking-actions">
+                                <button class="btn btn-outline btn-sm">Reschedule</button>
+                                <button class="btn btn-danger btn-sm">Cancel</button>
+                                <button class="btn btn-primary btn-sm">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Services -->
+                    <div class="dashboard-section-title">
+                        <h2>Recent Services</h2>
+                        <a href="my-bookings.html?filter=past" class="view-all">View All</a>
+                    </div>
+                    
+                    <div class="booking-cards">
+                        <div class="booking-card">
+                            <div class="booking-status completed">Completed</div>
+                            <div class="booking-details">
+                                <div class="booking-service">
+                                    <h3>Electrical Repair</h3>
+                                    <p class="booking-id">Booking ID: LS-2023-10-25-3456</p>
+                                </div>
+                                <div class="booking-info">
+                                    <div class="booking-info-item">
+                                        <i class="fas fa-user"></i>
+                                        <span>David Wilson</span>
+                                    </div>
+                                    <div class="booking-info-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>October 25, 2023</span>
+                                    </div>
+                                    <div class="booking-info-item">
+                                        <i class="fas fa-clock"></i>
+                                        <span>10:00 AM</span>
+                                    </div>
+                                    <div class="booking-info-item">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>123 Main St, Anytown</span>
+                                    </div>
+                                </div>
+                                <div class="booking-price">$108.00</div>
+                            </div>
+                            <div class="booking-actions">
+                                <button class="btn btn-outline btn-sm">Book Again</button>
+                                <button class="btn btn-primary btn-sm">Leave Review</button>
+                                <button class="btn btn-outline btn-sm">View Details</button>
+                            </div>
+                        </div>
+                        
+                        <div class="booking-card">
+                            <div class="booking-status completed">Completed</div>
+                            <div class="booking-details">
+                                <div class="booking-service">
+                                    <h3>House Cleaning</h3>
+                                    <p class="booking-id">Booking ID: LS-2023-10-15-7890</p>
+                                </div>
+                                <div class="booking-info">
+                                    <div class="booking-info-item">
+                                        <i class="fas fa-user"></i>
+                                        <span>Emily Brown</span>
+                                    </div>
+                                    <div class="booking-info-item">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>October 15, 2023</span>
+                                    </div>
+                                    <div class="booking-info-item">
+                                        <i class="fas fa-clock"></i>
+                                        <span>1:00 PM</span>
+                                    </div>
+                                    <div class="booking-info-item">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>123 Main St, Anytown</span>
+                                    </div>
+                                </div>
+                                <div class="booking-price">$162.00</div>
+                            </div>
+                            <div class="booking-actions">
+                                <button class="btn btn-outline btn-sm">Book Again</button>
+                                <button class="btn btn-primary btn-sm">Leave Review</button>
+                                <button class="btn btn-outline btn-sm">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Favorite Providers -->
+                    <div class="dashboard-section-title">
+                        <h2>Favorite Providers</h2>
+                        <a href="favorites.html" class="view-all">View All</a>
+                    </div>
+                    
+                    <div class="provider-cards">
+                        <div class="provider-card">
+                            <div class="provider-header">
+                                <div class="provider-avatar">
+                                    <img src="../assets/images/providers/provider-1.jpg" alt="John Smith">
+                                </div>
+                            </div>
+                            <div class="provider-body">
+                                <div class="provider-name">John Smith</div>
+                                <div class="provider-title">Master Plumber</div>
+                                <div class="provider-rating">
+                                    <div class="rating-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <div class="rating-count">(128)</div>
+                                </div>
+                                <div class="provider-actions">
+                                    <button class="btn btn-primary btn-sm">Book Now</button>
+                                    <button class="btn btn-outline btn-sm">View Profile</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="provider-card">
+                            <div class="provider-header">
+                                <div class="provider-avatar">
+                                    <img src="../assets/images/providers/provider-2.jpg" alt="Sarah Johnson">
+                                </div>
+                            </div>
+                            <div class="provider-body">
+                                <div class="provider-name">Sarah Johnson</div>
+                                <div class="provider-title">Licensed Plumber</div>
+                                <div class="provider-rating">
+                                    <div class="rating-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="rating-count">(95)</div>
+                                </div>
+                                <div class="provider-actions">
+                                    <button class="btn btn-primary btn-sm">Book Now</button>
+                                    <button class="btn btn-outline btn-sm">View Profile</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="provider-card">
+                            <div class="provider-header">
+                                <div class="provider-avatar">
+                                    <img src="../assets/images/providers/provider-4.jpg" alt="David Wilson">
+                                </div>
+                            </div>
+                            <div class="provider-body">
+                                <div class="provider-name">David Wilson</div>
+                                <div class="provider-title">Master Electrician</div>
+                                <div class="provider-rating">
+                                    <div class="rating-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="rating-count">(112)</div>
+                                </div>
+                                <div class="provider-actions">
+                                    <button class="btn btn-primary btn-sm">Book Now</button>
+                                    <button class="btn btn-outline btn-sm">View Profile</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Loco<span>Serve</span></h2>
+                    <p>Connecting you with trusted local service providers for all your home and business needs.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="services.html">Services</a></li>
+                            <li><a href="how-it-works.html">How It Works</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Services</h3>
+                        <ul>
+                            <li><a href="services.html?category=plumbing">Plumbing</a></li>
+                            <li><a href="services.html?category=electrical">Electrical</a></li>
+                            <li><a href="services.html?category=cleaning">Cleaning</a></li>
+                            <li><a href="services.html?category=landscaping">Landscaping</a></li>
+                            <li><a href="services.html?category=moving">Moving</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Support</h3>
+                        <ul>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="terms-of-service.html">Terms of Service</a></li>
+                            <li><a href="help-center.html">Help Center</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 LocoServe. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Page Loader Animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const loader = document.querySelector('.page-loader');
+            const loaderProgressBar = document.querySelector('.progress-bar');
+            let width = 0;
+            
+            // Simulate loading progress
+            const interval = setInterval(function() {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    // Hide loader after progress reaches 100%
+                    setTimeout(function() {
+                        loader.style.opacity = '0';
+                        loader.style.visibility = 'hidden';
+                        document.body.style.overflow = 'visible';
+                    }, 500);
+                } else {
+                    width += Math.floor(Math.random() * 10) + 1;
+                    if (width > 100) width = 100;
+                    loaderProgressBar.style.width = width + '%';
+                }
+            }, 200);
+            
+            // Ensure loader is hidden even if something goes wrong
+            window.addEventListener('load', function() {
+                setTimeout(function() {
+                    loader.style.opacity = '0';
+                    loader.style.visibility = 'hidden';
+                    document.body.style.overflow = 'visible';
+                }, 1000);
+            });
+            
+            // User menu toggle
+            const userAvatar = document.querySelector('.user-avatar');
+            const userDropdown = document.querySelector('.user-dropdown');
+            
+            if (userAvatar) {
+                userAvatar.addEventListener('click', function() {
+                    userDropdown.classList.toggle('active');
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.user-menu')) {
+                        userDropdown.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Mobile menu toggle
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const mobileMenuClose = document.querySelector('.mobile-menu-close');
+            
+            menuToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            });
+            
+            mobileMenuClose.addEventListener('click', function() {
+                menuToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            });
+            
+            // Booking card actions
+            const viewDetailsButtons = document.querySelectorAll('.booking-actions .btn-primary, .booking-actions .btn-outline:last-child');
+            
+            viewDetailsButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const bookingId = this.closest('.booking-card').querySelector('.booking-id').textContent.split(': ')[1];
+                    alert(`Viewing details for booking ${bookingId}`);
+                    // In a real app, this would navigate to a booking details page
+                    // window.location.href = `booking-details.html?id=${bookingId}`;
+                });
+            });
+            
+            const rescheduleButtons = document.querySelectorAll('.booking-actions .btn-outline:first-child');
+            
+            rescheduleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const bookingId = this.closest('.booking-card').querySelector('.booking-id').textContent.split(': ')[1];
+                    alert(`Reschedule booking ${bookingId}`);
+                    // In a real app, this would open a reschedule modal or navigate to a reschedule page
+                });
+            });
+            
+            const cancelButtons = document.querySelectorAll('.booking-actions .btn-danger');
+            
+            cancelButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const bookingId = this.closest('.booking-card').querySelector('.booking-id').textContent.split(': ')[1];
+                    if (confirm(`Are you sure you want to cancel booking ${bookingId}?`)) {
+                        alert(`Booking ${bookingId} has been cancelled.`);
+                        // In a real app, this would send a request to the backend to cancel the booking
+                        this.closest('.booking-card').style.opacity = '0.5';
+                    }
+                });
+            });
+            
+            const reviewButtons = document.querySelectorAll('.booking-actions .btn-primary:not(:first-child)');
+            
+            reviewButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const bookingId = this.closest('.booking-card').querySelector('.booking-id').textContent.split(': ')[1];
+                    const providerName = this.closest('.booking-card').querySelector('.booking-info-item:first-child span').textContent;
+                    alert(`Leave a review for ${providerName} (Booking ${bookingId})`);
+                    // In a real app, this would open a review modal or navigate to a review page
+                });
+            });
+            
+            const bookAgainButtons = document.querySelectorAll('.booking-actions .btn-outline:nth-child(1):not(:last-child)');
+            
+            bookAgainButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const serviceName = this.closest('.booking-card').querySelector('.booking-service h3').textContent;
+                    alert(`Booking ${serviceName} again`);
+                    // In a real app, this would navigate to the booking page with pre-filled service
+                    // window.location.href = `booking.html?service=${encodeURIComponent(serviceName)}`;
+                });
+            });
+            
+            // Provider card actions
+            const bookNowButtons = document.querySelectorAll('.provider-actions .btn-primary');
+            
+            bookNowButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const providerName = this.closest('.provider-card').querySelector('.provider-name').textContent;
+                    alert(`Booking with ${providerName}`);
+                    // In a real app, this would navigate to the booking page with pre-selected provider
+                    // window.location.href = `booking.html?provider=${encodeURIComponent(providerName)}`;
+                });
+            });
+            
+            const viewProfileButtons = document.querySelectorAll('.provider-actions .btn-outline');
+            
+            viewProfileButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const providerName = this.closest('.provider-card').querySelector('.provider-name').textContent;
+                    alert(`Viewing profile of ${providerName}`);
+                    // In a real app, this would navigate to the provider profile page
+                    // window.location.href = `provider-profile.html?name=${encodeURIComponent(providerName)}`;
+                });
+            });
+            
+            // Scroll to top button
+            const scrollToTopBtn = document.querySelector('.scroll-to-top');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.classList.add('show');
+                } else {
+                    scrollToTopBtn.classList.remove('show');
+                }
+            });
+            
+            scrollToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+    
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!-- Dashboard JavaScript -->
+    <script src="../js/dash.js"></script>
+    <style>
+        /* Header Styles */
+        .main-header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+            color: #333;
+        }
+        
+        .logo h2 span {
+            color: var(--primary-color);
+        }
+        
+        .main-nav .nav-list {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 25px;
+        }
+        
+        .main-nav .nav-list li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .main-nav .nav-list li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .main-nav .nav-list li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .main-nav .nav-list li a:hover::after {
+            width: 100%;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .user-menu {
+            position: relative;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid var(--primary-color);
+        }
+        
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .user-dropdown {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .user-dropdown.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .user-dropdown ul {
+            list-style: none;
+            padding: 10px 0;
+            margin: 0;
+        }
+        
+        .user-dropdown ul li a {
+            display: block;
+            padding: 10px 20px;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        
+        .user-dropdown ul li a:hover,
+        .user-dropdown ul li a.active {
+            background-color: #f5f5f5;
+            color: var(--primary-color);
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .mobile-menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: #333;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Footer Styles */
+        .main-footer {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 60px 0 20px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-logo h2 {
+            font-size: 28px;
+            margin: 0 0 15px;
+        }
+        
+        .footer-logo h2 span {
+            color: var(--primary-color);
+        }
+        
+        .footer-logo p {
+            color: #ccc;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links {
+            display: flex;
+            flex: 2;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 160px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin: 0 0 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: inline-block;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-bottom p {
+            margin: 0;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 99;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .scroll-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .scroll-to-top:hover {
+            background-color: var(--primary-color-dark);
+        }
+        
+        /* Responsive Styles for Header and Footer */
+        @media (max-width: 992px) {
+            .main-nav {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .footer-logo, .footer-links {
+                flex: 1 1 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .footer-links {
+                gap: 20px;
+            }
+            
+            .footer-column {
+                flex: 1 1 calc(50% - 20px);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header-actions .btn {
+                display: none;
+            }
+            
+            .footer-column {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</body>
+</html>
